@@ -4,6 +4,7 @@
   width: 100%;
   margin: 1.5%;
   display: flex;
+  
   position: relative;
   flex-direction: column;
   align-items: flex-start;
@@ -20,15 +21,15 @@
 }
 
 .App .upperBar .title {
-  margin-right: 3%;
+  margin-right: 7%;
 }
 
 .App .upperBar .cd {
   height: 55%;
-  width: 25%;
+  width: 30%;
   display: flex;
   margin-left: 100px;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   background-color: rgb(198, 198, 198);
   border-radius: 100px;

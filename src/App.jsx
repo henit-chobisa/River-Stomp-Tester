@@ -1,9 +1,7 @@
-import { useSetState } from '@mantine/hooks';
 import React, { Component } from 'react';
 import "./App.css";
 import logo from "./spring-boot-logo-removebg-preview.png"
 import Stomp from "stompjs"
-import Websocket from "ws"
 import sockjsclient from "sockjs-client"
 class App extends Component {
 
