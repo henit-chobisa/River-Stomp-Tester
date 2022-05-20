@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import "./App.css";
-import logo from "./spring-boot-logo-removebg-preview.png"
-import Stomp from "stompjs"
-import sockjsclient from "sockjs-client"
+import logo from "./logo.png"
+import {
+    StompSessionProvider,
+    useSubscription,
+  } from "react-stomp-hooks";
 class App extends Component {
 
     state = { 
         connectionURL : "",
-        connectionStatus : "DISCONNECTED"
+        connectionStatus : "DISCONNECTED",
      } 
 
      updateInputValue = (evt) => {
-        const val = evt.target.value;
-        console.log(val);
         this.setState({
           connectionURL: evt.target.value
         });
@@ -20,12 +20,7 @@ class App extends Component {
 
 
     connectToStomp = () => {
-        var sock = new sockjsclient(this.state.connectionURL);
-        var stompclient = Stomp.over(sock);
-
-        stompclient.connect({}, () => {
-            this.setState({connectionStatus : "CONNECTED"})
-        })
+        this.setState({connectionStatus : "CONNECTED"});
     }
 
     
@@ -33,15 +28,15 @@ class App extends Component {
     render() { 
         return (
             <div className='App'>
+                {(this.state.connectionStatus === "CONNECTED") ? <StompSessionProvider url={this.state.connectionURL}></StompSessionProvider> : <></>}
                 <div className='upperBar'>
                      <img className = "logo" src={logo} alt="" />
                      <div className='cd'>
                         <input className='urlFeild' type="url"
                             placeholder="Enter a Url to an stomp endpoint"
-                            // value={this.state.connectionURL}
                             onChange={this.updateInputValue}
                         />
-                        <button className='connectionButton' onClick={this.connectToStomp} id='cB' style={{color:"green"}}>{(this.state.connectionStatus === "DISCONNECTED") ? "Connect" : "Disconnect"}</button>
+                        <button className='connectionButton' onClick={this.connectToStomp} id='cB' style={{color:"green"}}>{(this.state.connectionStatus === "DISCONNECTED") ? "Connect" : "Connected"}</button>
                      </div>
                      <h3 className = "title" style={{color : "White"}}>Themis Message Testing Utility</h3>
                 </div>
