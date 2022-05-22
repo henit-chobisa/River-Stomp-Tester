@@ -1,48 +1,72 @@
 import React, { Component } from 'react';
 import "./App.css";
 import logo from "./logo.png"
+import JSONInput from "react-json-editor-ajrm"
+import locale from 'react-json-editor-ajrm/locale/en'
+
 import {
     StompSessionProvider,
     useSubscription,
-  } from "react-stomp-hooks";
+} from "react-stomp-hooks";
 class App extends Component {
 
-    state = { 
-        connectionURL : "",
-        connectionStatus : "DISCONNECTED",
-     } 
+    state = {
+        connectionURL: "",
+        connectionStatus: "DISCONNECTED",
+    }
 
-     updateInputValue = (evt) => {
+    updateInputValue = (evt) => {
         this.setState({
-          connectionURL: evt.target.value
+            connectionURL: evt.target.value
         });
-      }
+    }
 
 
     connectToStomp = () => {
-        this.setState({connectionStatus : "CONNECTED"});
+        this.setState({ connectionStatus: "CONNECTED" });
     }
 
-    
+    data = {
+        "hello" : "My name is Henit",
+    }
 
-    render() { 
+
+    render() {
         return (
             <div className='App'>
                 {(this.state.connectionStatus === "CONNECTED") ? <StompSessionProvider url={this.state.connectionURL}></StompSessionProvider> : <></>}
                 <div className='upperBar'>
-                     <img className = "logo" src={logo} alt="" />
-                     <div className='cd'>
+                    <img className="logo" src={logo} alt="" />
+                    <div className='cd'>
                         <input className='urlFeild' type="url"
                             placeholder="Enter a Url to an stomp endpoint"
                             onChange={this.updateInputValue}
                         />
-                        <button className='connectionButton' onClick={this.connectToStomp} id='cB' style={{color:"green"}}>{(this.state.connectionStatus === "DISCONNECTED") ? "Connect" : "Connected"}</button>
-                     </div>
-                     <h3 className = "title" style={{color : "White"}}>Themis Message Testing Utility</h3>
+                        <button className='connectionButton' onClick={this.connectToStomp} id='cB' style={{ color: "green" }}>{(this.state.connectionStatus === "DISCONNECTED") ? "Connect" : "Connected"}</button>
+                    </div>
+                    <h3 className="title" style={{ color: "White" }}>R i v e r</h3>
+                </div>
+
+                <div className='bottomBar'>
+                    {/* <JSONInput
+                        id='a_unique_id'
+                        placeholder={this.data}
+                        locale={locale}
+                        height='60%'
+                    /> */}
+                    <div className='subscriptionBar'>
+
+                    </div>
+                    <div className='resultBar'>
+
+                    </div>
+                </div>
+                <div className='bottomTitle'>
+                    <p>v1.0.0 Designed and Developed By Henit Chobisa</p>
                 </div>
             </div>
         );
     }
 }
- 
+
 export default App;
