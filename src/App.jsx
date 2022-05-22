@@ -27,7 +27,7 @@ class App extends Component {
     }
 
     data = {
-        "hello" : "My name is Henit",
+        "hello": "My name is Henit",
     }
 
 
@@ -48,13 +48,35 @@ class App extends Component {
                 </div>
 
                 <div className='bottomBar'>
-                    {/* <JSONInput
-                        id='a_unique_id'
-                        placeholder={this.data}
-                        locale={locale}
-                        height='60%'
-                    /> */}
+
                     <div className='subscriptionBar'>
+                        <div className='subsTitleBar'>
+                            Send Message
+                            {/* <div>
+                                <input type="text" className='subAddText' />
+                                <button>
+                                    Add
+                                </button>
+                            </div> */}
+                        </div>
+                        <div className='subsEditor'>
+                            <JSONInput
+                                id='a_unique_id'
+                                placeholder={this.data}
+                                locale={locale}
+                                height="100%"
+                                width="100%"
+                                // margin="0.5%"
+                            />
+                        </div>
+                        
+                        <div className='senderBar'>
+                            <input className='channelInputBar' type="text" name="" id="" placeholder='Enter the channel to send' />
+                            <button className='channelSendButton'>
+                                Send
+                            </button>
+
+                        </div>
 
                     </div>
                     <div className='resultBar'>

@@ -48,21 +48,88 @@
   background-color: rgb(198, 198, 198);
 }
 
+.App .bottomBar .subscriptionBar {
+  height: 96%;
+  width: 46%;
+  margin: 1%;
+  display: flex;
+  flex-direction: column;
+}
+
+.App .bottomBar .resultBar {
+  background-color: yellow;
+  height: 96%;
+  width: 48%;
+  margin: 1%;
+  display: flex;
+  flex-direction: column;
+}
 
 .App .upperBar .cd .connectionButton {
   border: none;
   height: 90%;
   border-radius: 100px;
+  width: 50%;
+}
+
+.App .bottomBar .subscriptionBar .subsTitleBar {
+  background-color: black;
+  height: 8%;
+  width: 100%;
+  color: white;
+  margin-top: 0%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 1%;
+  padding-right: 1%;
+  font-weight: bold;
+}
+
+.App .bottomBar .subscriptionBar .subsEditor{
+  /* height: max-content; */
+  width: 100%;
+  height: 85%;
+  padding: 0.5%;
+}
+
+.App .bottomBar .subscriptionBar .senderBar {
+  height: 5%;
+  width: 98%;
+  display: flex;
+  /* padding-left: 2%;
+  padding-right: 2%; */
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.App .bottomBar .subscriptionBar .senderBar .channelInputBar {
+  height: 90%;
+  width: 75%;
+  outline: none;
+  border-radius: 100px;
+  color: black;
+  overflow: scroll;
+  border :0ch;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  background-color: rgb(198, 198, 198);
+  padding-left: 2%;
+}
+
+.App .bottomBar .subscriptionBar .senderBar .channelSendButton {
+  height: 105%;
+  width: 21.5%;
+  border-radius: 100px;
+  background-color: rgb(9, 255, 9);
 }
 
 .App .bottomBar { 
-  margin-top: 2%;
+  margin-top: 1%;
   margin-bottom: 0%;
   height: 80%;
   width: 100%;
   display: flex;
-  flex-direction: column;
-  background-color: red;
+  flex-direction: row;
 }
 
 .App .bottomTitle {
@@ -72,9 +139,6 @@
   align-self: center;
 }
 
-.App .bottomBar .editor {
-  height: 100%;
-}
 .logo {
   height: 90%;
   width: 70px;
