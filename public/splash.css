@@ -1,0 +1,28 @@
+body {
+    background-color: black;
+}
+
+.main {
+    background-color: black;
+    height: 100vh;
+    width: 100vw;
+    margin-top: 1%;
+    margin-bottom: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    cursor: none;
+}
+
+.main img {
+    height: 30%;
+    width: 15%;
+    cursor: none;
+}
+
+.main p {
+    color: gray;
+    font-size: small;
+    cursor:none;
+}

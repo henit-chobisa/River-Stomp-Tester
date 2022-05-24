@@ -2,16 +2,29 @@ const path = require('path');
 const { BrowserWindow,app} = require("electron");
 const isDev = require('electron-is-dev');
 
-function createWindow(){
+  const createWindow = () => {
     const win = new BrowserWindow({
         width: 1080,
         height: 720,
         minHeight: 720,
         minWidth: 1080,
+        show: false,
         webPreferences: {
             nodeIntegration: true,
           }
     });
+
+    const splashScreen = new BrowserWindow({
+      width: 720,
+        height: 360,
+        center: true,
+        resizable: false,
+        transparent: false,
+        frame: false,
+        alwaysOnTop: true
+    })
+
+    splashScreen.loadURL(`file://${__dirname}/splash.html`);
 
     win.loadURL(
         isDev
@@ -23,7 +36,12 @@ function createWindow(){
         win.webContents.openDevTools({ mode: 'detach' });
     }
 
-}
+    setTimeout(function () {
+      splashScreen.close();
+      win.show();
+    }, 7000);
+  }
+
 
     app.whenReady().then(createWindow);
 
