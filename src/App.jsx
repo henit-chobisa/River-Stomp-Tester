@@ -19,11 +19,10 @@ import {
 const hightlightWithLineNumbers = (input, language) =>
   highlight(input, language)
     .split("\n")
-    .map((line, i) => `<span class='editorLineNumber'>${i + 1} </span>${line}`)
+    .map((line, i) => `<span class='editorLineNumber'>${i + 1}\t</span>${line}`)
     .join("\n");
 
 class App extends Component {
-
 
     state = {
         connectionURL: "",
@@ -84,7 +83,7 @@ class App extends Component {
                                 textareaId = "codeArea"
                                 onValueChange={(code) => this.setState({data : code})}
                                 highlight={(code) => hightlightWithLineNumbers(code, languages.js)}
-                                padding={10}
+                                padding = "30px"
                             />
                         </div>
 

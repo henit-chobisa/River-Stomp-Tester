@@ -144,11 +144,11 @@
 
 .App .bottomBar .resultBar .resTitleBar button {
   margin-left: 2%;
-  height: 70%;
-  width: 15%;
+  height: 36px;
+  width: 36px;
   background-color: rgb(4, 255, 4);
   border: none;
-  border-radius: 100%;
+  border-radius: 18px;
 }
 
 .App .upperBar .cd .connectionButton {
@@ -233,14 +233,15 @@
 }
 
 .App .bottomBar .subscriptionBar .subsEditor .seditor pre {
-  padding-left: 60px;
+  /* padding-left: 60px; */
+  left: 0px;
 }
 
 .App .bottomBar .subscriptionBar .subsEditor .seditor .editorLineNumber {
   position: absolute;
   color: #cccccc;
-  text-align: right;
-  margin-right: 20px;
+  text-align: left;
+  left: 10px;
 }
 
 textarea:focus, input:focus{
@@ -270,7 +271,7 @@ textarea:focus, input:focus{
 .App .bottomBar .subscriptionBar .subsEditor .seditor .token.constant,
 .App .bottomBar .subscriptionBar .subsEditor .seditor .token.symbol,
 .App .bottomBar .subscriptionBar .subsEditor .seditor .token.deleted {
-  color: #17c9ff;
+  color: rgb(147, 205, 236);
 }
 .App .bottomBar .subscriptionBar .subsEditor .seditor .token.selector,
 .App .bottomBar .subscriptionBar .subsEditor .seditor .token.attr-name,
@@ -278,7 +279,7 @@ textarea:focus, input:focus{
 .App .bottomBar .subscriptionBar .subsEditor .seditor .token.char,
 .App .bottomBar .subscriptionBar .subsEditor .seditor .token.builtin,
 .App .bottomBar .subscriptionBar .subsEditor .seditor .token.inserted {
-  color: #fa8600;
+  color: rgb(176, 114, 74);
 }
 
 .App .bottomBar .subscriptionBar .subsEditor .seditor .token.operator,
@@ -286,7 +287,7 @@ textarea:focus, input:focus{
 .App .bottomBar .subscriptionBar .subsEditor .seditor .token.url,
 .App .bottomBar .subscriptionBar .subsEditor .seditor .language-css .token.string,
 .App .bottomBar .subscriptionBar .subsEditor .seditor .style .token.string {
-  color: #795548;
+  color: rgb(159, 105, 70);
 }
 
 .App .bottomBar .subscriptionBar .subsEditor .seditor .token.atrule,
@@ -300,7 +301,7 @@ textarea:focus, input:focus{
 .App .bottomBar .subscriptionBar .subsEditor .seditor .token.regex,
 .App .bottomBar .subscriptionBar .subsEditor .seditor .token.important,
 .App .bottomBar .subscriptionBar .subsEditor .seditor .token.variable {
-  color: #ff9800;
+  color: rgb(159, 105, 70);
 }
 .App .bottomBar .subscriptionBar .subsEditor .seditor .token.important,
 .App .bottomBar .subscriptionBar .subsEditor .seditor .token.bold {
