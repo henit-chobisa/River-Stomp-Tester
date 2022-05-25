@@ -10,12 +10,7 @@ import "prismjs/components/prism-clike";
 import "prismjs/components/prism-javascript";
 import "prismjs/themes/prism.css";
 import SubsItem from './SubsItem';
-
-import {
-    useSubscription,
-} from "react-stomp-hooks";
 import { useState } from 'react';
-
 
 const hightlightWithLineNumbers = (input, language) =>
   highlight(input, language)
@@ -30,6 +25,7 @@ const App = (props) => {
     const [connectionURL, updateConnectionURL] = useState("");
     const [connectionStatus, updateConnectionStatus] = useState("");
     const [data, updateData] = useState(" // Insert your message here");
+    const [resultData, updateResultData] = useState(testData);
     const [sendRoute, updateSendRoute] = useState("");
     const [subscriptions, updateSubscriptions] = useState([]);
     const [subsText, updateSubsText] = useState("");
@@ -39,7 +35,6 @@ const App = (props) => {
         updateSendRoute(evt.target.value)
     }
     const handleSendEvent = () => {
-        console.log(client);
         client?.publish({
             destination : sendRoute,
             body : JSON.stringify(JSON.parse(data))
@@ -59,6 +54,14 @@ const App = (props) => {
         updateSubsText(evt.target.value);
     }
 
+    // useSubscription("/channel/627aa61f7a1ae23ba96350ac/notify", (message) => {
+    //     console.log(message.body);
+    // })
+
+    // client.subscribe("/channel/627aa61f7a1ae23ba96350ac/notify", (messsage) => {
+    //     console.log(messsage.body);
+    // })
+
     const handleSubscriptionAdd = () => {
         console.log(subscriptions);
         if (subsText.length !== 0) {
@@ -68,9 +71,15 @@ const App = (props) => {
                 if (obj.route === subsText){
                     present = true;
                 }
+                return obj;
             })
             if (present === false){
                 clone.push({route : subsText, key : Math.random(100)});
+                client.subscribe(subsText, (message) => {
+                    console.log(message.body);
+                    console.log(JSON.stringify(JSON.parse(message.body)));
+                    updateResultData(JSON.parse(message.body));
+                })
                 updateSubscriptions(clone);
             }
             updateSubsText("");
@@ -86,12 +95,17 @@ const App = (props) => {
     const loadSubscriptions = () => {
         if(subscriptions.length !== 0){
             return subscriptions.map((subscription, index) => 
-                <SubsItem route={subscription.route} index={index} handleListPop={handleSubsPop}/>
+                <SubsItem route={subscription.route} index={index} handleListPop={handleSubsPop} handleSubsMessage={handleSubscriptionMessage}/>
             )
         }
         else {
             return (<p className='warning'> No Subscriptions added yet</p>)
         }
+    }
+
+    const handleSubscriptionMessage = (index, message) => {
+        console.log(message);
+        updateResultData(JSON.stringify(JSON.parse(message)));
     }
 
 
@@ -146,7 +160,7 @@ const App = (props) => {
                         <div className='resultEditor'>
                             <JSONInput
                                 id='a_unique_id'
-                                placeholder={testData}
+                                placeholder={{resultData}}
                                 locale={locale}
                                 height="100%"
                                 width="100%"
