@@ -5,6 +5,7 @@ const isDev = require('electron-is-dev');
   const createWindow = () => {
     const win = new BrowserWindow({
         width: 1080,
+        title: "River",
         height: 720,
         minHeight: 720,
         minWidth: 1080,
