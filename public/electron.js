@@ -16,7 +16,7 @@ const isDev = require('electron-is-dev');
 
     const splashScreen = new BrowserWindow({
       width: 720,
-        height: 360,
+        height: 320,
         center: true,
         resizable: false,
         transparent: false,
@@ -37,7 +37,7 @@ const isDev = require('electron-is-dev');
     }
 
     setTimeout(function () {
-      splashScreen.close();
+      splashScreen.destroy();
       win.show();
     }, 7000);
   }
