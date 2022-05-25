@@ -4,11 +4,42 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { StompSessionProvider, useStompClient } from 'react-stomp-hooks';
+import { useState } from 'react';
+
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+function Comp(){
+
+  const [connectionURL, updateConnectionURL] = useState("");
+  const handleURLUpdate = (url) => {
+    console.log(url);
+    updateConnectionURL(url);
+  }
+
+  const handleConnection = () => {
+    console.log("Connected");
+  }
+  const nullClient = () => {
+  }
+
+  return (
+    connectionURL === "" ? <React.StrictMode>
+      <App handleURL={handleURLUpdate} getClient={nullClient}/>
+    </React.StrictMode> : (
+      <React.StrictMode>
+        <StompSessionProvider url={connectionURL} onConnect={handleConnection}>
+          <App handleURL={handleURLUpdate} getClient={useStompClient} />
+        </StompSessionProvider>
+      </React.StrictMode>
+    )
+  );
+
+}
+
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <Comp />
 );
 
 // If you want to start measuring performance in your app, pass a function

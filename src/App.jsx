@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import "./App.css";
 import logo from "./logo.png"
 import JSONInput from "react-json-editor-ajrm"
@@ -12,8 +12,11 @@ import "prismjs/themes/prism.css";
 
 import {
     StompSessionProvider,
+    useStompClient,
     useSubscription,
 } from "react-stomp-hooks";
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 
 const hightlightWithLineNumbers = (input, language) =>
@@ -22,50 +25,55 @@ const hightlightWithLineNumbers = (input, language) =>
     .map((line, i) => `<span class='editorLineNumber'>${i + 1}\t</span>${line}`)
     .join("\n");
 
-class App extends Component {
 
-    state = {
-        connectionURL: "",
-        connectionStatus: "DISCONNECTED",
-        data: "\t // Input your JSON here"
+
+const App = (props) => {
+
+    const [connectionURL, updateConnectionURL] = useState("");
+    const [connectionStatus, updateConnectionStatus] = useState("");
+    const [data, updateData] = useState("\t // Input your JSON here");
+    // const client = useStompClient();
+    const [sendRoute, updateSendRoute] = useState("")
+    const client = props.getClient();
+
+    const updateSendRouteValue = (evt) => {
+        updateSendRoute(evt.target.value)
+    }
+    const handleSendEvent = () => {
+        console.log(client);
+        client?.publish({
+            destination : sendRoute,
+            body : JSON.stringify(JSON.parse(data))
+        })
+    }
+    const updateInputValue = (evt) => {
+        updateConnectionURL(evt.target.value);
     }
 
-    updateInputValue = (evt) => {
-        this.setState({
-            connectionURL: evt.target.value
-        });
+    const connectToStomp = () => {
+        console.log(props);
+        props.handleURL(connectionURL);
+        updateConnectionStatus("CONNECTED")
     }
 
+    useEffect(() => {
+       
+    }, [connectionURL, "CONNECTED"])
 
-    connectToStomp = () => {
-        this.setState({ connectionStatus: "CONNECTED" });
+    const handleConnectionError = () => {
+        updateConnectionStatus("DISCONNECTED");
     }
 
-
-    handleDataChange = (evt) => {
-        console.log(evt);
-        this.setState
-            (
-                {
-                    data: JSON.parse(evt.json)
-                }
-            );
-        console.log(this.state.data);
-    }
-
-
-    render() {
         return (
             <div className='App'>
-                {(this.state.connectionStatus === "CONNECTED") ? <StompSessionProvider url={this.state.connectionURL}></StompSessionProvider> : <></>}
                 <div className='upperBar'>
                     <img className="logo" src={logo} alt="" />
                     <div className='cd'>
                         <input className='urlFeild' type="url"
                             placeholder="Enter a Url to an stomp endpoint"
-                            onChange={this.updateInputValue}
+                            onChange={updateInputValue}
                         />
-                        <button className='connectionButton' onClick={this.connectToStomp} id='cB' style={{ color: "green" }}>{(this.state.connectionStatus === "DISCONNECTED") ? "Connect" : "Connected"}</button>
+                        <button className='connectionButton' onClick={connectToStomp} id='cB' style={{ color: "green" }}>{(connectionStatus === "DISCONNECTED") ? "Connect" : "Connected"}</button>
                     </div>
                     <h3 className="title" style={{ color: "White" }}>R i v e r</h3>
                 </div>
@@ -79,17 +87,17 @@ class App extends Component {
                         <div className='subsEditor'>
                             <Editor
                             className='seditor'
-                                value={this.state.data}
+                                value={data}
                                 textareaId = "codeArea"
-                                onValueChange={(code) => this.setState({data : code})}
+                                onValueChange={(code) => updateData(code)}
                                 highlight={(code) => hightlightWithLineNumbers(code, languages.js)}
                                 padding = "30px"
                             />
                         </div>
 
                         <div className='senderBar'>
-                            <input className='channelInputBar' type="text" name="" id="" placeholder='Enter the channel to send' />
-                            <button className='channelSendButton'>
+                            <input className='channelInputBar' type="text" name="" id="" placeholder='Enter the channel to send' onChange={updateSendRouteValue} />
+                            <button onClick={handleSendEvent} className='channelSendButton'>
                                 Send
                             </button>
                         </div>
@@ -120,7 +128,6 @@ class App extends Component {
                                 locale={locale}
                                 height="100%"
                                 width="100%"
-                            // margin="0.5%"
                             />
                         </div>
                     </div>
@@ -131,6 +138,5 @@ class App extends Component {
             </div>
         );
     }
-}
 
 export default App;
