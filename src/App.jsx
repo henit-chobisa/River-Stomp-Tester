@@ -70,21 +70,23 @@ const App = (props) => {
                 }
             })
             if (present === false){
-                clone.push({route : subsText, key : clone.length});
+                clone.push({route : subsText, key : Math.random(100)});
                 updateSubscriptions(clone);
             }
             updateSubsText("");
         }
     }
 
-    const handleListPop = (index) => {
-
+    function handleSubsPop(index){
+        var clone = subscriptions.splice(0);
+        clone.splice(index, 1);
+        updateSubscriptions(clone);
     }
 
     const loadSubscriptions = () => {
         if(subscriptions.length !== 0){
             return subscriptions.map((subscription, index) => 
-                <SubsItem route={subscription.route} index={index} handleListPop={handleListPop}/>
+                <SubsItem route={subscription.route} index={index} handleListPop={handleSubsPop}/>
             )
         }
         else {
