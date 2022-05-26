@@ -13,6 +13,7 @@ import SubsItem from './SubsItem';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import bell from  "./bell.wav";
+import _ from "lodash";
 
 const hightlightWithLineNumbers = (input, language) =>
     highlight(input, language)
@@ -73,15 +74,23 @@ const App = (props) => {
                 clone.push({ route: subsText, key: Math.random(100), data: {}, isActive: false });
                 updateSubscriptions(clone);
                 updateClientSubs(true);
+                updateCurrentCounter(0);
             }
         }
     }
 
     useEffect(() => {
         if (addClientSubs === true){
+            var cnt = currentCounter;
             client.subscribe(subsText, (message) => {
                 var index = subscriptions.length - 1;
                 var dup = [...subscriptions];
+                var data = JSON.parse(message.body);
+                var counter = cnt;
+                if (JSON.stringify(dup[index].data) === JSON.stringify(data)){
+                    counter = counter + 1;
+                    updateCurrentCounter(counter);
+                }
                 dup[index].data = JSON.parse(message.body);
                 updateSubscriptions(dup);
                 var audio = new Audio(bell);
@@ -96,6 +105,7 @@ const App = (props) => {
     function handleSubsPop(index) {
         var clone = subscriptions.splice(0);
         var wasActive = clone[index].isActive;
+        client.unsubscribe(clone[index].route);
         clone.splice(index, 1);
         if (wasActive === true){
             if (clone.length > 0){
@@ -115,6 +125,7 @@ const App = (props) => {
                 updateCurrentRoute("Current Route (Scrollable)")
             }
         }
+        updateCurrentCounter(0);
         updateSubscriptions(clone);
     }
 
