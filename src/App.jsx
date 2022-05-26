@@ -11,24 +11,27 @@ import "prismjs/components/prism-javascript";
 import "prismjs/themes/prism.css";
 import SubsItem from './SubsItem';
 import { useState } from 'react';
+import { useEffect } from 'react';
+import bell from  "./bell.wav";
 
 const hightlightWithLineNumbers = (input, language) =>
-  highlight(input, language)
-    .split("\n")
-    .map((line, i) => `<span class='editorLineNumber'>${i + 1}\t</span>${line}`)
-    .join("\n");
+    highlight(input, language)
+        .split("\n")
+        .map((line, i) => `<span class='editorLineNumber'>${i + 1}\t</span>${line}`)
+        .join("\n");
 
 
 
 const App = (props) => {
 
-    const [connectionURL, updateConnectionURL] = useState("");
-    const [connectionStatus, updateConnectionStatus] = useState("");
+    const [connectionURL, updateConnectionURL] = useState(props.conURL);
     const [data, updateData] = useState(" // Insert your message here");
     const [resultData, updateResultData] = useState(testData);
     const [sendRoute, updateSendRoute] = useState("");
     const [subscriptions, updateSubscriptions] = useState([]);
     const [subsText, updateSubsText] = useState("");
+    const [addClientSubs, updateClientSubs] = useState(false);
+    const isConnected = props.isConnected;
     const client = props.getClient();
 
     const updateSendRouteValue = (evt) => {
@@ -36,8 +39,8 @@ const App = (props) => {
     }
     const handleSendEvent = () => {
         client?.publish({
-            destination : sendRoute,
-            body : JSON.stringify(JSON.parse(data))
+            destination: sendRoute,
+            body: JSON.stringify(JSON.parse(data))
         })
     }
     const updateInputValue = (evt) => {
@@ -45,22 +48,14 @@ const App = (props) => {
     }
 
     const connectToStomp = () => {
-        console.log(props);
         props.handleURL(connectionURL);
-        updateConnectionStatus("CONNECTED")
     }
 
     const handleSubsInput = (evt) => {
         updateSubsText(evt.target.value);
     }
 
-    // useSubscription("/channel/627aa61f7a1ae23ba96350ac/notify", (message) => {
-    //     console.log(message.body);
-    // })
 
-    // client.subscribe("/channel/627aa61f7a1ae23ba96350ac/notify", (messsage) => {
-    //     console.log(messsage.body);
-    // })
 
     const handleSubscriptionAdd = () => {
         console.log(subscriptions);
@@ -68,34 +63,45 @@ const App = (props) => {
             var present = false;
             var clone = subscriptions.slice(0);
             clone.map((obj) => {
-                if (obj.route === subsText){
+                if (obj.route === subsText) {
                     present = true;
                 }
                 return obj;
             })
-            if (present === false){
-                clone.push({route : subsText, key : Math.random(100)});
-                client.subscribe(subsText, (message) => {
-                    console.log(message.body);
-                    console.log(JSON.stringify(JSON.parse(message.body)));
-                    updateResultData(JSON.parse(message.body));
-                })
+            if (present === false) {
+                clone.push({ route: subsText, key: Math.random(100), data: {} });
                 updateSubscriptions(clone);
+                updateClientSubs(true);
             }
-            updateSubsText("");
         }
     }
 
-    function handleSubsPop(index){
+    useEffect(() => {
+        if (addClientSubs === true){
+            client.subscribe(subsText, (message) => {
+                var index = subscriptions.length - 1;
+                console.log("SUBS INDEX", index);
+                var dup = [...subscriptions];
+                dup[index].data = JSON.parse(message.body);
+                updateSubscriptions(dup);
+                var audio = new Audio(bell);
+                audio.play();
+            });
+            updateClientSubs(false);
+            updateSubsText("");
+        }
+    },  [addClientSubs])
+
+    function handleSubsPop(index) {
         var clone = subscriptions.splice(0);
         clone.splice(index, 1);
         updateSubscriptions(clone);
     }
 
     const loadSubscriptions = () => {
-        if(subscriptions.length !== 0){
-            return subscriptions.map((subscription, index) => 
-                <SubsItem route={subscription.route} index={index} handleListPop={handleSubsPop} handleSubsMessage={handleSubscriptionMessage}/>
+        if (subscriptions.length !== 0) {
+            return subscriptions.map((subscription, index) =>
+                <SubsItem route={subscription.route} index={index} handleListPop={handleSubsPop} handleSubsMessage={handleSubscriptionMessage} />
             )
         }
         else {
@@ -109,71 +115,71 @@ const App = (props) => {
     }
 
 
-        return (
-            <div className='App'>
-                <div className='upperBar'>
-                    <img className="logo" src={logo} alt="" />
-                    <div className='cd'>
-                        <input className='urlFeild' type="url"
-                            placeholder="Enter a Url to an stomp endpoint"
-                            onChange={updateInputValue}
-                        />
-                        <button className='connectionButton' onClick={connectToStomp} id='cB'>{(connectionStatus === "DISCONNECTED") ? "Connect" : "Connected"}</button>
-                    </div>
-                    <h3 className="title" style={{ color: "White" }}>R i v e r</h3>
+    return (
+        <div className='App'>
+            <div className='upperBar'>
+                <img className="logo" src={logo} alt="" />
+                <div className='cd'>
+                    <input className='urlFeild' type="url" value={connectionURL}
+                        placeholder="Enter a Url to an stomp endpoint"
+                        onChange={updateInputValue}
+                    />
+                    <button className='connectionButton' onClick={connectToStomp} id='cB'>{(isConnected === false) ? "Connect" : "Connected"}</button>
                 </div>
+                <h3 className="title" style={{ color: "White" }}>R i v e r</h3>
+            </div>
 
-                <div className='bottomBar'>
-                    <div className='subscriptionBar'>
-                        <div className='subsTitleBar'>
-                            Send Message
-                        </div>
-                        <div className='subsEditor'>
-                            <Editor
+            <div className='bottomBar'>
+                <div className='subscriptionBar'>
+                    <div className='subsTitleBar'>
+                        Send Message
+                    </div>
+                    <div className='subsEditor'>
+                        <Editor
                             className='seditor'
-                                value={data}
-                                textareaId = "codeArea"
-                                onValueChange={(code) => updateData(code)}
-                                highlight={(code) => hightlightWithLineNumbers(code, languages.js)}
-                                padding = "30px"
-                            />
-                        </div>
-                        <div className='senderBar'>
-                            <input className='channelInputBar' type="text" name="" id="" placeholder='Enter the channel to send' onChange={updateSendRouteValue} />
-                            <button onClick={handleSendEvent} className='channelSendButton'>
-                                Send
-                            </button>
-                        </div>
+                            value={data}
+                            textareaId="codeArea"
+                            onValueChange={(code) => updateData(code)}
+                            highlight={(code) => hightlightWithLineNumbers(code, languages.js)}
+                            padding="30px"
+                        />
                     </div>
-                    <div className='resultBar'>
-                        <div className='resTitleBar'>
-                            Hearings
-                            <div className='subsInp'>
-                                <input type="text" placeholder='Add Subscriptions here' value={subsText} onChange={handleSubsInput}/>
-                                <button style={{color : "white"}} onClick={handleSubscriptionAdd}>+</button>
-                            </div>
-                        </div>
-                        <div className='subsList'>
-                            {loadSubscriptions()}
-                        </div>
-
-                        <div className='resultEditor'>
-                            <JSONInput
-                                id='a_unique_id'
-                                placeholder={{resultData}}
-                                locale={locale}
-                                height="100%"
-                                width="100%"
-                                viewOnly={true}
-                            />
-                        </div>
+                    <div className='senderBar'>
+                        <input className='channelInputBar' type="text" name="" id="" placeholder='Enter the channel to send' onChange={updateSendRouteValue} />
+                        <button onClick={handleSendEvent} className='channelSendButton'>
+                            Send
+                        </button>
                     </div>
                 </div>
-                <div className='bottomTitle'>
-                    <p>v1.0.0 Designed and Developed By Henit Chobisa</p>
+                <div className='resultBar'>
+                    <div className='resTitleBar'>
+                        Hearings
+                        <div className='subsInp'>
+                            <input type="text" placeholder='Add Subscriptions here' value={subsText} onChange={handleSubsInput} />
+                            <button style={{ color: "white" }} onClick={handleSubscriptionAdd}>+</button>
+                        </div>
+                    </div>
+                    <div className='subsList'>
+                        {loadSubscriptions()}
+                    </div>
+
+                    <div className='resultEditor'>
+                        <JSONInput
+                            id='a_unique_id'
+                            placeholder={{ resultData }}
+                            locale={locale}
+                            height="100%"
+                            width="100%"
+                            viewOnly={true}
+                        />
+                    </div>
                 </div>
             </div>
-        );
-    }
+            <div className='bottomTitle'>
+                <p>v1.0.0 Designed and Developed By Henit Chobisa</p>
+            </div>
+        </div>
+    );
+}
 
 export default App;

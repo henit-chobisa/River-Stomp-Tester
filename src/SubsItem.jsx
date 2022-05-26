@@ -5,8 +5,12 @@ const SubsItem = (props) => {
         props.handleListPop(props.index)
     }
 
+    const handleOverClick = () => {
+        
+    }
+
     return (
-        <div className='subsItem'>
+        <div className='subsItem' onClick={handleOverClick}>
             {props.route}
             <button onClick={handleCancel}>
                 x
