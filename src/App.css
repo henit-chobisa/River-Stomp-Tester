@@ -161,6 +161,36 @@
   border-radius: 18px;
 }
 
+.App .bottomBar .resultBar .resultName {
+  height: 5%;
+  max-width: 50%;
+  min-width: 30%;
+  z-index: 5;
+  padding: 5px;
+  top: -5%;
+  position: relative;
+  background-color: rgb(0, 160, 198);
+  color: white;
+  align-self: flex-end;
+  border-radius: 12px 0 12px 0;
+  font-size: small;
+  font-weight: bold;
+  display: flex;
+  letter-spacing: 1px;
+  justify-content:space-evenly;
+  align-items: center;
+}
+
+.App .bottomBar .resultBar .resultName .resultCounter {
+  height: 50%;
+  width: 6%;
+  padding: 2px;
+  background-color: black;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+}
+
 .App .upperBar .cd .connectionButton {
   
   height: 90%;

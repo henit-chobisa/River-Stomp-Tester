@@ -173,6 +173,12 @@ const App = (props) => {
                             viewOnly={true}
                         />
                     </div>
+                    <div className="resultName">
+                        /app/user/add
+                        <div className='resultCounter'>
+                            5
+                        </div>
+                    </div>
                 </div>
             </div>
             <div className='bottomTitle'>
