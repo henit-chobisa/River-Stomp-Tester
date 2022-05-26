@@ -31,6 +31,8 @@ const App = (props) => {
     const [subscriptions, updateSubscriptions] = useState([]);
     const [subsText, updateSubsText] = useState("");
     const [addClientSubs, updateClientSubs] = useState(false);
+    const [currentRoute, updateCurrentRoute] = useState("Current Route (Scrollable)")
+    const [currentCounter, updateCurrentCounter] = useState(5);
     const isConnected = props.isConnected;
     const client = props.getClient();
 
@@ -174,10 +176,12 @@ const App = (props) => {
                         />
                     </div>
                     <div className="resultName">
-                        /app/user/add
-                        <div className='resultCounter'>
-                            5
-                        </div>
+                        <p>
+                        {currentRoute}
+                        </p>
+                        {currentCounter !== 0 ? <div className='resultCounter'>
+                            {currentCounter}
+                        </div> : <></>}
                     </div>
                 </div>
             </div>

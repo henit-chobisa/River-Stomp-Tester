@@ -95,7 +95,6 @@
   padding-left: 1%;
   padding-right: 1%;
   background-color: black;
-
 }
 
 .App .bottomBar .resultBar .subsList .subsItem {
@@ -163,8 +162,9 @@
 
 .App .bottomBar .resultBar .resultName {
   height: 5%;
-  max-width: 50%;
+  max-width: 60%;
   min-width: 30%;
+  max-lines: 0;
   z-index: 5;
   padding: 5px;
   top: -5%;
@@ -179,6 +179,20 @@
   letter-spacing: 1px;
   justify-content:space-evenly;
   align-items: center;
+  padding-left: 10px;
+  overflow: hidden;
+  
+}
+.App .bottomBar .resultBar p {
+  white-space: nowrap;
+  overflow-x: scroll;
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  
+  
+}
+
+.App .bottomBar .resultBar p::-webkit-scrollbar { 
+  display: none;  /* Safari and Chrome */
 }
 
 .App .bottomBar .resultBar .resultName .resultCounter {
@@ -189,6 +203,8 @@
   border-radius: 10px;
   display: flex;
   justify-content: center;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .App .upperBar .cd .connectionButton {
