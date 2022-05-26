@@ -16,6 +16,7 @@ function Comp(){
   const handleURLUpdate = (url) => {
     console.log(url);
     updateConnectionURL(url);
+    return url;
   }
 
   const handleConnection = () => {
@@ -26,11 +27,11 @@ function Comp(){
 
   return (
     connectionURL === "" ? <React.StrictMode>
-      <App handleURL={handleURLUpdate} getClient={nullClient}/>
+      <App handleURL={handleURLUpdate} getClient={nullClient} isConnected={false} conURL={""}/>
     </React.StrictMode> : (
       <React.StrictMode>
         <StompSessionProvider url={connectionURL} onConnect={handleConnection}>
-          <App handleURL={handleURLUpdate} getClient={useStompClient} />
+          <App handleURL={handleURLUpdate} getClient={useStompClient} isConnected={true} conURL={connectionURL}/>
         </StompSessionProvider>
       </React.StrictMode>
     )
