@@ -32,7 +32,7 @@ const App = (props) => {
     const [subsText, updateSubsText] = useState("");
     const [addClientSubs, updateClientSubs] = useState(false);
     const [currentRoute, updateCurrentRoute] = useState("Current Route (Scrollable)")
-    const [currentCounter, updateCurrentCounter] = useState(5);
+    const [currentCounter, updateCurrentCounter] = useState(0);
     const isConnected = props.isConnected;
     const client = props.getClient();
 
@@ -60,7 +60,6 @@ const App = (props) => {
 
 
     const handleSubscriptionAdd = () => {
-        console.log(subscriptions);
         if (subsText.length !== 0) {
             var present = false;
             var clone = subscriptions.slice(0);
@@ -71,7 +70,7 @@ const App = (props) => {
                 return obj;
             })
             if (present === false) {
-                clone.push({ route: subsText, key: Math.random(100), data: {} });
+                clone.push({ route: subsText, key: Math.random(100), data: {}, isActive: false });
                 updateSubscriptions(clone);
                 updateClientSubs(true);
             }
@@ -82,11 +81,11 @@ const App = (props) => {
         if (addClientSubs === true){
             client.subscribe(subsText, (message) => {
                 var index = subscriptions.length - 1;
-                console.log("SUBS INDEX", index);
                 var dup = [...subscriptions];
                 dup[index].data = JSON.parse(message.body);
                 updateSubscriptions(dup);
                 var audio = new Audio(bell);
+                handleSubsClick(index, {tagName : "DIV"});
                 audio.play();
             });
             updateClientSubs(false);
@@ -96,14 +95,46 @@ const App = (props) => {
 
     function handleSubsPop(index) {
         var clone = subscriptions.splice(0);
+        var wasActive = clone[index].isActive;
         clone.splice(index, 1);
+        if (wasActive === true){
+            if (clone.length > 0){
+                if (index === 0){
+                    clone[index].isActive = true;
+                    updateCurrentRoute(clone[index].route);
+                    updateResultData(clone[index].data);
+                }
+                else {
+                    clone[index - 1].isActive = true;
+                    updateCurrentRoute(clone[index - 1].route);
+                    updateResultData(clone[index - 1].data);
+                }
+            }
+            else {
+                updateResultData(testData);
+                updateCurrentRoute("Current Route (Scrollable)")
+            }
+        }
         updateSubscriptions(clone);
+    }
+
+    const handleSubsClick = (index, target) => {
+        if (target.tagName === "DIV"){
+            var clone = [...subscriptions];
+            clone.map((sub) => {
+                sub.isActive = false;
+            })
+            clone[index].isActive = true;
+            updateCurrentRoute(clone[index].route);
+            updateResultData(clone[index].data);
+            updateSubscriptions(clone);
+        }
     }
 
     const loadSubscriptions = () => {
         if (subscriptions.length !== 0) {
             return subscriptions.map((subscription, index) =>
-                <SubsItem route={subscription.route} index={index} handleListPop={handleSubsPop} handleSubsMessage={handleSubscriptionMessage} />
+                <SubsItem route={subscription.route} index={index} handleListPop={handleSubsPop} handleSubsMessage={handleSubscriptionMessage} handleSubsClick={handleSubsClick} isActive={subscription.isActive}/>
             )
         }
         else {
@@ -112,7 +143,6 @@ const App = (props) => {
     }
 
     const handleSubscriptionMessage = (index, message) => {
-        console.log(message);
         updateResultData(JSON.stringify(JSON.parse(message)));
     }
 
@@ -147,7 +177,7 @@ const App = (props) => {
                         />
                     </div>
                     <div className='senderBar'>
-                        <input className='channelInputBar' type="text" name="" id="" placeholder='Enter the channel to send' onChange={updateSendRouteValue} />
+                        <input className='channelInputBar' type="text" placeholder='Enter the channel to send' onChange={updateSendRouteValue} />
                         <button onClick={handleSendEvent} className='channelSendButton'>
                             Send
                         </button>

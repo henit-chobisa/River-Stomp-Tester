@@ -5,12 +5,26 @@ const SubsItem = (props) => {
         props.handleListPop(props.index)
     }
 
-    const handleOverClick = () => {
-        
+    const handleOverClick = (e) => {
+        props.handleSubsClick(props.index, e.target);
+    }
+
+    const activation = () => {
+        if(props.isActive === true){
+            return {
+                backgroundColor: "rgb(239, 118, 122)"
+            }
+        }
+        else {
+            return {
+                backgroundColor: "rgb(0, 160, 198)"
+            }
+
+        }
     }
 
     return (
-        <div className='subsItem' onClick={handleOverClick}>
+        <div className='subsItem' style={activation()} onClick={handleOverClick}>
             {props.route}
             <button onClick={handleCancel}>
                 x
