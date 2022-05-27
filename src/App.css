@@ -310,7 +310,7 @@
 }
 
 .App .bottomBar .subscriptionBar .routeBox .routeList .routeItem {
-  min-width: 20%;
+  min-width: 35%;
   max-width: 50%;
   height: 70%;
   /* background-color: rgb(0, 160, 198); */

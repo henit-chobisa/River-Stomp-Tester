@@ -79,7 +79,6 @@ const App = (props) => {
 
     const handleDataUpdate = (data) => {
         updateData(data);
-        console.log(data);
     }
 
 
@@ -208,10 +207,10 @@ const App = (props) => {
                         route.header = header;
                         route.isActive = false;
                     }
+                    return route;
                 }
             )
             clone[index].isActive = true;
-            console.log(clone[index].body);
             updateData(clone[index].body);
             updateHeader(clone[index].header);
             updateCurrentRoute(clone[index].value);
