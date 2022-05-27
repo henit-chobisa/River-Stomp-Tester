@@ -163,9 +163,9 @@ const App = (props) => {
             <div className='bottomBar'>
                 <div className='subscriptionBar'>
                     <div className='subsTitleBar'>
-                        Send Message
+                        Available Routes
                         <div className="routeManager">
-                            <input type="text" name="" id="" placeholder='Add a route here'/>
+                            <input type="text" name="" id="" placeholder='Add a route here' />
                             <button>
                                 +
                             </button>
@@ -176,7 +176,11 @@ const App = (props) => {
                             Send
                         </button>
                         <div className="routeList">
-                            Hello
+                            <div className="routeItem">
+                                <p>Hello</p>
+                                <button>x</button>
+                            </div>
+
                         </div>
                     </div>
                     <div className='subsEditor'>
@@ -244,9 +248,12 @@ const App = (props) => {
                     </div>
                 </div>
             </div>
-            <div className='bottomTitle'>
+            {/* <div className='bottomTitle'>
                 <p>v1.0.0 Designed and Developed By Henit Chobisa</p>
-            </div>
+            </div> */}
+            {/* <div className='errorBox'>
+                You have this error kindly do this
+            </div> */}
         </div>
     );
 }
