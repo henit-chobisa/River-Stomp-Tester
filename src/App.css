@@ -51,7 +51,7 @@
 }
 
 .App .bottomBar .subscriptionBar {
-  height: 100%;
+  height: 103%;
   width: 46%;
   margin: 1%;
   display: flex;
@@ -59,7 +59,7 @@
 }
 
 .App .bottomBar .resultBar {
-  height: 100%;
+  height: 103%;
   width: 48%;
   margin: 1%;
   display: flex;
@@ -246,7 +246,7 @@
 }
 
 .App .bottomBar .subscriptionBar .subsTitleBar .routeManager input{
-  height: 70%;
+  height: 65%;
   width: 80%;
   outline: none;
   border-radius: 100px;
@@ -256,6 +256,32 @@
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   background-color: rgb(198, 198, 198);
   padding-left: 5%;
+}
+
+.App .bottomBar .subscriptionBar .routeBox {
+  height: 7%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.App .bottomBar .subscriptionBar .routeBox .routeTrigger {
+  width: 20%;
+  height: 80%;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  background-color: rgb(0, 160, 198);
+  font-weight: bold;
+}
+
+.App .bottomBar .subscriptionBar .routeBox .routeList {
+  width: 80%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 10px;
 }
 
 .App .bottomBar .subscriptionBar .subsTitleBar .routeManager button {
@@ -436,7 +462,7 @@ textarea:focus, input:focus{
 .App .bottomBar { 
   margin-top: 1%;
   margin-bottom: 0%;
-  height: 83%;
+  height: 85%;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -447,6 +473,8 @@ textarea:focus, input:focus{
   font-size: small;
   font-style: italic;
   align-self: center;
+  margin-bottom: 0.2%;
+  margin-top: 0%;
 }
 
 .logo {

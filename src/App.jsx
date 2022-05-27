@@ -171,6 +171,14 @@ const App = (props) => {
                             </button>
                         </div>
                     </div>
+                    <div className="routeBox">
+                        <button className='routeTrigger'>
+                            Send
+                        </button>
+                        <div className="routeList">
+                            Hello
+                        </div>
+                    </div>
                     <div className='subsEditor'>
                         <Editor
                             className='seditor'
@@ -197,13 +205,12 @@ const App = (props) => {
                     <div className="titleContainer">
                         Header
                     </div>
-                    <div className='senderBar'>
+                    {/* <div className='senderBar'>
                         <button onClick={handleSendEvent} className='channelSendButton'>
                             Send
                         </button>
                         <input className='channelInputBar' type="text" placeholder='Enter the channel to send' onChange={updateSendRouteValue} />
-
-                    </div>
+                    </div> */}
                 </div>
                 <div className='resultBar'>
                     <div className='resTitleBar'>
