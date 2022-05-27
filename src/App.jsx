@@ -24,9 +24,10 @@ const hightlightWithLineNumbers = (input, language) =>
 
 
 const App = (props) => {
-
+    var audio = new Audio(bell);
     const [connectionURL, updateConnectionURL] = useState(props.conURL);
     const [data, updateData] = useState(" // Insert your message here");
+    const [header, updateHeader] = useState(" // Insert your headers here");
     const [resultData, updateResultData] = useState(testData);
     const [sendRoute, updateSendRoute] = useState("");
     const [subscriptions, updateSubscriptions] = useState([]);
@@ -58,8 +59,6 @@ const App = (props) => {
         updateSubsText(evt.target.value);
     }
 
-
-
     const handleSubscriptionAdd = () => {
         if (subsText.length !== 0) {
             var present = false;
@@ -71,36 +70,15 @@ const App = (props) => {
                 return obj;
             })
             if (present === false) {
-                clone.push({ route: subsText, key: Math.random(100), data: {}, isActive: false });
+                clone.push({ route: subsText, key: Math.random(100), data: {}, isActive: false, counter: 0});
                 updateSubscriptions(clone);
                 updateClientSubs(true);
-                updateCurrentCounter(0);
+                updateSubsText("");
             }
         }
     }
 
-    useEffect(() => {
-        if (addClientSubs === true){
-            var cnt = currentCounter;
-            client.subscribe(subsText, (message) => {
-                var index = subscriptions.length - 1;
-                var dup = [...subscriptions];
-                var data = JSON.parse(message.body);
-                var counter = cnt;
-                if (JSON.stringify(dup[index].data) === JSON.stringify(data)){
-                    counter = counter + 1;
-                    updateCurrentCounter(counter);
-                }
-                dup[index].data = JSON.parse(message.body);
-                updateSubscriptions(dup);
-                var audio = new Audio(bell);
-                handleSubsClick(index, {tagName : "DIV"});
-                audio.play();
-            });
-            updateClientSubs(false);
-            updateSubsText("");
-        }
-    },  [addClientSubs])
+    
 
     function handleSubsPop(index) {
         var clone = subscriptions.splice(0);
@@ -111,11 +89,13 @@ const App = (props) => {
             if (clone.length > 0){
                 if (index === 0){
                     clone[index].isActive = true;
+                    updateCurrentCounter(clone[index].counter);
                     updateCurrentRoute(clone[index].route);
                     updateResultData(clone[index].data);
                 }
                 else {
                     clone[index - 1].isActive = true;
+                    updateCurrentCounter(clone[index - 1].counter);
                     updateCurrentRoute(clone[index - 1].route);
                     updateResultData(clone[index - 1].data);
                 }
@@ -125,7 +105,6 @@ const App = (props) => {
                 updateCurrentRoute("Current Route (Scrollable)")
             }
         }
-        updateCurrentCounter(0);
         updateSubscriptions(clone);
     }
 
@@ -136,6 +115,7 @@ const App = (props) => {
                 sub.isActive = false;
             })
             clone[index].isActive = true;
+            updateCurrentCounter(clone[index].counter);
             updateCurrentRoute(clone[index].route);
             updateResultData(clone[index].data);
             updateSubscriptions(clone);
@@ -145,7 +125,7 @@ const App = (props) => {
     const loadSubscriptions = () => {
         if (subscriptions.length !== 0) {
             return subscriptions.map((subscription, index) =>
-                <SubsItem route={subscription.route} index={index} handleListPop={handleSubsPop} handleSubsMessage={handleSubscriptionMessage} handleSubsClick={handleSubsClick} isActive={subscription.isActive}/>
+                <SubsItem route={subscription.route} index={index} handleListPop={handleSubsPop} handleSubsMessage={handleSubscriptionMessage} handleSubsClick={handleSubsClick} isActive={subscription.isActive} isSubscribed={true}/>
             )
         }
         else {
@@ -153,8 +133,18 @@ const App = (props) => {
         }
     }
 
-    const handleSubscriptionMessage = (index, message) => {
-        updateResultData(JSON.stringify(JSON.parse(message)));
+    const handleSubscriptionMessage = (message, index) => {
+        var dup = [...subscriptions];
+        var data = JSON.parse(message);
+        if (JSON.stringify(dup[index].data) === JSON.stringify(data)){
+            dup[index].counter = dup[index].counter + 1;
+        }
+        else {
+            dup[index].data = data;
+        }
+        updateSubscriptions(dup);
+        handleSubsClick(index, {tagName : "DIV"});
+        audio.play();
     }
 
 
@@ -183,6 +173,19 @@ const App = (props) => {
                             value={data}
                             textareaId="codeArea"
                             onValueChange={(code) => updateData(code)}
+                            highlight={(code) => hightlightWithLineNumbers(code, languages.js)}
+                            padding="30px"
+                        />
+                    </div>
+                    <div className='subsTitleBar'>
+                        Headers
+                    </div>
+                    <div className='subsEditor'>
+                        <Editor
+                            className='seditor'
+                            value={header}
+                            textareaId="codeArea"
+                            onValueChange={(code) => updateHeader(code)}
                             highlight={(code) => hightlightWithLineNumbers(code, languages.js)}
                             padding="30px"
                         />
