@@ -11,7 +11,6 @@ import "prismjs/components/prism-javascript";
 import "prismjs/themes/prism.css";
 import SubsItem from './SubsItem';
 import { useState } from 'react';
-import { useEffect } from 'react';
 import bell from  "./bell.wav";
 import _ from "lodash";
 
@@ -32,7 +31,6 @@ const App = (props) => {
     const [sendRoute, updateSendRoute] = useState("");
     const [subscriptions, updateSubscriptions] = useState([]);
     const [subsText, updateSubsText] = useState("");
-    const [addClientSubs, updateClientSubs] = useState(false);
     const [currentRoute, updateCurrentRoute] = useState("Current Route (Scrollable)")
     const [currentCounter, updateCurrentCounter] = useState(0);
     const isConnected = props.isConnected;
@@ -72,7 +70,6 @@ const App = (props) => {
             if (present === false) {
                 clone.push({ route: subsText, key: Math.random(100), data: {}, isActive: false, counter: 0});
                 updateSubscriptions(clone);
-                updateClientSubs(true);
                 updateSubsText("");
             }
         }
