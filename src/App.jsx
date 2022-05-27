@@ -11,7 +11,7 @@ import "prismjs/components/prism-javascript";
 import "prismjs/themes/prism.css";
 import SubsItem from './SubsItem';
 import { useState } from 'react';
-import bell from  "./bell.wav";
+import bell from "./bell.wav";
 
 const hightlightWithLineNumbers = (input, language) =>
     highlight(input, language)
@@ -26,6 +26,7 @@ const App = (props) => {
     const [connectionURL, updateConnectionURL] = useState(props.conURL);
     const [data, updateData] = useState(" // Insert your message here");
     const [header, updateHeader] = useState(" // Insert your headers here");
+    const [sendRoutes, updateSendRoutes] = useState([]);
     const [resultData, updateResultData] = useState(testData);
     const [sendRoute, updateSendRoute] = useState("");
     const [subscriptions, updateSubscriptions] = useState([]);
@@ -67,23 +68,23 @@ const App = (props) => {
                 return obj;
             })
             if (present === false) {
-                clone.push({ route: subsText, key: Math.random(100), data: {}, isActive: false, counter: 0});
+                clone.push({ route: subsText, key: Math.random(100), data: {}, isActive: false, counter: 0 });
                 updateSubscriptions(clone);
                 updateSubsText("");
             }
         }
     }
 
-    
+
 
     function handleSubsPop(index) {
         var clone = subscriptions.splice(0);
         var wasActive = clone[index].isActive;
         client.unsubscribe(clone[index].route);
         clone.splice(index, 1);
-        if (wasActive === true){
-            if (clone.length > 0){
-                if (index === 0){
+        if (wasActive === true) {
+            if (clone.length > 0) {
+                if (index === 0) {
                     clone[index].isActive = true;
                     updateCurrentCounter(clone[index].counter);
                     updateCurrentRoute(clone[index].route);
@@ -105,11 +106,11 @@ const App = (props) => {
     }
 
     const handleSubsClick = (index, target) => {
-        if (target.tagName === "DIV"){
+        if (target.tagName === "DIV") {
             var clone = [...subscriptions];
-            clone.map((sub) => 
+            clone.map((sub) =>
                 sub.isActive = false
-                
+
             )
             clone[index].isActive = true;
             updateCurrentCounter(clone[index].counter);
@@ -122,7 +123,7 @@ const App = (props) => {
     const loadSubscriptions = () => {
         if (subscriptions.length !== 0) {
             return subscriptions.map((subscription, index) =>
-                <SubsItem route={subscription.route} index={index} handleListPop={handleSubsPop} handleSubsMessage={handleSubscriptionMessage} handleSubsClick={handleSubsClick} isActive={subscription.isActive} isSubscribed={true}/>
+                <SubsItem route={subscription.route} index={index} handleListPop={handleSubsPop} handleSubsMessage={handleSubscriptionMessage} handleSubsClick={handleSubsClick} isActive={subscription.isActive} isSubscribed={true} />
             )
         }
         else {
@@ -133,14 +134,14 @@ const App = (props) => {
     const handleSubscriptionMessage = (message, index) => {
         var dup = [...subscriptions];
         var data = JSON.parse(message);
-        if (JSON.stringify(dup[index].data) === JSON.stringify(data)){
+        if (JSON.stringify(dup[index].data) === JSON.stringify(data)) {
             dup[index].counter = dup[index].counter + 1;
         }
         else {
             dup[index].data = data;
         }
         updateSubscriptions(dup);
-        handleSubsClick(index, {tagName : "DIV"});
+        handleSubsClick(index, { tagName: "DIV" });
         audio.play();
     }
 
@@ -163,6 +164,12 @@ const App = (props) => {
                 <div className='subscriptionBar'>
                     <div className='subsTitleBar'>
                         Send Message
+                        <div className="routeManager">
+                            <input type="text" name="" id="" placeholder='Add a route here'/>
+                            <button>
+                                +
+                            </button>
+                        </div>
                     </div>
                     <div className='subsEditor'>
                         <Editor
@@ -191,10 +198,11 @@ const App = (props) => {
                         Header
                     </div>
                     <div className='senderBar'>
-                        <input className='channelInputBar' type="text" placeholder='Enter the channel to send' onChange={updateSendRouteValue} />
                         <button onClick={handleSendEvent} className='channelSendButton'>
                             Send
                         </button>
+                        <input className='channelInputBar' type="text" placeholder='Enter the channel to send' onChange={updateSendRouteValue} />
+
                     </div>
                 </div>
                 <div className='resultBar'>
@@ -221,7 +229,7 @@ const App = (props) => {
                     </div>
                     <div className="resultName">
                         <p>
-                        {currentRoute}
+                            {currentRoute}
                         </p>
                         {currentCounter !== 0 ? <div className='resultCounter'>
                             {currentCounter}
