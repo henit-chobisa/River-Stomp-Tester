@@ -137,6 +137,7 @@
   color: gray;
   font-size: smaller;
   font-weight: bold;
+  font-style: italic;
 }
 
 
@@ -276,6 +277,11 @@
   font-weight: bold;
 }
 
+.App .bottomBar .subscriptionBar .routeBox .routeTrigger:hover {
+  background-color: rgb(239, 118, 122);
+  color: white;
+}
+
 .App .bottomBar .subscriptionBar .routeBox .routeList {
   max-width: 80%;
   min-width: 80%;
@@ -286,11 +292,18 @@
   overflow: scroll;
 }
 
+.App .bottomBar .subscriptionBar .routeBox .routeList .warning {
+  color: gray;
+  font-size: smaller;
+  font-style: italic;
+  font-weight: bold;
+}
+
 .App .bottomBar .subscriptionBar .routeBox .routeList .routeItem {
   min-width: 20%;
   max-width: 50%;
-  height: 75%;
-  background-color: rgb(0, 160, 198);
+  height: 70%;
+  /* background-color: rgb(0, 160, 198); */
   white-space: nowrap;
   max-lines: 0;
   padding-left: 10px;
@@ -302,6 +315,7 @@
   border-radius: 100px;
   color: white;
   font-weight: bold;
+  font-size: small;
   margin-left: 1%;
 }
 
@@ -338,6 +352,10 @@
   border-radius: 18px;
 }
 
+.App .bottomBar .subscriptionBar .subsTitleBar .routeManager button:hover {
+  background-color: rgb(239, 118, 122);
+}
+
 .App .bottomBar .subscriptionBar .titleContainer {
   height: 5%;
   width: 37%;
@@ -353,6 +371,11 @@
   font-size: small;
   border-radius: 10px 0 10px 0;
   font-weight: bold;
+}
+
+.App .bottomBar .subscriptionBar .titleContainer:hover {
+  opacity: 0.2;
+  background-color: rgb(239, 118, 122);
 }
 
 .App .bottomBar .subscriptionBar .subsEditor{
