@@ -1,6 +1,15 @@
 
+import {useSubscription, useStompClient} from "react-stomp-hooks"
+
 const SubsItem = (props) => {
 
+    const handleMessage = (message) => {
+        props.handleSubsMessage(message.body, props.index);
+    }
+    
+    useSubscription(props.route, handleMessage)
+    
+    
     const handleCancel = () => {
         props.handleListPop(props.index)
     }
@@ -8,6 +17,7 @@ const SubsItem = (props) => {
     const handleOverClick = (e) => {
         props.handleSubsClick(props.index, e.target);
     }
+
 
     const activation = () => {
         if(props.isActive === true){
