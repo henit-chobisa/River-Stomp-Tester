@@ -327,6 +327,7 @@
   font-weight: bold;
   font-size: small;
   margin-left: 1%;
+  cursor: pointer;
 }
 
 .App .bottomBar .subscriptionBar .routeBox .routeList .routeItem p {
@@ -494,7 +495,7 @@ textarea:focus, input:focus{
 .App .bottomBar .subscriptionBar .subsEditor .seditor .token.constant,
 .App .bottomBar .subscriptionBar .subsEditor .seditor .token.symbol,
 .App .bottomBar .subscriptionBar .subsEditor .seditor .token.deleted {
-  color: rgb(147, 205, 236);
+  color: #9CDCFE;
 }
 .App .bottomBar .subscriptionBar .subsEditor .seditor .token.selector,
 .App .bottomBar .subscriptionBar .subsEditor .seditor .token.attr-name,
@@ -502,7 +503,8 @@ textarea:focus, input:focus{
 .App .bottomBar .subscriptionBar .subsEditor .seditor .token.char,
 .App .bottomBar .subscriptionBar .subsEditor .seditor .token.builtin,
 .App .bottomBar .subscriptionBar .subsEditor .seditor .token.inserted {
-  color: rgb(176, 114, 74);
+  /* color: rgb(176, 114, 74); */
+  color: #CE8453;
 }
 
 .App .bottomBar .subscriptionBar .subsEditor .seditor .token.operator,
@@ -510,7 +512,11 @@ textarea:focus, input:focus{
 .App .bottomBar .subscriptionBar .subsEditor .seditor .token.url,
 .App .bottomBar .subscriptionBar .subsEditor .seditor .language-css .token.string,
 .App .bottomBar .subscriptionBar .subsEditor .seditor .style .token.string {
-  color: rgb(159, 105, 70);
+  background-color: transparent;
+}
+
+.App .bottomBar .subscriptionBar .subsEditor .seditor .style .token.punctuation {
+  color: #3f51b5;
 }
 
 .App .bottomBar .subscriptionBar .subsEditor .seditor .token.atrule,
