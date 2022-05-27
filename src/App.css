@@ -237,6 +237,21 @@
   font-weight: bold;
 }
 
+.App .bottomBar .subscriptionBar .titleContainer {
+  height: 5%;
+  width: 37%;
+  background-color: rgb(0, 160, 198);
+  color: white;
+  display: flex;
+  align-self: flex-end;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: -5%;
+  font-size: small;
+  border-radius: 10px 0 10px 0;
+}
+
 .App .bottomBar .subscriptionBar .subsEditor{
   /* height: max-content; */
   width: 100%;

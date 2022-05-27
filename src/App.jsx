@@ -12,7 +12,6 @@ import "prismjs/themes/prism.css";
 import SubsItem from './SubsItem';
 import { useState } from 'react';
 import bell from  "./bell.wav";
-import _ from "lodash";
 
 const hightlightWithLineNumbers = (input, language) =>
     highlight(input, language)
@@ -108,9 +107,10 @@ const App = (props) => {
     const handleSubsClick = (index, target) => {
         if (target.tagName === "DIV"){
             var clone = [...subscriptions];
-            clone.map((sub) => {
-                sub.isActive = false;
-            })
+            clone.map((sub) => 
+                sub.isActive = false
+                
+            )
             clone[index].isActive = true;
             updateCurrentCounter(clone[index].counter);
             updateCurrentRoute(clone[index].route);
@@ -174,8 +174,8 @@ const App = (props) => {
                             padding="30px"
                         />
                     </div>
-                    <div className='subsTitleBar'>
-                        Headers
+                    <div className="titleContainer">
+                        Send Message
                     </div>
                     <div className='subsEditor'>
                         <Editor
@@ -186,6 +186,9 @@ const App = (props) => {
                             highlight={(code) => hightlightWithLineNumbers(code, languages.js)}
                             padding="30px"
                         />
+                    </div>
+                    <div className="titleContainer">
+                        Header
                     </div>
                     <div className='senderBar'>
                         <input className='channelInputBar' type="text" placeholder='Enter the channel to send' onChange={updateSendRouteValue} />
