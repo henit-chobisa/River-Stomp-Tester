@@ -21,9 +21,11 @@ const hightlightWithLineNumbers = (input, language) =>{
 
 const App = (props) => {
     var audio = new Audio(bell);
+    var defaultBody = "{\n\t\"message\" : \"Insert your body here\"\n}";
+    var defaultHeader = "{\n\t\"message\" : \"Insert your header here\"\n}"
     const [connectionURL, updateConnectionURL] = useState(props.conURL);
-    const [data, updateData] = useState("{\n\t// Insert your message's body here\n}");
-    const [header, updateHeader] = useState("{\n\t// Insert your message's headers here\n}");
+    const [data, updateData] = useState(defaultBody);
+    const [header, updateHeader] = useState(defaultHeader);
     const [routeValue, updateRouteValue] = useState("");
     const [routes, updateRoutes] = useState([]);
     const [resultData, updateResultData] = useState(testData);
@@ -38,10 +40,11 @@ const App = (props) => {
 
 
     const handleSendEvent = () => {
-        // client?.publish({
-        //     destination: sendRoute,
-        //     body: JSON.stringify(JSON.parse(data))
-        // })
+        client?.publish({
+            destination: currentRoute,
+            header: JSON.stringify(JSON.parse(header)),
+            body: JSON.stringify(JSON.parse(data))
+        })
     }
     const updateInputValue = (evt) => {
         updateConnectionURL(evt.target.value);
@@ -73,6 +76,11 @@ const App = (props) => {
         }
     }
 
+
+    const handleDataUpdate = (data) => {
+        updateData(data);
+        console.log(data);
+    }
 
 
     function handleSubsPop(index) {
@@ -148,7 +156,7 @@ const App = (props) => {
 
     const addRoute = () => {
         var clone = [...routes];
-        clone.push({value : routeValue, index : clone.length, body: "{\n\t// Insert your message's body here\n}", header: "{\n\t// Insert your message's headers here\n}", isActive: false});
+        clone.push({value : routeValue, index : clone.length, body: defaultBody, header: defaultHeader, isActive: false});
         updateRoutes(clone);
         updateRouteValue("");
     }
@@ -182,8 +190,8 @@ const App = (props) => {
                 }
             }
             else {
-                updateData("{\n\t// Insert your message's body here\n}")
-                updateHeader("{\n\t// Insert your message's headers here\n}")
+                updateData(defaultBody)
+                updateHeader(defaultHeader)
                 updateCurrentRoute("No Route Selected");
             }
         }
@@ -194,9 +202,16 @@ const App = (props) => {
         if (target.tagName === "DIV"){
             var clone = [...routes];
             clone.map((route) =>
-                route.isActive = false
+                {
+                    if (route.isActive) {
+                        route.body = data;
+                        route.header = header;
+                        route.isActive = false;
+                    }
+                }
             )
             clone[index].isActive = true;
+            console.log(clone[index].body);
             updateData(clone[index].body);
             updateHeader(clone[index].header);
             updateCurrentRoute(clone[index].value);
@@ -231,7 +246,7 @@ const App = (props) => {
                         </div>
                     </div>
                     <div className="routeBox">
-                        <button className='routeTrigger'>
+                        <button className='routeTrigger' onClick={handleSendEvent}>
                             Send
                         </button>
                         <div className="routeList">
@@ -243,7 +258,7 @@ const App = (props) => {
                             className='seditor'
                             value={data}
                             textareaId="codeArea"
-                            onValueChange={(code) => updateData(code)}
+                            onValueChange={(code) => handleDataUpdate(code)}
                             highlight={(code) => hightlightWithLineNumbers(code, languages.js)}
                             padding="30px"
                         />

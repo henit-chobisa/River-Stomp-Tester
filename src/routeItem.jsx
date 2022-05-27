@@ -24,7 +24,7 @@ const routeItem = (props) => {
 
     return (
         <div className="routeItem" style={activation()} onClick={handleSelfClick}>
-            <p>{props.route}</p>
+            <p style={{cursor:"pointer"}}>{props.route}</p>
             <button onClick={handleSelfDelete}>x</button>
         </div>
 
