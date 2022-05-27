@@ -85,6 +85,10 @@
   align-items: center;
 }
 
+.App .bottomBar .resultBar .resTitleBar .subsInp button:hover {
+  background-color: rgb(239, 118, 122);
+}
+
 .App .bottomBar .resultBar .subsList {
   height: 8%;
   /* width: 100%; */
@@ -164,9 +168,9 @@
 }
 
 .App .bottomBar .resultBar .resultName {
-  height: 5%;
+  height: 4%;
   max-width: 60%;
-  min-width: 32%;
+  min-width: 40%;
   max-lines: 0;
   z-index: 5;
   padding: 5px;
@@ -184,8 +188,14 @@
   align-items: center;
   padding-left: 10px;
   overflow: hidden;
-  
+  font-style: italic;
 }
+
+.App .bottomBar .resultBar .resultName:hover {
+  background-color: transparent;
+  opacity: 0.5;
+}
+
 .App .bottomBar .resultBar p {
   white-space: nowrap;
   overflow-x: scroll;
@@ -369,13 +379,14 @@
   position: relative;
   top: -5%;
   font-size: small;
+  font-style: italic;
   border-radius: 10px 0 10px 0;
   font-weight: bold;
 }
 
 .App .bottomBar .subscriptionBar .titleContainer:hover {
   opacity: 0.2;
-  background-color: rgb(239, 118, 122);
+  background-color: transparent;
 }
 
 .App .bottomBar .subscriptionBar .subsEditor{

@@ -30,7 +30,8 @@ const App = (props) => {
     // const [sendRoute, updateSendRoute] = useState("");
     const [subscriptions, updateSubscriptions] = useState([]);
     const [subsText, updateSubsText] = useState("");
-    const [currentRoute, updateCurrentRoute] = useState("Current Route (Scrollable)")
+    const [currentSubscription, updateCurrentSubscription] = useState("Current Route")
+    const [currentRoute, updateCurrentRoute] = useState("No Route Selected");
     const [currentCounter, updateCurrentCounter] = useState(0);
     const isConnected = props.isConnected;
     const client = props.getClient();
@@ -84,19 +85,19 @@ const App = (props) => {
                 if (index === 0) {
                     clone[index].isActive = true;
                     updateCurrentCounter(clone[index].counter);
-                    updateCurrentRoute(clone[index].route);
+                    updateCurrentSubscription(clone[index].route);
                     updateResultData(clone[index].data);
                 }
                 else {
                     clone[index - 1].isActive = true;
                     updateCurrentCounter(clone[index - 1].counter);
-                    updateCurrentRoute(clone[index - 1].route);
+                    updateCurrentSubscription(clone[index - 1].route);
                     updateResultData(clone[index - 1].data);
                 }
             }
             else {
                 updateResultData(testData);
-                updateCurrentRoute("Current Route (Scrollable)")
+                updateCurrentSubscription("Current Route")
             }
         }
         updateSubscriptions(clone);
@@ -110,7 +111,7 @@ const App = (props) => {
             )
             clone[index].isActive = true;
             updateCurrentCounter(clone[index].counter);
-            updateCurrentRoute(clone[index].route);
+            updateCurrentSubscription(clone[index].route);
             updateResultData(clone[index].data);
             updateSubscriptions(clone);
         }
@@ -171,16 +172,19 @@ const App = (props) => {
                     clone[index].isActive = true;
                     updateData(clone[index].body);
                     updateHeader(clone[index].header);
+                    updateCurrentRoute(clone[index].value)
                 }
                 else {
                     clone[index - 1].isActive = true;
                     updateData(clone[index - 1].body);
                     updateHeader(clone[index - 1].header);
+                    updateCurrentRoute(clone[index - 1].value);
                 }
             }
             else {
                 updateData("{\n\t// Insert your message's body here\n}")
                 updateHeader("{\n\t// Insert your message's headers here\n}")
+                updateCurrentRoute("No Route Selected");
             }
         }
         updateRoutes(clone);
@@ -195,6 +199,7 @@ const App = (props) => {
             clone[index].isActive = true;
             updateData(clone[index].body);
             updateHeader(clone[index].header);
+            updateCurrentRoute(clone[index].value);
             updateRoutes(clone);
         }
     }
@@ -217,7 +222,7 @@ const App = (props) => {
             <div className='bottomBar'>
                 <div className='subscriptionBar'>
                     <div className='subsTitleBar'>
-                        Available Routes
+                        {currentRoute}
                         <div className="routeManager">
                             <input type="text" name="" id="" value={routeValue} onChange={handleRouteValueChange} placeholder='Add a route here' />
                             <button onClick={addRoute}>
@@ -259,12 +264,6 @@ const App = (props) => {
                     <div className="titleContainer">
                         Header
                     </div>
-                    {/* <div className='senderBar'>
-                        <button onClick={handleSendEvent} className='channelSendButton'>
-                            Send
-                        </button>
-                        <input className='channelInputBar' type="text" placeholder='Enter the channel to send' onChange={updateSendRouteValue} />
-                    </div> */}
                 </div>
                 <div className='resultBar'>
                     <div className='resTitleBar'>
@@ -290,7 +289,7 @@ const App = (props) => {
                     </div>
                     <div className="resultName">
                         <p>
-                            {currentRoute}
+                            {currentSubscription}
                         </p>
                         {currentCounter !== 0 ? <div className='resultCounter'>
                             {currentCounter}
