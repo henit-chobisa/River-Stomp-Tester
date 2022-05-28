@@ -13,11 +13,14 @@ import SubsItem from './SubsItem';
 import { useState } from 'react';
 import bell from "./bell.wav";
 import RouteItem from './routeItem';
+import soundOnIcon from './soundOn.png'
+import soundOffIcon from './soundOff.png'
 import { useRef } from 'react';
 import { useEffect } from 'react';
 
-const hightlightWithLineNumbers = (input, language) =>{
-    return highlight(input, language).split("\n").map((line, i) => `<span class='editorLineNumber'>${i + 1}\t</span>${line}`).join("\n")};
+const hightlightWithLineNumbers = (input, language) => {
+    return highlight(input, language).split("\n").map((line, i) => `<span class='editorLineNumber'>${i + 1}\t</span>${line}`).join("\n")
+};
 
 const App = (props) => {
 
@@ -40,6 +43,7 @@ const App = (props) => {
     const [currentCounter, updateCurrentCounter] = useState(0);
     const [error, updateError] = useState("");
     const [routeSelected, updateRouteSelected] = useState(false);
+    const [soundOn, updateSoundOn] = useState(true);
     const isConnected = props.isConnected;
     const client = props.getClient();
     const subscriptionList = useRef();
@@ -72,7 +76,7 @@ const App = (props) => {
     }
 
     useEffect(() => {
-        if (routes.length === 0){
+        if (routes.length === 0) {
             updateRouteSelected(false);
         }
     }, [routes])
@@ -99,7 +103,7 @@ const App = (props) => {
 
     const scrollIndexSubscriptions = (index) => {
         if (index > 2) {
-                subscriptionList.current.getElementsByClassName("subsItem")[index].scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+            subscriptionList.current.getElementsByClassName("subsItem")[index].scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
         }
     }
 
@@ -109,8 +113,8 @@ const App = (props) => {
     }
 
     useEffect(() => {
-        if (subscriptions.length > 3){
-            if (added === true){
+        if (subscriptions.length > 3) {
+            if (added === true) {
                 scrollIndexSubscriptions(subscriptions.length - 1);
                 updateAdded(false);
             }
@@ -145,7 +149,7 @@ const App = (props) => {
             }
         }
         else {
-            if (clone.length === 0){
+            if (clone.length === 0) {
                 updateCurrentCounter(0);
             }
         }
@@ -189,7 +193,9 @@ const App = (props) => {
         updateSubscriptions(dup);
         handleSubsClick(index, { tagName: "DIV" });
         scrollIndexSubscriptions(index);
-        audio.play();
+        if (soundOn === true){
+            audio.play();
+        }
     }
 
     const handleRouteValueChange = (evt) => {
@@ -198,28 +204,28 @@ const App = (props) => {
 
     const addRoute = () => {
         var clone = [...routes];
-        clone.push({value : routeValue, index : clone.length, body: defaultBody, header: defaultHeader, isActive: false});
+        clone.push({ value: routeValue, index: clone.length, body: defaultBody, header: defaultHeader, isActive: false });
         updateRoutes(clone);
         updateRouteValue("");
         updateRouteAdded(true);
-        
+
     }
 
     useEffect(() => {
-        if (routes.length > 2){
-            if(routeAdded === true){
-                routeList.current.getElementsByClassName("routeItem")[routes.length - 1].scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+        if (routes.length > 2) {
+            if (routeAdded === true) {
+                routeList.current.getElementsByClassName("routeItem")[routes.length - 1].scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
                 updateRouteAdded(false);
             }
         }
     }, [routes, routeAdded]);
 
     const renderRoutes = () => {
-        if (routes.length === 0){
+        if (routes.length === 0) {
             return (<p className='warning'> No Routes added yet, add one. </p>)
         }
         else {
-            return routes.map((route) => (<RouteItem route={route.value} index={route.index}  isActive={route.isActive} handleRoutePop={handleRoutePop} handleSelection={handleRouteItemSelection}/>));
+            return routes.map((route) => (<RouteItem route={route.value} index={route.index} isActive={route.isActive} handleRoutePop={handleRoutePop} handleSelection={handleRouteItemSelection} />));
         }
     }
 
@@ -256,19 +262,18 @@ const App = (props) => {
     }
 
     const handleRouteItemSelection = (index, target) => {
-        
-        if (target.tagName === "DIV"){
+
+        if (target.tagName === "DIV") {
             updateRouteSelected(true);
             var clone = [...routes];
-            clone.map((route) =>
-                {
-                    if (route.isActive) {
-                        route.body = data;
-                        route.header = header;
-                        route.isActive = false;
-                    }
-                    return route;
+            clone.map((route) => {
+                if (route.isActive) {
+                    route.body = data;
+                    route.header = header;
+                    route.isActive = false;
                 }
+                return route;
+            }
             )
             clone[index].isActive = true;
             updateData(clone[index].body);
@@ -285,6 +290,11 @@ const App = (props) => {
         }, 3000);
     }
 
+    const handleSound = () => {
+        soundOn === true ? updateSoundOn(false) : updateSoundOn(true)
+
+    }
+
 
     return (
         <div className='App'>
@@ -297,10 +307,15 @@ const App = (props) => {
                     />
                     <button className='connectionButton' onClick={connectToStomp} id='cB'>{(isConnected === false) ? "Connect" : "Connected"}</button>
                 </div>
-                <h3 className="title" style={{ color: "White" }}>R i v e r</h3>
+
+                <div className="appTitle">
+                    <img src={soundOn === true ? soundOnIcon : soundOffIcon} onClick={handleSound} style={{ height: "50%", width: "10%", padding: "15px" }} alt="" />
+                    <h3 className="title" style={{ color: "White" }}>R i v e r</h3>
+                </div>
+
             </div>
 
-            { props.isConnected ? <div className='bottomBar'>
+            {props.isConnected ? <div className='bottomBar'>
                 <div className='subscriptionBar'>
                     <div className='subsTitleBar'>
                         {currentRoute}
@@ -319,7 +334,7 @@ const App = (props) => {
                             {renderRoutes()}
                         </div>
                     </div>
-                    {routeSelected === true  ? <div className='subsEditor'>
+                    {routeSelected === true ? <div className='subsEditor'>
                         <Editor
                             className='seditor'
                             value={data}
@@ -328,11 +343,11 @@ const App = (props) => {
                             highlight={(code) => hightlightWithLineNumbers(code, languages.js)}
                             padding="30px"
                         />
-                    </div> : <div className='routeNullWarning'>No routes available or selected, add one above.</div> }
-                    {routeSelected === true  ? <div className="titleContainer">
+                    </div> : <div className='routeNullWarning'>No routes available or selected, add one above.</div>}
+                    {routeSelected === true ? <div className="titleContainer">
                         Send Message
                     </div> : <></>}
-                    {routeSelected === true  ? <div className='subsEditor'>
+                    {routeSelected === true ? <div className='subsEditor'>
                         <Editor
                             className='seditor'
                             value={header}
@@ -342,7 +357,7 @@ const App = (props) => {
                             padding="30px"
                         />
                     </div> : <></>}
-                    {routeSelected === true  ? <div className="titleContainer">
+                    {routeSelected === true ? <div className="titleContainer">
                         Header
                     </div> : <></>}
                 </div>
