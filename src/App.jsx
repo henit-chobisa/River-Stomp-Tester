@@ -35,8 +35,10 @@ const App = (props) => {
     const [subscriptions, updateSubscriptions] = useState([]);
     const [subsText, updateSubsText] = useState("");
     const [currentSubscription, updateCurrentSubscription] = useState("Current Route")
+    const [added, updateAdded] = useState(false);
     const [currentRoute, updateCurrentRoute] = useState("No Route Selected");
     const [currentCounter, updateCurrentCounter] = useState(0);
+    const [error, updateError] = useState("");
     const isConnected = props.isConnected;
     const client = props.getClient();
     const subscriptionList = useRef();
@@ -62,6 +64,7 @@ const App = (props) => {
     }
 
     const handleSubscriptionAdd = () => {
+        showError("Subscription Added");
         if (subsText.length !== 0) {
             var present = false;
             var clone = subscriptions.slice(0);
@@ -75,6 +78,7 @@ const App = (props) => {
                 clone.push({ route: subsText, key: Math.random(100), data: {}, isActive: false, counter: 0 });
                 updateSubscriptions(clone);
                 updateSubsText("");
+                updateAdded(true);
             }
             
         }
@@ -93,10 +97,13 @@ const App = (props) => {
 
     useEffect(() => {
         if (subscriptions.length > 3){
-            scrollIndexSubscriptions(subscriptions.length - 1)
+            if (added === true){
+                scrollIndexSubscriptions(subscriptions.length - 1);
+                updateAdded(false);
+            }
         }
 
-    }, [subscriptions])
+    }, [subscriptions, added])
 
 
     function handleSubsPop(index) {
@@ -236,6 +243,13 @@ const App = (props) => {
         }
     }
 
+    const showError = (error) => {
+        updateError(error);
+        setTimeout(() => {
+            updateError("");
+        }, 3000);
+    }
+
 
     return (
         <div className='App'>
@@ -251,7 +265,7 @@ const App = (props) => {
                 <h3 className="title" style={{ color: "White" }}>R i v e r</h3>
             </div>
 
-            <div className='bottomBar'>
+            { props.isConnected ? <div className='bottomBar'>
                 <div className='subscriptionBar'>
                     <div className='subsTitleBar'>
                         {currentRoute}
@@ -328,13 +342,13 @@ const App = (props) => {
                         </div> : <></>}
                     </div>
                 </div>
-            </div>
+            </div> : <div className='connectionWarning'>No Server Connected, Kindle connect first.</div>}
             {/* <div className='bottomTitle'>
                 <p>v1.0.0 Designed and Developed By Henit Chobisa</p>
             </div> */}
-            {/* <div className='errorBox'>
-                You have this error kindly do this
-            </div> */}
+            {error !== "" ? <div className='errorBox'>
+                {error}
+            </div> : <></>}
         </div>
     );
 }
