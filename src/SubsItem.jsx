@@ -1,5 +1,6 @@
 
 import {useSubscription, useStompClient} from "react-stomp-hooks"
+import { useRef } from "react";
 
 const SubsItem = (props) => {
 
@@ -20,6 +21,7 @@ const SubsItem = (props) => {
 
 
     const activation = () => {
+        
         if(props.isActive === true){
             return {
                 backgroundColor: "rgb(239, 118, 122)"
