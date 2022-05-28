@@ -39,9 +39,11 @@ const App = (props) => {
     const [currentRoute, updateCurrentRoute] = useState("No Route Selected");
     const [currentCounter, updateCurrentCounter] = useState(0);
     const [error, updateError] = useState("");
+    const [routeSelected, updateRouteSelected] = useState(false);
     const isConnected = props.isConnected;
     const client = props.getClient();
     const subscriptionList = useRef();
+    const routeList = useRef();
 
 
     const handleSendEvent = () => {
@@ -62,6 +64,12 @@ const App = (props) => {
     const handleSubsInput = (evt) => {
         updateSubsText(evt.target.value);
     }
+
+    useEffect(() => {
+        if (routes.length === 0){
+            updateRouteSelected(false);
+        }
+    }, [routes])
 
     const handleSubscriptionAdd = () => {
         showError("Subscription Added");
@@ -223,6 +231,7 @@ const App = (props) => {
     }
 
     const handleRouteItemSelection = (index, target) => {
+        updateRouteSelected(true);
         if (target.tagName === "DIV"){
             var clone = [...routes];
             clone.map((route) =>
@@ -284,7 +293,7 @@ const App = (props) => {
                             {renderRoutes()}
                         </div>
                     </div>
-                    <div className='subsEditor'>
+                    {routeSelected === true  ? <div className='subsEditor'>
                         <Editor
                             className='seditor'
                             value={data}
@@ -293,11 +302,11 @@ const App = (props) => {
                             highlight={(code) => hightlightWithLineNumbers(code, languages.js)}
                             padding="30px"
                         />
-                    </div>
-                    <div className="titleContainer">
+                    </div> : <div className='routeNullWarning'>No routes available or selected, add one above.</div> }
+                    {routeSelected === true  ? <div className="titleContainer">
                         Send Message
-                    </div>
-                    <div className='subsEditor'>
+                    </div> : <></>}
+                    {routeSelected === true  ? <div className='subsEditor'>
                         <Editor
                             className='seditor'
                             value={header}
@@ -306,10 +315,10 @@ const App = (props) => {
                             highlight={(code) => hightlightWithLineNumbers(code, languages.js)}
                             padding="30px"
                         />
-                    </div>
-                    <div className="titleContainer">
+                    </div> : <></>}
+                    {routeSelected === true  ? <div className="titleContainer">
                         Header
-                    </div>
+                    </div> : <></>}
                 </div>
                 <div className='resultBar'>
                     <div className='resTitleBar'>

@@ -1,6 +1,5 @@
 
-import {useSubscription, useStompClient} from "react-stomp-hooks"
-import { useRef } from "react";
+import {useSubscription} from "react-stomp-hooks"
 
 const SubsItem = (props) => {
 
@@ -37,7 +36,7 @@ const SubsItem = (props) => {
 
     return (
         <div className='subsItem' style={activation()} onClick={handleOverClick}>
-            {props.route}
+            <p>{props.route}</p>
             <button onClick={handleCancel}>
                 x
             </button>

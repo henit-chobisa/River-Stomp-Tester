@@ -114,7 +114,7 @@
 
 .App .bottomBar .resultBar .subsList .subsItem {
   height: 60%;
-  min-width: 150px;
+  min-width: 40%;
   max-lines: 1;
   /* background-color: rgb(0, 160, 198); */
   border-radius: 100px;
@@ -460,6 +460,17 @@
   counter-reset: line;
   /* overflow: scroll; */
   /* color: white; */
+}
+
+.App .bottomBar .subscriptionBar .routeNullWarning {
+  height: 100%;
+  width: 100%;
+  color: gray;
+  font-size: smaller;
+  font-style: italic;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .App .bottomBar .subscriptionBar .subsEditor .seditor #codeArea {
