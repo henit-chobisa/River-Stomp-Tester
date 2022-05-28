@@ -100,7 +100,9 @@ const App = (props) => {
 
     const scrollIndexSubscriptions = (index) => {
         if (index > 2) {
-            subscriptionList.current.getElementsByClassName("subsItem")[index].scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+
+                subscriptionList.current.getElementsByClassName("subsItem")[index].scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+            
         }
     }
 

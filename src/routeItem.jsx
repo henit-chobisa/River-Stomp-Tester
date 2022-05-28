@@ -6,6 +6,7 @@ const routeItem = (props) => {
 
     const activation = () => {
         if(props.isActive === true){
+            
             return {
                 backgroundColor: "rgb(239, 118, 122)"
             }

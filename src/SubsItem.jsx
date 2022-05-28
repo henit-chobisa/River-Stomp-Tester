@@ -1,10 +1,16 @@
 
 import {useSubscription} from "react-stomp-hooks"
+import { useRef } from "react"
 
 const SubsItem = (props) => {
 
+    const itemRef = useRef();
     const handleMessage = (message) => {
         props.handleSubsMessage(message.body, props.index);
+        itemRef.current.className = "subItemAnim";
+        setTimeout(() => {
+            itemRef.current.className = "subsItem"
+    }, 700);
     }
     
     useSubscription(props.route, handleMessage)
@@ -23,7 +29,7 @@ const SubsItem = (props) => {
         
         if(props.isActive === true){
             return {
-                backgroundColor: "rgb(239, 118, 122)"
+                backgroundColor: "rgb(239, 118, 122)",
             }
         }
         else {
@@ -35,7 +41,7 @@ const SubsItem = (props) => {
     }
 
     return (
-        <div className='subsItem' style={activation()} onClick={handleOverClick}>
+        <div className='subsItem' style={activation()} ref={itemRef} onClick={handleOverClick}>
             <p>{props.route}</p>
             <button onClick={handleCancel}>
                 x

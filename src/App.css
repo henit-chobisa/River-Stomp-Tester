@@ -137,6 +137,18 @@
   scroll-margin-block-end: 0%;
 }
 
+@keyframes shakeAnimation {
+  0% {
+    left: 0.5%;
+  }
+  50% {
+    right: 0.5%;
+  }
+  100%{
+    left: 0%;
+  }
+}
+
 .App .bottomBar .resultBar .subsList .subsItem {
   height: 60%;
   min-width: 40%;
@@ -157,9 +169,43 @@
   display: flex;
   justify-content: space-between;
   cursor: pointer;
+  position: relative;
+  animation-name: shakeAnimation;
+  
+}
+
+.App .bottomBar .resultBar .subsList .subItemAnim {
+  height: 60%;
+  min-width: 40%;
+  max-lines: 1;
+  /* background-color: rgb(0, 160, 198); */
+  border-radius: 100px;
+  color: white;
+  font-weight: bold;
+  font-size: smaller;
+  display: flex;
+  align-items: center;
+  padding-left: 2%;
+  padding-right: 2%;
+  margin-left: 0.5%;
+  margin-right: 0.5%;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  position: relative;
+  animation-name: shakeAnimation;
+  animation-duration: 0.1s;
+  animation-iteration-count: infinite;
+  
 }
 
 .App .bottomBar .resultBar .subsList .subsItem p {
+  cursor: pointer;
+}
+
+.App .bottomBar .resultBar .subsList .subItemAnim p {
   cursor: pointer;
 }
 
@@ -171,6 +217,14 @@
 }
 
 .App .bottomBar .resultBar .subsList .subsItem button {
+  color: white;
+  background-color: transparent;
+  border: none;
+  font-weight: bold;
+  z-index: 10;
+}
+
+.App .bottomBar .resultBar .subsList .subItemAnim button {
   color: white;
   background-color: transparent;
   border: none;
@@ -362,7 +416,7 @@
   background-color: rgb(198, 198, 198);
   font-weight: bold;
   animation-name: runAnimation;
-  animation-duration: 0.7s;
+  animation-duration: 0.5s;
 }
 
 .App .bottomBar .subscriptionBar .routeBox .routeTrigger {
