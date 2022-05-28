@@ -26,9 +26,12 @@
   width: 100%;
   height: 85%;
   color: gray;
+  font-size: small;
+  font-style: italic;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor:default;
 }
 
 .App .upperBar .title {
@@ -46,6 +49,15 @@
   border-radius: 100px;
 }
 
+@keyframes lengthAnimation {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
 .App .upperBar .cd .urlFeild {
   height: 90%;
   width: 100%;
@@ -57,6 +69,8 @@
   border :0ch;
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   background-color: rgb(198, 198, 198);
+  animation-name: lengthAnimation;
+  animation-duration: 2s;
 }
 
 .App .bottomBar .subscriptionBar {
@@ -87,11 +101,22 @@
   font-weight: bold;
 }
 
+@keyframes lengthSubsAnim {
+  from {
+    width: 0%;
+  }
+  to { 
+    width: 45%;
+  }
+}
+
 .App .bottomBar .resultBar .resTitleBar .subsInp {
   height: 100%;
   width: 45%;
   display: flex;
   align-items: center;
+  animation-name: lengthSubsAnim;
+  animation-duration: 2s;
 }
 
 .App .bottomBar .resultBar .resTitleBar .subsInp button:hover {
@@ -131,6 +156,11 @@
   overflow-x: scroll;
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
+}
+
+.App .bottomBar .resultBar .subsList .subsItem p {
+  cursor: pointer;
 }
 
 .App .bottomBar .resultBar .resultEditor {
@@ -260,15 +290,25 @@
 }
 
 .App .bottomBar .subscriptionBar .subsTitleBar .routeManager{
-  width: 40%;
+  width: 50%;
   height: 100%;
   display: flex;
   justify-content: center;
   margin: 1%;
 }
 
+@keyframes lengthRouteAnim {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 80%;
+  }
+  
+}
+
 .App .bottomBar .subscriptionBar .subsTitleBar .routeManager input{
-  height: 65%;
+  height: 70%;
   width: 80%;
   outline: none;
   border-radius: 100px;
@@ -278,6 +318,8 @@
   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   background-color: rgb(198, 198, 198);
   padding-left: 5%;
+  animation-name: lengthRouteAnim;
+  animation-duration: 2s;
 }
 
 .App .bottomBar .subscriptionBar .routeBox {
@@ -288,10 +330,46 @@
   justify-content: flex-start;
 }
 
+@keyframes runAnimation {
+  0% {
+    left: 0%;
+    opacity: 1;
+    background-color: rgb(255, 255, 255);
+  }
+  80% {
+    left: 100%;
+    opacity: 0;
+    background-color: rgb(18, 226, 87);
+  }
+  90% {
+    left: -10%;
+    opacity: 0;
+  }
+  100% {
+    left: 0%;
+    opacity: 1;
+    background-color: rgb(198, 198, 198);
+  }
+}
+
+.App .bottomBar .subscriptionBar .routeBox .buttonAnim {
+  width: 20%;
+  height: 80%;
+  border-radius: 10px;
+  position: relative;
+  border: none;
+  color: black;
+  background-color: rgb(198, 198, 198);
+  font-weight: bold;
+  animation-name: runAnimation;
+  animation-duration: 0.7s;
+}
+
 .App .bottomBar .subscriptionBar .routeBox .routeTrigger {
   width: 20%;
   height: 80%;
   border-radius: 10px;
+  position: relative;
   border: none;
   color: black;
   background-color: rgb(198, 198, 198);
@@ -299,6 +377,11 @@
 }
 
 .App .bottomBar .subscriptionBar .routeBox .routeTrigger:hover {
+  background-color: rgb(239, 118, 122);
+  color: white;
+}
+
+.App .bottomBar .subscriptionBar .routeBox .buttonAnim:hover {
   background-color: rgb(239, 118, 122);
   color: white;
 }
@@ -345,6 +428,7 @@
 .App .bottomBar .subscriptionBar .routeBox .routeList .routeItem p {
   max-width: 88%;
   overflow: scroll;
+  cursor: pointer;
 }
 
 .App .bottomBar .subscriptionBar .routeBox .routeList .routeItem p::-webkit-scrollbar{

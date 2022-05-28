@@ -22,6 +22,7 @@ const hightlightWithLineNumbers = (input, language) =>{
 
 
 const App = (props) => {
+
     var audio = new Audio(bell);
     var defaultBody = "{\n\t\"message\" : \"Insert your body here\"\n}";
     var defaultHeader = "{\n\t\"message\" : \"Insert your header here\"\n}"
@@ -44,14 +45,20 @@ const App = (props) => {
     const client = props.getClient();
     const subscriptionList = useRef();
     const routeList = useRef();
+    const sendButton = useRef();
 
 
     const handleSendEvent = () => {
+        // sendButton.current.addClass("buttonAnim");
+        sendButton.current.className = "buttonAnim";
         client?.publish({
             destination: currentRoute,
             header: JSON.stringify(JSON.parse(header)),
             body: JSON.stringify(JSON.parse(data))
         })
+        setTimeout(() => {
+            sendButton.current.className = "routeTrigger"
+        }, 2000)
     }
     const updateInputValue = (evt) => {
         updateConnectionURL(evt.target.value);
@@ -88,7 +95,6 @@ const App = (props) => {
                 updateSubsText("");
                 updateAdded(true);
             }
-            
         }
     }
 
@@ -191,7 +197,14 @@ const App = (props) => {
         clone.push({value : routeValue, index : clone.length, body: defaultBody, header: defaultHeader, isActive: false});
         updateRoutes(clone);
         updateRouteValue("");
+        
     }
+
+    useEffect(() => {
+        if (routes.length > 2){
+            routeList.current.getElementsByClassName("routeItem")[routes.length - 1].scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+        }
+    }, [routes]);
 
     const renderRoutes = () => {
         if (routes.length === 0){
@@ -222,17 +235,22 @@ const App = (props) => {
                 }
             }
             else {
+                updateRouteSelected(false);
                 updateData(defaultBody)
                 updateHeader(defaultHeader)
                 updateCurrentRoute("No Route Selected");
             }
         }
+        else {
+            updateRouteSelected(false);
+        }
         updateRoutes(clone);
     }
 
     const handleRouteItemSelection = (index, target) => {
-        updateRouteSelected(true);
+        
         if (target.tagName === "DIV"){
+            updateRouteSelected(true);
             var clone = [...routes];
             clone.map((route) =>
                 {
@@ -286,10 +304,10 @@ const App = (props) => {
                         </div>
                     </div>
                     <div className="routeBox">
-                        <button className='routeTrigger' onClick={handleSendEvent}>
+                        <button className='routeTrigger' onClick={handleSendEvent} ref={sendButton}>
                             Send
                         </button>
-                        <div className="routeList">
+                        <div className="routeList" ref={routeList}>
                             {renderRoutes()}
                         </div>
                     </div>
