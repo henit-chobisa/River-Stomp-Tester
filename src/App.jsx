@@ -13,6 +13,8 @@ import SubsItem from './SubsItem';
 import { useState } from 'react';
 import bell from "./bell.wav";
 import RouteItem from './routeItem';
+import { useRef } from 'react';
+import { useEffect } from 'react';
 
 const hightlightWithLineNumbers = (input, language) =>{
     return highlight(input, language).split("\n").map((line, i) => `<span class='editorLineNumber'>${i + 1}\t</span>${line}`).join("\n")};
@@ -37,6 +39,7 @@ const App = (props) => {
     const [currentCounter, updateCurrentCounter] = useState(0);
     const isConnected = props.isConnected;
     const client = props.getClient();
+    const subscriptionList = useRef();
 
 
     const handleSendEvent = () => {
@@ -73,6 +76,13 @@ const App = (props) => {
                 updateSubscriptions(clone);
                 updateSubsText("");
             }
+            
+        }
+    }
+
+    const scrollIndexSubscriptions = (index) => {
+        if (index > 2) {
+            subscriptionList.current.getElementsByClassName("subsItem")[index].scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
         }
     }
 
@@ -80,6 +90,13 @@ const App = (props) => {
     const handleDataUpdate = (data) => {
         updateData(data);
     }
+
+    useEffect(() => {
+        if (subscriptions.length > 3){
+            scrollIndexSubscriptions(subscriptions.length - 1)
+        }
+
+    }, [subscriptions])
 
 
     function handleSubsPop(index) {
@@ -146,6 +163,7 @@ const App = (props) => {
         }
         updateSubscriptions(dup);
         handleSubsClick(index, { tagName: "DIV" });
+        scrollIndexSubscriptions(index);
         audio.play();
     }
 
@@ -287,7 +305,7 @@ const App = (props) => {
                             <button style={{ color: "white" }} onClick={handleSubscriptionAdd}>+</button>
                         </div>
                     </div>
-                    <div className='subsList'>
+                    <div className='subsList' ref={subscriptionList}>
                         {loadSubscriptions()}
                     </div>
 

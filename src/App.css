@@ -95,10 +95,12 @@
   overflow: scroll;
   display: flex;
   justify-content: flex-start;
+  scrollbar-width: 10%;
   align-items: center;
   padding-left: 1%;
   padding-right: 1%;
   background-color: black;
+  scroll-margin-block-end: 0%;
 }
 
 .App .bottomBar .resultBar .subsList .subsItem {
@@ -311,6 +313,7 @@
 
 .App .bottomBar .subscriptionBar .routeBox .routeList .routeItem {
   min-width: 35%;
+  
   max-width: 50%;
   height: 70%;
   /* background-color: rgb(0, 160, 198); */
