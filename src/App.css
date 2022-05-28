@@ -132,7 +132,7 @@
   scrollbar-width: 10%;
   align-items: center;
   padding-left: 1%;
-  padding-right: 1%;
+  padding-right: 1;
   background-color: black;
   scroll-margin-block-end: 0%;
 }
@@ -149,11 +149,16 @@
   }
 }
 
+.App .bottomBar .resultBar .subsList::-webkit-scrollbar{
+  display: none;
+}
+
+
+
 .App .bottomBar .resultBar .subsList .subsItem {
   height: 60%;
-  min-width: 40%;
+  min-width: 20%;
   max-lines: 1;
-  /* background-color: rgb(0, 160, 198); */
   border-radius: 100px;
   color: white;
   font-weight: bold;
@@ -169,16 +174,13 @@
   display: flex;
   justify-content: space-between;
   cursor: pointer;
-  position: relative;
-  animation-name: shakeAnimation;
-  
+  position: relative;  
 }
 
 .App .bottomBar .resultBar .subsList .subItemAnim {
   height: 60%;
-  min-width: 40%;
+  min-width: 20%;
   max-lines: 1;
-  /* background-color: rgb(0, 160, 198); */
   border-radius: 100px;
   color: white;
   font-weight: bold;
@@ -448,6 +450,10 @@
   align-items: center;
   padding: 10px;
   overflow: scroll;
+}
+
+.App .bottomBar .subscriptionBar .routeBox .routeList::-webkit-scrollbar{
+  display: none;
 }
 
 .App .bottomBar .subscriptionBar .routeBox .routeList .warning {
@@ -729,6 +735,20 @@ textarea:focus, input:focus{
   padding-left: 1.2%;
 }
 
+@keyframes errorAnimation {
+  0% {
+    top : 5%
+  }
+  50% {
+    top : 0%
+  }
+  100% {
+    top : 5%
+  }
+  
+}
+
+
 .App .errorBox {
   width: 100%;
   height: 3.5%;
@@ -740,4 +760,8 @@ textarea:focus, input:focus{
   font-weight: bold;
   font-style: italic;
   font-size: smaller;
+  position: relative;
+  top: 5%;
+  animation-name: errorAnimation;
+  animation-duration: 3s;
 }

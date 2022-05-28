@@ -19,8 +19,6 @@ import { useEffect } from 'react';
 const hightlightWithLineNumbers = (input, language) =>{
     return highlight(input, language).split("\n").map((line, i) => `<span class='editorLineNumber'>${i + 1}\t</span>${line}`).join("\n")};
 
-
-
 const App = (props) => {
 
     var audio = new Audio(bell);
@@ -37,6 +35,7 @@ const App = (props) => {
     const [subsText, updateSubsText] = useState("");
     const [currentSubscription, updateCurrentSubscription] = useState("Current Route")
     const [added, updateAdded] = useState(false);
+    const [routeAdded, updateRouteAdded] = useState(false);
     const [currentRoute, updateCurrentRoute] = useState("No Route Selected");
     const [currentCounter, updateCurrentCounter] = useState(0);
     const [error, updateError] = useState("");
@@ -100,9 +99,7 @@ const App = (props) => {
 
     const scrollIndexSubscriptions = (index) => {
         if (index > 2) {
-
                 subscriptionList.current.getElementsByClassName("subsItem")[index].scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
-            
         }
     }
 
@@ -118,7 +115,6 @@ const App = (props) => {
                 updateAdded(false);
             }
         }
-
     }, [subscriptions, added])
 
 
@@ -143,8 +139,14 @@ const App = (props) => {
                 }
             }
             else {
+                updateCurrentCounter(0);
                 updateResultData(testData);
                 updateCurrentSubscription("Current Route")
+            }
+        }
+        else {
+            if (clone.length === 0){
+                updateCurrentCounter(0);
             }
         }
         updateSubscriptions(clone);
@@ -199,14 +201,18 @@ const App = (props) => {
         clone.push({value : routeValue, index : clone.length, body: defaultBody, header: defaultHeader, isActive: false});
         updateRoutes(clone);
         updateRouteValue("");
+        updateRouteAdded(true);
         
     }
 
     useEffect(() => {
         if (routes.length > 2){
-            routeList.current.getElementsByClassName("routeItem")[routes.length - 1].scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+            if(routeAdded === true){
+                routeList.current.getElementsByClassName("routeItem")[routes.length - 1].scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+                updateRouteAdded(false);
+            }
         }
-    }, [routes]);
+    }, [routes, routeAdded]);
 
     const renderRoutes = () => {
         if (routes.length === 0){
