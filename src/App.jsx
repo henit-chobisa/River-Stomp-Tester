@@ -41,7 +41,7 @@ const App = (props) => {
     const [routeAdded, updateRouteAdded] = useState(false);
     const [currentRoute, updateCurrentRoute] = useState("No Route Selected");
     const [currentCounter, updateCurrentCounter] = useState(0);
-    const [error, updateError] = useState("");
+    const [error, updateError] = useState(props.error);
     const [routeSelected, updateRouteSelected] = useState(false);
     const [soundOn, updateSoundOn] = useState(true);
     const isConnected = props.isConnected;
@@ -52,23 +52,33 @@ const App = (props) => {
 
 
     const handleSendEvent = () => {
-        // sendButton.current.addClass("buttonAnim");
-        sendButton.current.className = "buttonAnim";
-        client?.publish({
-            destination: currentRoute,
-            header: JSON.stringify(JSON.parse(header)),
-            body: JSON.stringify(JSON.parse(data))
-        })
-        setTimeout(() => {
-            sendButton.current.className = "routeTrigger"
-        }, 2000)
+        if (routes.length === 0 || routeSelected === false){
+            updateError("No routes available or selected");
+        }
+        else{
+            sendButton.current.className = "buttonAnim";
+            client?.publish({
+                destination: currentRoute,
+                header: JSON.stringify(JSON.parse(header)),
+                body: JSON.stringify(JSON.parse(data))
+            })
+            setTimeout(() => {
+                sendButton.current.className = "routeTrigger"
+            }, 2000)
+        }
     }
     const updateInputValue = (evt) => {
         updateConnectionURL(evt.target.value);
     }
 
     const connectToStomp = () => {
-        props.handleURL(connectionURL);
+        if (isConnected === true){
+            props.disconnection();
+        }
+        else {
+            props.handleURL(connectionURL);
+        }
+        
     }
 
     const handleSubsInput = (evt) => {
@@ -82,7 +92,6 @@ const App = (props) => {
     }, [routes])
 
     const handleSubscriptionAdd = () => {
-        showError("Subscription Added");
         if (subsText.length !== 0) {
             var present = false;
             var clone = subscriptions.slice(0);
@@ -283,16 +292,17 @@ const App = (props) => {
         }
     }
 
-    const showError = (error) => {
-        updateError(error);
-        setTimeout(() => {
-            updateError("");
-        }, 3000);
-    }
+    useEffect(() => {
+        if (error !== ""){
+            console.log(error);
+            setTimeout(() => {
+                updateError("");
+            }, 5000);
+        }
+    }, [error])
 
     const handleSound = () => {
         soundOn === true ? updateSoundOn(false) : updateSoundOn(true)
-
     }
 
 
@@ -305,7 +315,7 @@ const App = (props) => {
                         placeholder="Enter a Url to an stomp endpoint"
                         onChange={updateInputValue}
                     />
-                    <button className='connectionButton' onClick={connectToStomp} id='cB'>{(isConnected === false) ? "Connect" : "Connected"}</button>
+                    <button className='connectionButton' onClick={connectToStomp} id='cB'>{(isConnected === false) ? "Connect" : "Disconnect"}</button>
                 </div>
 
                 <div className="appTitle">

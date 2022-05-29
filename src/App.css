@@ -739,7 +739,10 @@ textarea:focus, input:focus{
   0% {
     top : 5%
   }
-  50% {
+  20% {
+    top : 0%
+  }
+  80% {
     top : 0%
   }
   100% {
@@ -779,5 +782,5 @@ textarea:focus, input:focus{
   position: relative;
   top: 5%;
   animation-name: errorAnimation;
-  animation-duration: 3s;
+  animation-duration: 5s;
 }
