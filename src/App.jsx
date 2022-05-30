@@ -1,6 +1,6 @@
 import React from 'react';
 import "./App.css";
-import logo from "./logo.png"
+import logo from "./Assets/logo.png"
 import JSONInput from "react-json-editor-ajrm"
 import locale from 'react-json-editor-ajrm/locale/en'
 import testData from './Assets/testData';
@@ -33,7 +33,6 @@ const App = (props) => {
     const [routeValue, updateRouteValue] = useState("");
     const [routes, updateRoutes] = useState([]);
     const [resultData, updateResultData] = useState(testData);
-    // const [sendRoute, updateSendRoute] = useState("");
     const [subscriptions, updateSubscriptions] = useState([]);
     const [subsText, updateSubsText] = useState("");
     const [currentSubscription, updateCurrentSubscription] = useState("Current Route")
