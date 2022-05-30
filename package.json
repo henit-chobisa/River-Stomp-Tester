@@ -1,6 +1,7 @@
 {
   "name": "stomp_tester",
-  "version": "0.1.0",
+  "productName" : "River Stomp Tester",
+  "version": "1.4.0",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
@@ -47,5 +48,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "electron": "^19.0.1",
+    "electron-packager": "^15.5.1"
   }
 }

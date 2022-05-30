@@ -3,18 +3,18 @@ import "./App.css";
 import logo from "./logo.png"
 import JSONInput from "react-json-editor-ajrm"
 import locale from 'react-json-editor-ajrm/locale/en'
-import testData from './testData';
+import testData from './Assets/testData';
 import Editor from "react-simple-code-editor";
 import { highlight, languages } from "prismjs/components/prism-core";
 import "prismjs/components/prism-clike";
 import "prismjs/components/prism-javascript";
 import "prismjs/themes/prism.css";
-import SubsItem from './SubsItem';
+import SubsItem from './Components/SubsItem';
 import { useState } from 'react';
-import bell from "./bell.wav";
-import RouteItem from './routeItem';
-import soundOnIcon from './soundOn.png'
-import soundOffIcon from './soundOff.png'
+import bell from "./Assets/bell.wav";
+import RouteItem from '././Components/routeItem';
+import soundOnIcon from './Assets/soundOn.png'
+import soundOffIcon from './Assets/soundOff.png'
 import { useRef } from 'react';
 import { useEffect } from 'react';
 
