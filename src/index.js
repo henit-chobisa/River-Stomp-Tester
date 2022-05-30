@@ -40,7 +40,6 @@ function Comp(){
   }
 
   const handleStompDisconnect = () => {
-    console.log("Disconnect");
     updateError("Socket Disconnect, Trying Again.");
   }
 
