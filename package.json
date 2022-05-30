@@ -1,6 +1,6 @@
 {
   "name": "stomp_tester",
-  "productName" : "River Stomp Tester",
+  "productName": "River Stomp Tester",
   "version": "1.4.0",
   "private": true,
   "homepage": "./",
@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/react-json-editor-ajrm": "2.5.2",
     "electron-reload": "*",
+    "electron-wix-msi": "^4.0.0",
     "prismjs": "^1.28.0",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
@@ -27,7 +28,8 @@
     "eject": "react-scripts eject",
     "dev": "concurrently -k \"BROWSER=none npm start\" \"npm:electron\"",
     "electron": "wait-on tcp:3000 && electron .",
-    "packageDarwin" : "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=./src/assets/logo.icns --prune=true --out=../Releases"
+    "packageDarwin": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=./src/assets/logo.icns --prune=true --out=../Releases",
+    "packageWin32": "electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --icon=./src/assets/logo.ico --prune=true --out=../ReleasesWin32"
   },
   "eslintConfig": {
     "extends": [
