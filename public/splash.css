@@ -1,5 +1,6 @@
 body {
     background-color: black;
+    margin: 0;
 }
 
 .main {
@@ -13,6 +14,8 @@ body {
     align-items: center;
     justify-content: space-evenly;
     cursor: none;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .main img {

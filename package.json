@@ -3,6 +3,7 @@
   "productName": "River Stomp Tester",
   "version": "1.4.0",
   "private": true,
+  "description": "Testing software for stomp message broker",
   "homepage": "./",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
@@ -37,6 +38,9 @@
       "react-app/jest"
     ]
   },
+  "engines": {
+    "node": ">=16.4.0"
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -51,6 +55,7 @@
   },
   "devDependencies": {
     "electron": "^19.0.1",
-    "electron-packager": "^15.5.1"
+    "electron-packager": "^15.5.1",
+    "electron-winstaller": "^5.0.0"
   }
 }
