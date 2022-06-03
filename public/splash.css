@@ -5,10 +5,8 @@ body {
 
 .main {
     background-color: black;
-    height: 100vh;
-    width: 100vw;
-    margin-top: 1%;
-    margin-bottom: 2%;
+    height: 320px;
+    width: 720px;
     display: flex;
     flex-direction: column;
     align-items: center;

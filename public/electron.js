@@ -1,5 +1,6 @@
 const path = require('path');
 const { BrowserWindow,app} = require("electron");
+const isDev = require('electron-is-dev');
 
   const createWindow = () => {
     const win = new BrowserWindow({
@@ -11,6 +12,9 @@ const { BrowserWindow,app} = require("electron");
         show: false,
         webPreferences: {
             nodeIntegration: true,
+          },
+        titleBarOverlay: {
+            color: "black"
           }
     });
 
@@ -21,14 +25,22 @@ const { BrowserWindow,app} = require("electron");
         resizable: false,
         transparent: false,
         frame: false,
-        alwaysOnTop: true
+        alwaysOnTop: true,
+        
     })
 
-    splashScreen.loadURL(`file://${path.join(__dirname, '../build/splash.html')}`);
+    // splashScreen.loadURL(`file://${path.join(__dirname, '../build/splash.html')}`);
+    splashScreen.loadURL(`file://${__dirname}/splash.html`);
 
     win.loadURL(
-          `file://${path.join(__dirname, '../build/index.html')}`
+          isDev
+          ? 'http://localhost:3000'
+          : `file://${path.join(__dirname, '../build/index.html')}`
       );
+
+      if (isDev) {
+        win.webContents.openDevTools({ mode: 'detach' });
+    }
 
     setTimeout(function () {
       splashScreen.destroy();
