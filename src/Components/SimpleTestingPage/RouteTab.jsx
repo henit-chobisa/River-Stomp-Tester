@@ -6,6 +6,7 @@ import { useRef } from 'react';
 import {useState, useEffect} from "react"
 import { useStompClient } from 'react-stomp-hooks';
 import EditorComp from './EditorComp';
+import HoverTitleComp from './HoverTitleComp';
 
 const RouteTab = (props) => {
 
@@ -146,13 +147,9 @@ const RouteTab = (props) => {
                         </div>
                     </div>
                     {routeSelected === true ? <EditorComp data={data} updateData={updateData}/> : <div className='routeNullWarning'>No routes available or selected, add one above.</div>}
-                    {routeSelected === true ? <div className="titleContainer">
-                        Send Message
-                    </div> : <></>}
+                    <HoverTitleComp routeSelected={routeSelected} title={"Headers"}/>
                     {routeSelected === true ? <EditorComp data={header} updateData={updateHeader}/> : <></>}
-                    {routeSelected === true ? <div className="titleContainer">
-                        Header
-                    </div> : <></>}
+                    <HoverTitleComp routeSelected={routeSelected} title={"Headers"}/>
                 </div>
     )
 }
