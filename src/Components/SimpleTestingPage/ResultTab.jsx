@@ -36,8 +36,6 @@ const ResultTab = (props) => {
         }
     }
 
-    
-
     const handleSubscriptionAdd = () => {
         if (subsText.length !== 0) {
             var present = false;
