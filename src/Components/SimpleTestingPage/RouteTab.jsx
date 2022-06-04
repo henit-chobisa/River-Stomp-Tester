@@ -25,7 +25,8 @@ const RouteTab = (props) => {
         if (initLoad === false){
             const storedRoutes = localStorage.getItem("Routes");
             if (storedRoutes === null){
-                localStorage.setItem("Routes", JSON.stringify([]));
+                console.log("Route Update");
+                localStorage.setItem("Routes", JSON.stringify(routes));
             }
             else {
                 var arrRoutes = JSON.parse(storedRoutes);
@@ -49,13 +50,13 @@ const RouteTab = (props) => {
         else {
             clone.at(currentRouteIndex).header = code;
         }
-        localStorage.removeItem("Routes");
         localStorage.setItem("Routes", JSON.stringify(clone));
     }
 
     useEffect(() => {
         if (routeChange !== 0){
-            localStorage.removeItem("Routes");
+            console.log("Saving Routes");
+            console.log(routes);
             localStorage.setItem("Routes", JSON.stringify(routes));
         }
         if (routeChange === 1) {

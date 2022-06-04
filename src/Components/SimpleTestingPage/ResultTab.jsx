@@ -31,14 +31,13 @@ const ResultTab = (props) => {
             else {
                 var subsArr = JSON.parse(subs);
                 subsArr.map((sub) => {
-                    sub.isActive = false;
+                    return sub.isActive = false;
                 })
                 updateSubscriptions(subsArr);
             }
             updateInitSubs(true);
         }
         if (added !== 0){
-            localStorage.removeItem("Subscriptions");
             localStorage.setItem("Subscriptions", JSON.stringify(subscriptions));
         }
         if (subscriptions.length > 3) {
@@ -69,7 +68,7 @@ const ResultTab = (props) => {
                 clone.push({ route: subsText, key: Math.random(100), data: {}, isActive: false, counter: 0 });
                 updateSubscriptions(clone);
                 updateSubsText("");
-                updateAdded(1);
+                localStorage.setItem("Subscriptions", clone);
             }
         }
     }
@@ -116,7 +115,7 @@ const ResultTab = (props) => {
                 updateCurrentCounter(0);
             }
         }
-        updateAdded(2);
+        localStorage.setItem("Subscriptions", clone);
         updateSubscriptions(clone);
     }
 
@@ -132,7 +131,7 @@ const ResultTab = (props) => {
         updateSubscriptions(dup);
         handleSubsClick(index, { tagName: "DIV" });
         scrollIndexSubscriptions(index);
-        updateAdded(1);
+        localStorage.setItem("Subscriptions", dup);
         if (props.soundOn === true){
             audio.play();
         }
@@ -149,7 +148,6 @@ const ResultTab = (props) => {
             updateCurrentSubscription(clone[index].route);
             updateResultData(clone[index].data);
             updateSubscriptions(clone);
-            localStorage.setItem("SubsSelection", index)
         }
     }
 

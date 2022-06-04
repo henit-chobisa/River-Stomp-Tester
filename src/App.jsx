@@ -14,8 +14,14 @@ const App = (props) => {
     const isConnected = props.isConnected;
 
     const updateInputValue = (evt) => {
+        localStorage.setItem("ConnectionURL", evt.target.value);
         updateConnectionURL(evt.target.value);
     }
+
+    useEffect(() => {
+        var connectionURL = localStorage.getItem("ConnectionURL");
+        updateConnectionURL(connectionURL);
+    }, []);
 
     useEffect(() => {
         if (error !== ""){
