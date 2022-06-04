@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import SimpleTestMode from './Components/SimpleTestMode'
-import RoutinePage from './RoutinePage';
 import Handler from './Utilities/StompHandlers';
 import "./Styles/Comp.css"
 
@@ -8,7 +7,6 @@ import "./Styles/Comp.css"
 function Comp(){
     const [connectionURL, updateConnectionURL] = useState("");
     const [error, updateError] = useState("")
-    
     const stompHandler = Handler({updateConnectionURL, updateError});
   
     const renderSimpleTestMode = () => {

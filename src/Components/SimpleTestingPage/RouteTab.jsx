@@ -1,50 +1,60 @@
-
 import RouteItem from './routeItem';
 import { useRef } from 'react';
-
-
 import {useState, useEffect} from "react"
 import { useStompClient } from 'react-stomp-hooks';
 import EditorComp from './EditorComp';
 import HoverTitleComp from './HoverTitleComp';
 
 const RouteTab = (props) => {
-
     var defaultBody = "{\n\t\"message\" : \"Insert your body here\"\n}";
     var defaultHeader = "{\n\t\"message\" : \"Insert your header here\"\n}"
     const [currentRoute, updateCurrentRoute] = useState("No Route Selected");
     const [routeValue, updateRouteValue] = useState("");
     const [routes, updateRoutes] = useState([]);
-    const [routeAdded, updateRouteAdded] = useState(false);
+    const [routeChange, updateRouteChange] = useState(0);
     const [routeSelected, updateRouteSelected] = useState(false);
+    const [initLoad, updateInitLoad] = useState(false);
     const [data, updateData] = useState(defaultBody);
     const [header, updateHeader] = useState(defaultHeader);
     const sendButton = useRef();
     const routeList = useRef();
     const client = useStompClient();
 
-    
     useEffect(() => {
+        if (initLoad === false){
+            const storedRoutes = localStorage.getItem("Routes");
+            if (storedRoutes === null){
+                localStorage.setItem("Routes", JSON.stringify([]));
+            }
+            else {
+                updateRoutes(JSON.parse(storedRoutes));
+            }
+            updateInitLoad(true);
+        }
         if (routes.length === 0) {
             updateRouteSelected(false);
         }
-    }, [routes])
+    }, [routes, initLoad])
 
     useEffect(() => {
-        if (routes.length > 2) {
-            if (routeAdded === true) {
+        if (routeChange !== 0){
+            localStorage.removeItem("Routes");
+            localStorage.setItem("Routes", JSON.stringify(routes));
+        }
+        if (routeChange === 1) {
+            if (routes.length > 2) {
                 routeList.current.getElementsByClassName("routeItem")[routes.length - 1].scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
-                updateRouteAdded(false);
+                updateRouteChange(0);
             }
         }
-    }, [routes, routeAdded]);
+    }, [routes, routeChange]);
 
     const addRoute = () => {
         var clone = [...routes];
         clone.push({ value: routeValue, index: clone.length, body: defaultBody, header: defaultHeader, isActive: false });
         updateRoutes(clone);
         updateRouteValue("");
-        updateRouteAdded(true);
+        updateRouteChange(1);
     }
 
     const handleRoutePop = (index) => {
@@ -77,6 +87,7 @@ const RouteTab = (props) => {
             updateRouteSelected(false);
         }
         updateRoutes(clone);
+        updateRouteChange(2);
     }
 
     const handleSendEvent = () => {

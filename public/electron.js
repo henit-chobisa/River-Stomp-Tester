@@ -1,7 +1,19 @@
 const path = require('path');
-const { BrowserWindow,app} = require("electron");
+const { BrowserWindow,app, ipcMain} = require("electron");
 const isDev = require('electron-is-dev');
+const Store = require("electron-store");
+let store = new Store();
 
+const initalizeStore = () => {
+    if (store.get("Routes") === null){
+      console.log("Initializing DB with routes");
+      store.set("Routes", []);
+    }
+    if (store.get("Subscriptions") === null){
+      console.log("Initializing DB with Subscriptions");
+      store.set("Routes", []);
+    }
+  }
   const createWindow = () => {
     const win = new BrowserWindow({
         width: 1280,
@@ -26,7 +38,25 @@ const isDev = require('electron-is-dev');
         transparent: false,
         frame: false,
         alwaysOnTop: true,
-        
+    });
+
+    initalizeStore();
+
+    ipcMain.on("updateRoutes", (eve, routes) => {
+      console.log("Routes Updates");
+      store.set("Routes", routes)
+    });
+
+    ipcMain.on("updateSubscriptions", (eve, subscriptions) => {
+      store.set("Subscriptions", subscriptions);
+    });
+
+    ipcMain.on("fetchRoutes", (eve, args) => {
+      return store.get("Routes");
+    })
+
+    ipcMain.on("fetchSubscriptions", (eve, args) => {
+      return store.get("Subsctiptions");
     })
 
     // splashScreen.loadURL(`file://${path.join(__dirname, '../build/splash.html')}`);
