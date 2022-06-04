@@ -16,6 +16,7 @@ const RouteTab = (props) => {
     const [initLoad, updateInitLoad] = useState(false);
     const [data, updateData] = useState(defaultBody);
     const [header, updateHeader] = useState(defaultHeader);
+    const [currentRouteIndex, updateCurrentRouteIndex] = useState(-1);
     const sendButton = useRef();
     const routeList = useRef();
     const client = useStompClient();
@@ -27,7 +28,11 @@ const RouteTab = (props) => {
                 localStorage.setItem("Routes", JSON.stringify([]));
             }
             else {
-                updateRoutes(JSON.parse(storedRoutes));
+                var arrRoutes = JSON.parse(storedRoutes);
+                arrRoutes.map((rou) => {
+                    return rou.isActive = false;
+                })
+                updateRoutes(arrRoutes);
             }
             updateInitLoad(true);
         }
@@ -35,6 +40,18 @@ const RouteTab = (props) => {
             updateRouteSelected(false);
         }
     }, [routes, initLoad])
+
+    const handlePersistence = (code, id) => {
+        const clone = [...routes];
+        if (id === 1){
+            clone.at(currentRouteIndex).body = code;
+        }
+        else {
+            clone.at(currentRouteIndex).header = code;
+        }
+        localStorage.removeItem("Routes");
+        localStorage.setItem("Routes", JSON.stringify(clone));
+    }
 
     useEffect(() => {
         if (routeChange !== 0){
@@ -108,7 +125,6 @@ const RouteTab = (props) => {
     }
 
     const handleRouteItemSelection = (index, target) => {
-
         if (target.tagName === "DIV") {
             updateRouteSelected(true);
             var clone = [...routes];
@@ -120,11 +136,12 @@ const RouteTab = (props) => {
                 }
                 return route;
             }
-            )
+            );
             clone[index].isActive = true;
             updateData(clone[index].body);
             updateHeader(clone[index].header);
             updateCurrentRoute(clone[index].value);
+            updateCurrentRouteIndex(index);
             updateRoutes(clone);
         }
     }
@@ -157,9 +174,9 @@ const RouteTab = (props) => {
                             {renderRoutes()}
                         </div>
                     </div>
-                    {routeSelected === true ? <EditorComp data={data} updateData={updateData}/> : <div className='routeNullWarning'>No routes available or selected, add one above.</div>}
+                    {routeSelected === true ? <EditorComp data={data} updateData={updateData} handlePersistence={handlePersistence} id={1}/> : <div className='routeNullWarning'>No routes available or selected, add one above.</div>}
                     <HoverTitleComp routeSelected={routeSelected} title={"Headers"}/>
-                    {routeSelected === true ? <EditorComp data={header} updateData={updateHeader}/> : <></>}
+                    {routeSelected === true ? <EditorComp data={header} updateData={updateHeader} handlePersistence={handlePersistence} id={2}/> : <></>}
                     <HoverTitleComp routeSelected={routeSelected} title={"Headers"}/>
                 </div>
     )
