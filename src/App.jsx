@@ -19,7 +19,6 @@ const App = (props) => {
 
     useEffect(() => {
         if (error !== ""){
-            console.log(error);
             setTimeout(() => {
                 updateError("");
             }, 5000);
@@ -31,13 +30,7 @@ const App = (props) => {
     }
 
     const connect = () => {
-        if (isConnected === true){
-            props.disconnection();
-        }
-        else {
-            props.handleURL(connectionURL);
-        }
-        
+        isConnected === true ? props.disconnection() : props.handleURL(connectionURL);
     }
 
 
