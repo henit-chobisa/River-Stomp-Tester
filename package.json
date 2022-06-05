@@ -6,10 +6,12 @@
   "description": "Testing software for stomp message broker",
   "homepage": "./",
   "dependencies": {
+    "@mapbox/node-pre-gyp": "^1.0.9",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/react-json-editor-ajrm": "2.5.2",
+    "electron-rebuild": "^3.2.7",
     "electron-reload": "*",
     "electron-store": "^8.0.1",
     "electron-wix-msi": "^4.0.0",
@@ -20,7 +22,8 @@
     "react-json-editor-ajrm": "2.5.13",
     "react-scripts": "5.0.1",
     "react-simple-code-editor": "^0.10.0",
-    "react-stomp-hooks": "^2.1.0"
+    "react-stomp-hooks": "^2.1.0",
+    "sqlite3": "^5.0.8"
   },
   "main": "public/electron.js",
   "nodeVersion": "v16.0.0",
@@ -29,9 +32,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "pack" : "webpack serve",
+    "pack": "webpack serve",
     "dev": "concurrently -k \"BROWSER=none npm start\" \"npm:electron\"",
     "electron": "wait-on tcp:3000 && electron .",
+    "rebuild-sqlite3": "electron-rebuild -f -w sqlite3",
     "packageDarwin": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=./src/assets/logo.icns --prune=true --out=../Releases",
     "packageWin32": "electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --icon=./src/assets/logo.ico --prune=true --out=../ReleasesWin32"
   },
