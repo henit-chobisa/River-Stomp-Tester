@@ -4,6 +4,7 @@ import {useState, useEffect} from "react"
 import { useStompClient } from 'react-stomp-hooks';
 import EditorComp from './EditorComp';
 import HoverTitleComp from './HoverTitleComp';
+import Storehandler from '../../Utilities/renderer';
 
 const RouteTab = (props) => {
     var defaultBody = "{\n\t\"message\" : \"Insert your body here\"\n}";
@@ -20,15 +21,17 @@ const RouteTab = (props) => {
     const sendButton = useRef();
     const routeList = useRef();
     const client = useStompClient();
+    const store = Storehandler();
 
     useEffect(() => {
         if (initLoad === false){
-            const storedRoutes = localStorage.getItem("Routes");
-            if (storedRoutes === null){
+            const storedRoutes = store.getRoutes();
+            if (storedRoutes === undefined){
                 console.log("Route Update");
-                localStorage.setItem("Routes", JSON.stringify(routes));
+                store.saveRoutes(JSON.stringify([]));
             }
             else {
+                console.log(storedRoutes);
                 var arrRoutes = JSON.parse(storedRoutes);
                 arrRoutes.map((rou) => {
                     return rou.isActive = false;
@@ -50,14 +53,14 @@ const RouteTab = (props) => {
         else {
             clone.at(currentRouteIndex).header = code;
         }
-        localStorage.setItem("Routes", JSON.stringify(clone));
+        store.saveRoutes(JSON.stringify(clone));
     }
 
     useEffect(() => {
         if (routeChange !== 0){
             console.log("Saving Routes");
             console.log(routes);
-            localStorage.setItem("Routes", JSON.stringify(routes));
+            store.saveRoutes(JSON.stringify(routes));
         }
         if (routeChange === 1) {
             if (routes.length > 2) {
