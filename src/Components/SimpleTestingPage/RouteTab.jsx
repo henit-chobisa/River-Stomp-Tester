@@ -27,11 +27,9 @@ const RouteTab = (props) => {
         if (initLoad === false){
             const storedRoutes = store.getRoutes();
             if (storedRoutes === undefined){
-                console.log("Route Update");
                 store.saveRoutes(JSON.stringify([]));
             }
             else {
-                console.log(storedRoutes);
                 var arrRoutes = JSON.parse(storedRoutes);
                 arrRoutes.map((rou) => {
                     return rou.isActive = false;
@@ -43,7 +41,7 @@ const RouteTab = (props) => {
         if (routes.length === 0) {
             updateRouteSelected(false);
         }
-    }, [routes, initLoad])
+    }, [routes, initLoad, store])
 
     const handlePersistence = (code, id) => {
         const clone = [...routes];
@@ -58,8 +56,6 @@ const RouteTab = (props) => {
 
     useEffect(() => {
         if (routeChange !== 0){
-            console.log("Saving Routes");
-            console.log(routes);
             store.saveRoutes(JSON.stringify(routes));
         }
         if (routeChange === 1) {
@@ -68,7 +64,7 @@ const RouteTab = (props) => {
                 updateRouteChange(0);
             }
         }
-    }, [routes, routeChange]);
+    }, [routes, routeChange, store]);
 
     const addRoute = () => {
         var clone = [...routes];

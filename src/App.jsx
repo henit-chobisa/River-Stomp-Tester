@@ -6,21 +6,24 @@ import soundOnIcon from './Assets/soundOn.png'
 import soundOffIcon from './Assets/soundOff.png'
 import { useEffect } from 'react';
 import SimpleTestingPage from './SimpleTestinPage';
+import Storehandler from './Utilities/renderer';
 
 const App = (props) => {
     const [connectionURL, updateConnectionURL] = useState(props.conURL);
     const [error, updateError] = useState(props.error);
     const [soundOn, updateSoundOn] = useState(true);
-    const isConnected = props.isConnected;
+    const [isConnected, updateIsConnected] = useState(props.isConnected);
+    const store = Storehandler();
 
     const updateInputValue = (evt) => {
-        localStorage.setItem("ConnectionURL", evt.target.value);
         updateConnectionURL(evt.target.value);
     }
 
     useEffect(() => {
-        var connectionURL = localStorage.getItem("ConnectionURL");
-        updateConnectionURL(connectionURL);
+        if (isConnected === false){
+            var connectionurl = store.getURL();
+            updateConnectionURL(connectionurl);
+        }
     }, []);
 
     useEffect(() => {
@@ -31,11 +34,12 @@ const App = (props) => {
         }
     }, [error])
 
-    const handleSound = () => {
+    const handleSound = async () => {
         soundOn === true ? updateSoundOn(false) : updateSoundOn(true)
     }
 
     const connect = () => {
+        store.saveURL(connectionURL);
         isConnected === true ? props.disconnection() : props.handleURL(connectionURL);
     }
 

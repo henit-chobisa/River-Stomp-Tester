@@ -7,7 +7,7 @@ import SubsItem from './SubsItem';
 import { useRef } from 'react';
 import bell from "../../Assets/bell.wav";
 import { useEffect } from "react";
-
+import Storehandler from "../../Utilities/renderer";
 
 const ResultTab = (props) => {
     var audio = new Audio(bell);
@@ -20,13 +20,13 @@ const ResultTab = (props) => {
     const [subscriptions, updateSubscriptions] = useState([]);
     const [added, updateAdded] = useState(0);
     const client = useStompClient();
+    const store = Storehandler();
 
     useEffect(() => {
-
         if (initSubs === false){
-            var subs = localStorage.getItem("Subscriptions");
-            if (subs === null){
-                localStorage.setItem("Subscriptions", JSON.stringify([]));
+            var subs = store.getSubscriptions();
+            if (subs === undefined){
+                store.setSubscriptions(JSON.stringify([]));
             }
             else {
                 var subsArr = JSON.parse(subs);
@@ -38,7 +38,7 @@ const ResultTab = (props) => {
             updateInitSubs(true);
         }
         if (added !== 0){
-            localStorage.setItem("Subscriptions", JSON.stringify(subscriptions));
+            store.setSubscriptions(JSON.stringify(subscriptions));
         }
         if (subscriptions.length > 3) {
             if (added === 1) {
@@ -46,7 +46,7 @@ const ResultTab = (props) => {
                 updateAdded(0);
             }
         }
-    }, [subscriptions, added, initSubs])
+    }, [subscriptions, added, initSubs, store])
 
     const scrollIndexSubscriptions = (index) => {
         if (index > 2) {
@@ -68,7 +68,7 @@ const ResultTab = (props) => {
                 clone.push({ route: subsText, key: Math.random(100), data: {}, isActive: false, counter: 0 });
                 updateSubscriptions(clone);
                 updateSubsText("");
-                localStorage.setItem("Subscriptions", clone);
+                updateAdded(1);
             }
         }
     }
@@ -115,7 +115,7 @@ const ResultTab = (props) => {
                 updateCurrentCounter(0);
             }
         }
-        localStorage.setItem("Subscriptions", clone);
+        updateAdded(2);
         updateSubscriptions(clone);
     }
 
@@ -131,7 +131,7 @@ const ResultTab = (props) => {
         updateSubscriptions(dup);
         handleSubsClick(index, { tagName: "DIV" });
         scrollIndexSubscriptions(index);
-        localStorage.setItem("Subscriptions", dup);
+        updateAdded(1);
         if (props.soundOn === true){
             audio.play();
         }
