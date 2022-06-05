@@ -1,0 +1,55 @@
+
+div {
+    display: flex;
+}
+
+.routinePage {
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+}
+
+.routinePage .titleBar {
+    margin: 20px 0 7px 0;
+    height: 60px;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 50px;
+    padding-right: 50px;
+    color: white;
+}
+
+.routinePage .titleBar .createRoutine {
+    height: 55%;
+    width: 17%;
+    background: rgb(0, 160, 198);
+    margin-right: 100px;
+    border-radius: 100px;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+
+.routinePage .routineList {
+    max-height: 100%;
+    min-height: 100%;
+    width: 100%;
+    overflow-y: scroll;
+    margin: 10px 0 10px 0;
+}
+
+.routinePage .routineList .routineItem {
+    margin-left: 50px;
+    height: 60px;
+    width: 94%;
+    background-color: rgb(30, 30, 30);
+    border-radius: 10px;
+    border-color: rgb(0, 160, 198);
+    background-color: rgb(0, 160, 198);
+    border-width: 1px;
+    border-style :groove;
+    margin-bottom: 20px;
+}
+
