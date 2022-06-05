@@ -16,7 +16,7 @@ const App = (props) => {
     const [error, updateError] = useState(props.error);
     const [soundOn, updateSoundOn] = useState(true);
     const [isConnected, updateIsConnected] = useState(props.isConnected);
-    const [checked, setChecked] = useState(true);
+    const [checked, setChecked] = useState(false);
     const [mode, updateMode] = useState("Simple Mode")
 
     const handleChange = (event) => {
