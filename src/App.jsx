@@ -20,7 +20,7 @@ const App = (props) => {
     const [mode, updateMode] = useState("Simple Mode")
 
     const handleChange = (event) => {
-        if (event.target.checked){
+        if (event.target.checked) {
             updateMode("Routine Mode");
         }
         else {
@@ -62,19 +62,19 @@ const App = (props) => {
         <div className='App'>
             <div className='upperBar'>
                 <div className='controlS'>
-                <img className="logo" src={logo} alt="" />
-                <div className='control'>
-                    <Switch
-                        className='controlSwitch'
-                        checked={checked}
-                        onChange={handleChange}
-                        color="info"
-                        inputProps={{ 'aria-label': 'controlled' }}
-                    />
-                    <p className='mode'>{mode}</p>
+                    <img className="logo" src={logo} alt="" />
+                    <div className='control'>
+                        <Switch
+                            className='controlSwitch'
+                            checked={checked}
+                            onChange={handleChange}
+                            color="info"
+                            inputProps={{ 'aria-label': 'controlled' }}
+                        />
+                        <p className='mode'>{mode}</p>
+                    </div>
                 </div>
-                </div>
-                
+
                 <div className='cd'>
                     <input className='urlFeild' type="url" value={connectionURL}
                         placeholder="Enter a Url to an stomp endpoint"
@@ -87,13 +87,12 @@ const App = (props) => {
                     <img src={soundOn === true ? soundOnIcon : soundOffIcon} onClick={handleSound} style={{ height: "50%", width: "10%", padding: "15px" }} alt="" />
                     <h3 className="title" style={{ color: "White" }}>R i v e r</h3>
                 </div>
-            </div>
 
-            {props.isConnected ? checked === false? <SimpleTestingPage soundOn={soundOn} updateError={updateError} /> : <RoutinePage/> : <div className='connectionWarning'>No Server Connected, Kindle connect first.</div>}
+            </div>
+            {props.isConnected ? checked === false ? <SimpleTestingPage soundOn={soundOn} updateError={updateError} /> : <RoutinePage /> : <div className='connectionWarning'>No Server Connected, Kindle connect first.</div>}
             {error !== "" ? <div className='errorBox'>
                 {error}
             </div> : <></>}
-
         </div>
 
     );

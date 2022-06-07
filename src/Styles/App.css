@@ -641,7 +641,7 @@
   align-items: center;
 }
 
-.App .bottomBar .subscriptionBar .subsEditor .seditor #codeArea {
+.App .bottomBar .subscriptionBar .subsEditor .seditor  #codeArea {
   outline: none;
   padding-left: 60px;
   white-space: nowrap;
@@ -752,8 +752,6 @@ textarea:focus, input:focus{
   margin-bottom: 0.2%;
   margin-top: 0%;
 }
-
-
 
 .controlS .logo {
   height: 90%;
