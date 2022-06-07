@@ -1,12 +1,13 @@
 
-div {
-    display: flex;
-}
+/* div {
+   
+} */
 
 .routinePage {
     height: 100%;
     width: 100%;
     flex-direction: column;
+    display: flex;
 }
 
 .routinePage .titleBar {
@@ -18,6 +19,7 @@ div {
     padding-left: 50px;
     padding-right: 50px;
     color: white;
+    display: flex;
 }
 
 .routinePage .titleBar .createRoutine {
@@ -29,6 +31,7 @@ div {
     align-items: center;
     justify-content: center;
     font-weight: bold;
+    display: flex;
 }
 
 

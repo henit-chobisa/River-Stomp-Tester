@@ -8,7 +8,6 @@ function Comp(){
     const [connectionURL, updateConnectionURL] = useState("");
     const [error, updateError] = useState("")
     const stompHandler = Handler({updateConnectionURL, updateError});
-    console.log(connectionURL);
   
     const renderSimpleTestMode = () => {
       return (

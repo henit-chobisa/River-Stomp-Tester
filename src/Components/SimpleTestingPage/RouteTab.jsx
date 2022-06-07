@@ -27,7 +27,7 @@ const RouteTab = (props) => {
         if (initLoad === false){
             const storedRoutes = store.getRoutes();
             if (storedRoutes === undefined){
-                store.saveRoutes(JSON.stringify([]));
+                store.saveRoutes(JSON.stringify(routes));
             }
             else {
                 var arrRoutes = JSON.parse(storedRoutes);
@@ -41,7 +41,7 @@ const RouteTab = (props) => {
         if (routes.length === 0) {
             updateRouteSelected(false);
         }
-    }, [routes, initLoad, store])
+    }, [routes, initLoad])
 
     const handlePersistence = (code, id) => {
         const clone = [...routes];
