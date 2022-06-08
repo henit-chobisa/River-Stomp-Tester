@@ -1,6 +1,6 @@
 import RouteItem from './routeItem';
 import { useRef } from 'react';
-import {useState, useEffect} from "react"
+import { useState, useEffect } from "react"
 import { useStompClient } from 'react-stomp-hooks';
 import EditorComp from './EditorComp';
 import HoverTitleComp from './HoverTitleComp';
@@ -24,9 +24,9 @@ const RouteTab = (props) => {
     const store = Storehandler();
 
     useEffect(() => {
-        if (initLoad === false){
+        if (initLoad === false) {
             const storedRoutes = store.getRoutes();
-            if (storedRoutes === undefined){
+            if (storedRoutes === undefined) {
                 store.saveRoutes(JSON.stringify(routes));
             }
             else {
@@ -45,7 +45,7 @@ const RouteTab = (props) => {
 
     const handlePersistence = (code, id) => {
         const clone = [...routes];
-        if (id === 1){
+        if (id === 1) {
             clone.at(currentRouteIndex).body = code;
         }
         else {
@@ -55,7 +55,7 @@ const RouteTab = (props) => {
     }
 
     useEffect(() => {
-        if (routeChange !== 0){
+        if (routeChange !== 0) {
             store.saveRoutes(JSON.stringify(routes));
         }
         if (routeChange === 1) {
@@ -67,11 +67,13 @@ const RouteTab = (props) => {
     }, [routes, routeChange, store]);
 
     const addRoute = () => {
-        var clone = [...routes];
-        clone.push({ value: routeValue, index: clone.length, body: defaultBody, header: defaultHeader, isActive: false });
-        updateRoutes(clone);
-        updateRouteValue("");
-        updateRouteChange(1);
+        if (routeValue !== "") {
+            var clone = [...routes];
+            clone.push({ value: routeValue, index: clone.length, body: defaultBody, header: defaultHeader, isActive: false });
+            updateRoutes(clone);
+            updateRouteValue("");
+            updateRouteChange(1);
+        }
     }
 
     const handleRoutePop = (index) => {
@@ -108,10 +110,10 @@ const RouteTab = (props) => {
     }
 
     const handleSendEvent = () => {
-        if (routes.length === 0 || routeSelected === false){
+        if (routes.length === 0 || routeSelected === false) {
             props.updateError("No routes available or selected");
         }
-        else{
+        else {
             sendButton.current.className = "buttonAnim";
             client?.publish({
                 destination: currentRoute,
@@ -157,28 +159,28 @@ const RouteTab = (props) => {
 
     return (
         <div className='subscriptionBar'>
-                    <div className='subsTitleBar'>
-                        {currentRoute}
-                        <div className="routeManager">
-                            <input type="text" name="" id="" value={routeValue} onChange={(evt) => updateRouteValue(evt.target.value)} placeholder='Add a route here' />
-                            <button onClick={addRoute}>
-                                +
-                            </button>
-                        </div>
-                    </div>
-                    <div className="routeBox">
-                        <button className='routeTrigger' onClick={handleSendEvent} ref={sendButton}>
-                            Send
-                        </button>
-                        <div className="routeList" ref={routeList}>
-                            {renderRoutes()}
-                        </div>
-                    </div>
-                    {routeSelected === true ? <EditorComp data={data} updateData={updateData} handlePersistence={handlePersistence} id={1}/> : <div className='routeNullWarning'>No routes available or selected, add one above.</div>}
-                    <HoverTitleComp routeSelected={routeSelected} title={"Headers"}/>
-                    {routeSelected === true ? <EditorComp data={header} updateData={updateHeader} handlePersistence={handlePersistence} id={2}/> : <></>}
-                    <HoverTitleComp routeSelected={routeSelected} title={"Headers"}/>
+            <div className='subsTitleBar'>
+                {currentRoute}
+                <div className="routeManager">
+                    <input type="text" name="" id="" value={routeValue} onChange={(evt) => updateRouteValue(evt.target.value)} placeholder='Add a route here' />
+                    <button onClick={addRoute}>
+                        +
+                    </button>
                 </div>
+            </div>
+            <div className="routeBox">
+                <button className='routeTrigger' onClick={handleSendEvent} ref={sendButton}>
+                    Send
+                </button>
+                <div className="routeList" ref={routeList}>
+                    {renderRoutes()}
+                </div>
+            </div>
+            {routeSelected === true ? <EditorComp data={data} updateData={updateData} handlePersistence={handlePersistence} id={1} /> : <div className='routeNullWarning'>No routes available or selected, add one above.</div>}
+            <HoverTitleComp routeSelected={routeSelected} title={"Headers"} />
+            {routeSelected === true ? <EditorComp data={header} updateData={updateHeader} handlePersistence={handlePersistence} id={2} /> : <></>}
+            <HoverTitleComp routeSelected={routeSelected} title={"Headers"} />
+        </div>
     )
 }
 
