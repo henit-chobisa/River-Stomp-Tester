@@ -9,11 +9,8 @@ const RoutineItem = (props) => {
             {props.present ? <div className="present">
 
             </div> : <div className="null">
-
                     <p className="nullText">No routines available,      Create One</p>
-                
                 </div>}
-            
         </div>
 
         
