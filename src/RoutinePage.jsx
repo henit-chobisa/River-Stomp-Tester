@@ -8,9 +8,9 @@ const RoutinePage = (props) => {
         <div className="routinePage">
             <div className="titleBar">
                 <h2>Routines</h2>
-                <div className="createRoutine">
+                {/* <div className="createRoutine">
                     <p>Create Routine</p>
-                </div>
+                </div> */}
             </div>
             <div className="routineList">
                 <RoutineItem/>

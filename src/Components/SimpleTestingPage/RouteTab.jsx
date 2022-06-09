@@ -157,12 +157,18 @@ const RouteTab = (props) => {
         }
     }
 
+    const handleKeyPress = (evt) => {
+        if (evt.key === "Enter"){
+            addRoute();
+        }
+    }
+
     return (
         <div className='subscriptionBar'>
             <div className='subsTitleBar'>
                 {currentRoute}
                 <div className="routeManager">
-                    <input type="text" name="" id="" value={routeValue} onChange={(evt) => updateRouteValue(evt.target.value)} placeholder='Add a route here' />
+                    <input type="text" onKeyPress={handleKeyPress} name="" id="" value={routeValue} onChange={(evt) => updateRouteValue(evt.target.value)} placeholder='Add a route here' />
                     <button onClick={addRoute}>
                         +
                     </button>
