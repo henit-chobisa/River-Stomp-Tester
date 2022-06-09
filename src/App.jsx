@@ -58,6 +58,12 @@ const App = (props) => {
         isConnected === true ? props.disconnection() : props.handleURL(connectionURL);
     }
 
+    const handleKeyPress = (evt) => {
+        if (evt.key === "Enter"){
+            connect();
+        }
+    }
+
     return (
         <div className='App'>
             <div className='upperBar'>
@@ -76,7 +82,7 @@ const App = (props) => {
                 </div>
 
                 <div className='cd'>
-                    <input className='urlFeild' type="url" value={connectionURL}
+                    <input className='urlFeild' onKeyPress={handleKeyPress} type="url" value={connectionURL}
                         placeholder="Enter a Url to an stomp endpoint"
                         onChange={updateInputValue}
                     />

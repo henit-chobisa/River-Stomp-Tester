@@ -151,12 +151,18 @@ const ResultTab = (props) => {
         }
     }
 
+    const handleKeyPress = (evt) => {
+        if (evt.key === "Enter"){
+            handleSubscriptionAdd();
+        }
+    }
+
     return (
         <div className='resultBar'>
                     <div className='resTitleBar'>
                         Hearings
                         <div className='subsInp'>
-                            <input type="text" placeholder='Add Subscriptions here' value={subsText} onChange={(evt) => updateSubsText(evt.target.value)} />
+                            <input type="text" placeholder='Add Subscriptions here' onKeyPress={handleKeyPress} value={subsText} onChange={(evt) => updateSubsText(evt.target.value)} />
                             <button style={{ color: "white" }} onClick={handleSubscriptionAdd}>+</button>
                         </div>
                     </div>

@@ -2,28 +2,27 @@
 const Handler = (components) => {
     return {
     handleURLUpdate : (url) => {
-        console.log(url);
+        components.updateError("");
         components.updateConnectionURL(url);
         return url;
     },
     handleDisconnection : () => {
+        components.updateError("Stomp Intentionally Disconnected or connection fault detected by system")
         components.updateConnectionURL("");
     },
     handleConnection : () => {
-        console.log("Connected");
     },
     handleStompError : (err) => {
         if (err === undefined) {
-            components.updateError("Connection Error to Server, please check your server.");
-            components.updateConnectionURL("");
+            components.updateError("Connection Error to Server, please check your server."); 
         }
+        components.updateConnectionURL("");
         components.updateError(err);
     },
     handleStompDisconnect : () => {
-        components.updateError("Socket Disconnect, Trying Again.");
+        components.updateConnectionURL("");
     },
     handleStateChange : (State) => {
-        console.log(State);
     } }
 }
 

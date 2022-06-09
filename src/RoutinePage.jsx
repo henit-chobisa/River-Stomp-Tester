@@ -1,4 +1,5 @@
 import { useState } from "react"
+import RoutineItem from "./Components/RoutinePage/routineItem";
 import "./Styles/RoutinePage.css"
 
 const RoutinePage = (props) => {
@@ -7,35 +8,12 @@ const RoutinePage = (props) => {
         <div className="routinePage">
             <div className="titleBar">
                 <h2>Routines</h2>
-                <div className="createRoutine">
+                {/* <div className="createRoutine">
                     <p>Create Routine</p>
-                </div>
+                </div> */}
             </div>
             <div className="routineList">
-                <div className="routineItem">
-
-                </div>
-                <div className="routineItem">
-
-                </div>
-                <div className="routineItem">
-
-                </div>
-                <div className="routineItem">
-
-                </div>
-                <div className="routineItem">
-
-                </div>
-                <div className="routineItem">
-
-                </div>
-                <div className="routineItem">
-
-                </div>
-                <div className="routineItem">
-
-                </div>
+                <RoutineItem/>
             </div>
         </div>
     );
