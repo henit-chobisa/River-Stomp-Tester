@@ -1,25 +1,57 @@
 .routinePage {
     height: 100%;
     width: 100%;
+    margin-top: 2%;
     flex-direction: column;
     display: flex;
 }
 
-.routinePage .titleBar {
-    margin: 20px 0 7px 0;
-    height: 60px;
+.routinePage .routinesBar {
+    height: 25%;
     width: 100%;
+    display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding-left: 50px;
-    padding-right: 50px;
+    padding-left: 7px;
+    /* padding-right: 10px; */
     color: white;
     display: flex;
 }
 
-.routinePage .titleBar h2 {
-    transform: rotate(-90);
+.routinePage .routinesBar #routineSideBar {
+    padding-left: 0px;
+    width: 10%;
 }
+
+.routinePage .routinesBar .routinesGroup {
+    width: 87%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow-x: scroll;
+}
+
+.routinePage .routinesBar .routinesGroup::-webkit-scrollbar{
+    size: 0px;
+}
+
+/* .routinePage .sideBar .divider {
+    height: 80%;
+    width: 1px;
+    background-color: gray;
+}
+
+.routinePage .sideBar h2 {
+    font-size: 18px;
+    transform: rotate(-90deg);
+    padding: 10px;
+    letter-spacing: 1.5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 10px;
+    margin-right: 5px;
+    background-color: rgb(0, 160, 198);  
+} */
 
 .routinePage .titleBar .createRoutine {
     height: 55%;
