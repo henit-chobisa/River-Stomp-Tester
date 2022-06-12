@@ -6,15 +6,13 @@ const RoutinePage = (props) => {
 
     return (
         <div className="routinePage">
-            <div className="titleBar">
+            <div id="routineGroup" className="sideBar">
                 <h2>Routines</h2>
-                {/* <div className="createRoutine">
-                    <p>Create Routine</p>
-                </div> */}
             </div>
-            <div className="routineList">
-                <RoutineItem/>
-            </div>
+
+            {/* <div className="routineList">
+                <RoutineItem present={true}/>
+            </div> */}
         </div>
     );
 }

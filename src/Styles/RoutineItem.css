@@ -5,14 +5,30 @@
 }
 
 .routineItem .present {
-    width: 100%;
-    height: 100%;
+    width: 98%;
+    height: 98%;
     border-color: rgb(0, 160, 198);
     border-width: 1.5px;
     border-style :groove;
     border-radius: 10px;
     margin-bottom: 20px;
     margin-left: 50px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px 10px 20px;
+}
+
+.routineItem .present .titleContainer {
+    width: 100%;
+    height: 30%;
+    color: white;
+}
+
+.routineItem .present .titleContainer .titleHeading {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .routineItem .null {
