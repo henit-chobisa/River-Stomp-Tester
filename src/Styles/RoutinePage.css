@@ -1,19 +1,29 @@
 .routinePage {
     height: 100%;
     width: 100%;
+    margin-top: 2%;
     flex-direction: column;
     display: flex;
 }
 
-.routinePage .routineGroup {
-    margin: 20px 0 7px 0;
+.routinePage .routinesBar {
+    margin: 20px 0 0px 0;
     height: 20%;
     width: 100%;
     align-items: center;
     padding-left: 7px;
-    padding-right: 10px;
+    /* padding-right: 10px; */
     color: white;
     display: flex;
+}
+
+.routinePage .routinesBar .routinesGroup {
+    width: 87%;
+    height: 100%;
+    margin-left: 2%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 /* .routinePage .sideBar .divider {

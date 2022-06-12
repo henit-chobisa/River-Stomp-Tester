@@ -7,8 +7,11 @@ const RoutinePage = (props) => {
 
     return (
         <div className="routinePage">
-            <div className="routineGroup">
+            <div className="routinesBar">
                 <SideBar title={"Routines"}/>
+                <div className="routinesGroup">
+                    <RoutineItem/>
+                </div>
             </div>
 
             {/* <div className="routineList">
