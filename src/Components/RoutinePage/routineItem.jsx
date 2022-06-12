@@ -4,15 +4,10 @@ const RoutineItem = (props) => {
 
     return (
         <div className="routineItem">
-            {props.present 
+            {props.present
             ? <div className="present">
-                <div className="titleContainer">
-                    <div className="titleHeading">
-                        <h2 id="title">Routine Name</h2>
-                        <p id="dateModified">Last Date</p>
-                    </div>
-                </div>
-
+                <h3 id="heading">RoutineHeading</h3>
+                <p id="lastUpdate">last updated</p>
             </div>
                 : <div className="null">
                     <p className="nullText">No routines available,      Create One</p>

@@ -10,7 +10,7 @@ const RoutinePage = (props) => {
             <div className="routinesBar">
                 <SideBar id={"routineSideBar"} title={"Routines"}/>
                 <div className="routinesGroup">
-                    <RoutineItem/>
+                    <RoutineItem present={true}/>
                 </div>
             </div>
 
