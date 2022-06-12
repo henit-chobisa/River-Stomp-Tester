@@ -1,13 +1,14 @@
 import { useState } from "react"
 import RoutineItem from "./Components/RoutinePage/routineItem";
 import "./Styles/RoutinePage.css"
+import SideBar from "./Components/RoutinePage/SideBar";
 
 const RoutinePage = (props) => {
 
     return (
         <div className="routinePage">
-            <div id="routineGroup" className="sideBar">
-                <h2>Routines</h2>
+            <div className="routineGroup">
+                <SideBar title={"Routines"}/>
             </div>
 
             {/* <div className="routineList">
