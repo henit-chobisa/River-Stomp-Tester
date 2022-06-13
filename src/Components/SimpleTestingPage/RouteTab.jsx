@@ -1,3 +1,4 @@
+/* eslint-disable */
 import RouteItem from './routeItem';
 import { useRef } from 'react';
 import { useState, useEffect } from "react"
@@ -6,6 +7,7 @@ import EditorComp from './EditorComp';
 import HoverTitleComp from './HoverTitleComp';
 import Storehandler from '../../Utilities/renderer';
 import React from 'react';
+import StompHandler from '../../Utilities/StompHandler';
 
 const RouteTab = (props) => {
     var defaultBody = "{\n\t\"message\" : \"Insert your body here\"\n}";
@@ -109,20 +111,18 @@ const RouteTab = (props) => {
         updateRoutes(clone);
         updateRouteChange(2);
     }
-
-    // const publishRoute = (currentRoute, header, data) => client?.publish({ destination: currentRoute, header: header, body: data })
     
-
     const handleSendEvent = () => {
         if (routes.length === 0 || routeSelected === false) {
             props.updateError("No routes available or selected");
         }
         else {
             sendButton.current.className = "buttonAnim";
-            // publishRoute(currentRoute, JSON.stringify(JSON.parse(header)), JSON.stringify(JSON.parse(data)));
+            client.publish({ destination: currentRoute, header: JSON.stringify(JSON.parse(header)), body: JSON.stringify(JSON.parse(data))});
             setTimeout(() => {
                 sendButton.current.className = "routeTrigger"
             }, 2000);
+
         }
     }
 
