@@ -1,6 +1,7 @@
 
 import {useSubscription} from "react-stomp-hooks"
 import { useRef } from "react"
+import React from 'react';
 
 const SubsItem = (props) => {
 

@@ -1,6 +1,7 @@
 
 import ResultTab from "./Components/SimpleTestingPage/ResultTab";
 import RouteTab from "./Components/SimpleTestingPage/RouteTab";
+import React from 'react';
 
 const SimpleTestingPage = (props) => {
     

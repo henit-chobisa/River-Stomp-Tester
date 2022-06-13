@@ -2,7 +2,7 @@ import { useState } from 'react';
 import SimpleTestMode from './Components/SimpleTestMode'
 import Handler from './Utilities/StompHandlers';
 import "./Styles/Comp.css"
-
+import React from 'react';
 
 function Comp(){
     const [connectionURL, updateConnectionURL] = useState("");

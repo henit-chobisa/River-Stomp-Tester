@@ -1,5 +1,5 @@
 import "../../Styles/RoutinePageComponents/sideBar.css"
-
+import React from 'react';
 const SideBar = (props) => {
     return (
         <div id={props.id} className="sideBar">
