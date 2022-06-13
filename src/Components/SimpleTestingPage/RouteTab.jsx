@@ -5,6 +5,7 @@ import { useStompClient } from 'react-stomp-hooks';
 import EditorComp from './EditorComp';
 import HoverTitleComp from './HoverTitleComp';
 import Storehandler from '../../Utilities/renderer';
+import React from 'react';
 
 const RouteTab = (props) => {
     var defaultBody = "{\n\t\"message\" : \"Insert your body here\"\n}";
@@ -109,20 +110,19 @@ const RouteTab = (props) => {
         updateRouteChange(2);
     }
 
+    // const publishRoute = (currentRoute, header, data) => client?.publish({ destination: currentRoute, header: header, body: data })
+    
+
     const handleSendEvent = () => {
         if (routes.length === 0 || routeSelected === false) {
             props.updateError("No routes available or selected");
         }
         else {
             sendButton.current.className = "buttonAnim";
-            client?.publish({
-                destination: currentRoute,
-                header: JSON.stringify(JSON.parse(header)),
-                body: JSON.stringify(JSON.parse(data))
-            })
+            // publishRoute(currentRoute, JSON.stringify(JSON.parse(header)), JSON.stringify(JSON.parse(data)));
             setTimeout(() => {
                 sendButton.current.className = "routeTrigger"
-            }, 2000)
+            }, 2000);
         }
     }
 

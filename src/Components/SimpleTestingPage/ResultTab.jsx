@@ -8,6 +8,7 @@ import { useRef } from 'react';
 import bell from "../../Assets/bell.wav";
 import { useEffect } from "react";
 import Storehandler from "../../Utilities/renderer";
+import React from 'react';
 
 const ResultTab = (props) => {
     var audio = new Audio(bell);
