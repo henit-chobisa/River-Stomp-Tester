@@ -7,7 +7,6 @@ import EditorComp from './EditorComp';
 import HoverTitleComp from './HoverTitleComp';
 import Storehandler from '../../Utilities/renderer';
 import React from 'react';
-import StompHandler from '../../Utilities/StompHandler';
 
 const RouteTab = (props) => {
     var defaultBody = "{\n\t\"message\" : \"Insert your body here\"\n}";
