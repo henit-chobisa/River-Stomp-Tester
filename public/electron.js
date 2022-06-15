@@ -2,6 +2,7 @@ const path = require('path');
 const { BrowserWindow, app } = require("electron");
 const isDev = require('electron-is-dev');
 require("../src/Utilities/dbMain");
+require('../src/Utilities/RoutineSegwayListener');
 require("fs");
 
 const createWindow = () => {
@@ -15,9 +16,32 @@ const createWindow = () => {
     webPreferences: {
       nodeIntegration: true,
       enableRemoteModule: true,
-      contextIsolation: false
+      contextIsolation: false,
+      nativeWindowOpen: true,
     }
   });
+
+  win.webContents.on('new-window', (event, frameName, options) => {
+    if (frameName == 'RoutineExecPage') {
+      console.log("Rouine Page request Innn");
+      event.preventDefault();
+      Object.assign(options, {
+        parent: win,
+        width: 1280,
+        title: "River",
+        height: 720,
+        minHeight: 720,
+        minWidth: 1080,
+        show: true,
+      });
+      const routineExecWindow = new BrowserWindow(options);
+      routineExecWindow.webContents.openDevTools({mode:"detach"});
+      event.newGuest = routineExecWindow;
+    }
+    else {
+      console.log("Frame Name Incorrect");
+    }
+  })
   const splashScreen = new BrowserWindow({
     width: 720,
     height: 320,
