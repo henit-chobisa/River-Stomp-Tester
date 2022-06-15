@@ -1,11 +1,18 @@
 import "../../Styles/RoutineItem.css"
 import shareIcon from '../../Assets/Icons/shareIcon.png'
+import React, { useRef, useState } from 'react';
+// import launchRoutineWindow from '../../Utilities/RoutineSegway'
+import RoutineExecPage from "../../RoutineExecPage";
 
-import React, { useRef } from 'react';
 const RoutineItem = (props) => {
 
-    return (
+    const [windowOpen, updateWindowOpen] = useState(false);
 
+    const handleButtonClick = () => {
+        updateWindowOpen(true);
+    }
+
+    return (
         <div className="routineItem">
             {props.present
                 ? // If the container is working for an active entity
@@ -20,7 +27,9 @@ const RoutineItem = (props) => {
                         </div>
                     </div>
 
-
+                    {windowOpen === true ? <RoutineExecPage>
+                        <h1>Hello this is new Window</h1>
+                    </RoutineExecPage> : <></>}
                     <div className="bottomBar">
                         <div className="removeButtonDiv">
                            <button className="removeButton">X</button>
@@ -30,7 +39,7 @@ const RoutineItem = (props) => {
                             <button className="shareButton">
                                 <img src={shareIcon} alt="" />
                             </button>
-                            <button className="run">
+                            <button className="run" onClick={handleButtonClick}>
                                 <p>View</p>
                             </button>
                         </div>
@@ -40,7 +49,7 @@ const RoutineItem = (props) => {
                 </div>
                 : // Dummy Etity to showcase routine item
                 <div className="null">
-                    <p className="nullText">No routines available,      Create One</p>
+                    <p className="nullText">No routines available, Create One</p>
                 </div>}
         </div>
     );
