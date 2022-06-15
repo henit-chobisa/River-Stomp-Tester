@@ -1,22 +1,13 @@
-import { useEffect } from "react";
-import ReactDOM from "react-dom";
+import RoutineDisplay from "./Components/RoutinePage/RoutineDisplay";
+import './Styles/RoutineDisplay/RoutineExec.css'
+import React from "react";
 
 const RoutineExecPage = (props) => {
 
-    var container = document.createElement('div');
-    var externalWindow = null;
-
-    useEffect(() => {
-        externalWindow = window.open('', 'RoutineExecPage');
-        if (externalWindow){
-            externalWindow.document.body.appendChild(container);
-            externalWindow.onunload = () => {
-            }
-        }
-    })
-
     return (
-        ReactDOM.createPortal((props.children), container)
+        <div className="routineExec">
+            <RoutineDisplay/>
+        </div>
     )
 }
 

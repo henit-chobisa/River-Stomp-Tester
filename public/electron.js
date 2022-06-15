@@ -72,7 +72,8 @@ const createWindow = () => {
 
     console.log(__dirname);
     
-    routineWin.loadURL(`file://${path.join(__dirname, '../build/index.html#/disprout?routineID=1000')}`);
+    // routineWin.loadURL(`file://${path.join(__dirname, '../build/index.html#/disprout?routineID=1000')}`);
+    routineWin.loadURL('http://localhost:3000/disprout?routineID=1000');
 
     routineWin.webContents.openDevTools({mode:"detach"});
     routineWin.show();
