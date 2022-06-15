@@ -1,5 +1,5 @@
 import { useState } from "react"
-import RoutineItem from "./Components/RoutinePage/routineItem";
+import RoutineItem from "./Components/RoutinePage/RoutineItem";
 import "./Styles/RoutinePage.css"
 import SideBar from "./Components/RoutinePage/SideBar";
 import React from 'react';

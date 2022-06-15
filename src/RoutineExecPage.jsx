@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import ReactDOM from "react-dom";
 
 const RoutineExecPage = (props) => {
 
-    const container = document.createElement('div');
+    var container = document.createElement('div');
     var externalWindow = null;
 
     useEffect(() => {
