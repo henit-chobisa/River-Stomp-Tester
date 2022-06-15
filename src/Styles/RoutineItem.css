@@ -74,7 +74,7 @@
 }
 
 .routineItem .present .utilitiesDiv {
-    height: 80%;
+    height: 70%;
     width: 50%;
     display: flex;
     align-items: center;
@@ -89,8 +89,10 @@
 }
 
 .routineItem .present .utilitiesDiv .shareButton img {
-    height: 80%;
-    width: 70%;
+    max-height: 80%;
+    max-width: 100%;
+    height: fit-content;
+    width: fit-content;
 }
 
 .routineItem .present .utilitiesDiv .run {
