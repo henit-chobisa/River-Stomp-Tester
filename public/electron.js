@@ -54,7 +54,6 @@ const createWindow = () => {
   });
 
   ipcMain.on('launchRoutineWindow', () => {
-    console.log("New Window Launch");
     const routineWin = new BrowserWindow({
         width: 1280,
         title: "Routine System",
@@ -79,16 +78,16 @@ const createWindow = () => {
     routineWin.show();
 })
 
-  splashScreen.loadURL(`file://${path.join(__dirname, '../build/splash.html')}`);
-  // splashScreen.loadURL(`file://${__dirname}/splash.html`);
+  // splashScreen.loadURL(`file://${path.join(__dirname, '../build/splash.html')}`);
+  splashScreen.loadURL(`file://${__dirname}/splash.html`);
 
-  // win.loadURL(
-  //   isDev
-  //     ? 'http://localhost:3000'
-  //     : `file://${path.join(__dirname, '../build/index.html')}`
-  // );
+  win.loadURL(
+    isDev
+      ? 'http://localhost:3000'
+      : `file://${path.join(__dirname, '../build/index.html')}`
+  );
 
-  win.loadURL(`file://${path.join(__dirname, '../build/index.html#/')}`);
+  // win.loadURL(`file://${path.join(__dirname, '../build/index.html#/')}`);
 
   if (isDev) {
     win.webContents.openDevTools({ mode: 'detach' });
