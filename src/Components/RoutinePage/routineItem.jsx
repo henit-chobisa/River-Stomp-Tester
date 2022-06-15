@@ -1,15 +1,17 @@
 import "../../Styles/RoutineItem.css"
 import shareIcon from '../../Assets/Icons/shareIcon.png'
-import React, { useRef, useState } from 'react';
-// import launchRoutineWindow from '../../Utilities/RoutineSegway'
+import React, { useState } from 'react';
 import RoutineExecPage from "../../RoutineExecPage";
+import RoutineDisplay from "./RoutineDisplay";
+import launchRoutineWindow from "../../Utilities/RoutineSegway";
 
 const RoutineItem = (props) => {
 
     const [windowOpen, updateWindowOpen] = useState(false);
 
     const handleButtonClick = () => {
-        updateWindowOpen(true);
+        launchRoutineWindow()
+        // updateWindowOpen(true);
     }
 
     return (
@@ -28,11 +30,11 @@ const RoutineItem = (props) => {
                     </div>
 
                     {windowOpen === true ? <RoutineExecPage>
-                        <h1>Hello this is new Window</h1>
+                        <RoutineDisplay/>
                     </RoutineExecPage> : <></>}
                     <div className="bottomBar">
                         <div className="removeButtonDiv">
-                           <button className="removeButton">X</button>
+                            <button className="removeButton">X</button>
                         </div>
 
                         <div className="utilitiesDiv">
