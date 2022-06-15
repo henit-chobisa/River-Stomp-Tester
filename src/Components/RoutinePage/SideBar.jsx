@@ -1,4 +1,4 @@
-import "../../Styles/RoutinePageComponents/sideBar.css"
+import "../../Styles/RoutinePage/sideBar.css"
 import React from 'react';
 const SideBar = (props) => {
     return (
