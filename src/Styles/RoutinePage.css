@@ -23,12 +23,44 @@
 }
 
 .routinePage .routinesBar .routinesGroup {
-    width: 87%;
+    width: 81%;
     height: 110%;
     display: flex;
     flex-direction: row;
     align-items: center;
     overflow-x: scroll;
+}
+
+.routinePage .routinesBar .utilDivider {
+    height: 85%;
+    margin-left: 20px;
+    margin-right: 10px;
+    width: 1px;
+    background-color: gray;
+}
+.routinePage .routinesBar .utilsDiv {
+    height: 85%;
+    width: 5%;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.routinePage .operationsBar {
+    height: 65%;
+    width: 100%;
+    margin-top: 40px;
+    background-color: red;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.routinePage .routinesBar .utilsDiv .plusButton {
+    height: 40px;
+    width: 40px;
 }
 
 .routinePage .routinesBar .routinesGroup::-webkit-scrollbar{
