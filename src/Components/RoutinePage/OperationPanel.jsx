@@ -9,9 +9,20 @@ const OperationsPanel = () => {
         <div className="panel">
             <div className="statisticsPanel">
                 <StatisticsPanel/>
+                <div className="statBottomTitle">
+                    <div className="content">
+                    <p>Statistics</p>
+                    </div>
+                </div>
             </div>
             <div className="observationsPanel">
                 <ObservationPanel/>
+                <div className="obsvBottomTitle">
+                    <div className="content">
+                        <p>Observations</p>
+                    </div>
+                    
+                </div>
             </div>
         </div>
     )
