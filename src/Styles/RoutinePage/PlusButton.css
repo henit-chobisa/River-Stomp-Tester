@@ -1,0 +1,30 @@
+
+@keyframes blow {
+    from {scale: 1;}
+    to {transform: scale(1.2);}
+}
+
+
+.plusButton {
+    border-radius: 25px;
+    background-color: azure;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(0, 160, 198);
+    scale: 1;
+}
+
+.plusButton:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
+    background-color: rgb(245, 61, 61);
+}
+
+.plusButton button {
+    border: none;
+    color: white;
+    font-weight: bold;
+    font-size: larger;
+    background-color: transparent;
+}

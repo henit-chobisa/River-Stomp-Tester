@@ -4,6 +4,7 @@
     height: 85%;
     min-width: 25%;
     max-width: 25%;
+    max-height: 150px;
     padding: 0%;
     margin-right: 20px;
     display: flex;
