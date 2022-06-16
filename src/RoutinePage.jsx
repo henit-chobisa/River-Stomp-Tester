@@ -37,12 +37,12 @@ const RoutinePage = (props) => {
 
             </div>
             <div className="operationsBar">
-                <div className="sideBarDiv">
+                {/* <div className="sideBarDiv">
                     <div className="titleBox">
                         <p>Operations Panel</p>
                     </div>
                     <div className="titDivider"></div>
-                </div>
+                </div> */}
                 <div className="operations">
                     <OperationsPanel/>
                 </div>
