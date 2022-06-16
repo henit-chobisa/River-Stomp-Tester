@@ -79,8 +79,8 @@ const createWindow = () => {
     routineWin.show();
 })
 
-  // splashScreen.loadURL(`file://${path.join(__dirname, '../build/splash.html')}`);
-  splashScreen.loadURL(`file://${__dirname}/splash.html`);
+  splashScreen.loadURL(`file://${path.join(__dirname, '../build/splash.html')}`);
+  // splashScreen.loadURL(`file://${__dirname}/splash.html`);
 
   win.loadURL(
     isDev
