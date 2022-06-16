@@ -7,5 +7,9 @@
 .statsPanelDiv .featureBar {
     height: 15%;
     width: 100%;
-    background-color: aqua;
+}
+
+.statsPanelDiv .featureBar .optionButton {
+    height: 80%;
+    width: 20%;
 }
