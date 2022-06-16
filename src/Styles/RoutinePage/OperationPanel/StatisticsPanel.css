@@ -2,14 +2,38 @@
     height: 95.5%;
     width: 96.5%;
     margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.statsPanelDiv .presentationBar {
+    height: 80%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.statsPanelDiv .presentationBar .plot {
+    height: 100;
+    width: 100;
+    color: rgb(0, 160, 198);
+    
 }
 
 .statsPanelDiv .featureBar {
     height: 15%;
-    width: 100%;
+    width: 95%;
+    position: relative;
+    top: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .statsPanelDiv .featureBar .optionButton {
     height: 80%;
     width: 20%;
 }
+
