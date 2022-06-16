@@ -4,6 +4,7 @@ import "./Styles/RoutinePage.css"
 import SideBar from "./Components/RoutinePage/SideBar";
 import React from 'react';
 import PlusButton from "./Components/RoutinePage/PlusButton";
+import OperationsPanel from "./Components/RoutinePage/OperationPanel";
 
 const RoutinePage = (props) => {
 
@@ -36,13 +37,16 @@ const RoutinePage = (props) => {
 
             </div>
             <div className="operationsBar">
-                <div className="statisticsPanel">
-
+                <div className="sideBarDiv">
+                    <div className="titleBox">
+                        <p>Operations Panel</p>
+                    </div>
+                    <div className="titDivider"></div>
                 </div>
-                <div className="observationsPanel">
-                    
+                <div className="operations">
+                    {/* <OperationsPanel/> */}
                 </div>
-
+                
             </div>
 
             {/* <div className="routineList">

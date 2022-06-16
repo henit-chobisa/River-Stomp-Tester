@@ -3,7 +3,7 @@ import React from 'react';
 const SideBar = (props) => {
     return (
         <div id={props.id} className="sideBar">
-            <h2>{props.title}</h2>
+            <p>{props.title}</p>
             <div className="divider"></div>
         </div>
     );

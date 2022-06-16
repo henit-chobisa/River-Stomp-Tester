@@ -49,13 +49,54 @@
 }
 
 .routinePage .operationsBar {
-    height: 65%;
+    height: 70%;
     width: 100%;
-    margin-top: 40px;
-    background-color: red;
+    margin-top: 20px;
     padding: 10px;
     display: flex;
     flex-direction: row;
+}
+
+.routinePage .sideBarDiv {
+    height: 100%;
+    width: 9%;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.routinePage .sideBarDiv .titleBox {
+    background-color: rgb(0, 160, 198);
+    height: 285px;
+    width: 45px;
+    margin-left: 25px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    align-items: center;
+    max-lines: 1;
+}
+
+.routinePage .sideBarDiv .titDivider {
+    height: 350px;
+    width: 1.5px;
+    background-color: gray;
+    margin-left: 20px;
+}
+
+.routinePage .operationsBar .sideBarDiv .titleBox p{
+    transform: rotate(-90deg);
+    max-lines: 1;
+    white-space: nowrap;
+}
+
+.routinePage .operationsBar .operations {
+    background-color: rebeccapurple;
+    height: 100%;
+    width: 87%;
+    display: flex;
 }
 
 .routinePage .routinesBar .utilsDiv .plusButton {
