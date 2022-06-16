@@ -1,18 +1,25 @@
 .panel {
     height: 100%;
-    width: 98.2%;
-    background-color: aqua;
+    width: 100%;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .panel .statisticsPanel {
-    height: 100%;
-    width: 60%;
-    background-color: white;
+    height: 90%;
+    width: 58.5%;
+    border-radius: 7px;
+    border-style: groove;
+    border-width: 1px;
+    border-color: gray;
 }
 
 .panel .observationsPanel {
-    height: 100%;
-    width: 40%;
-    background-color: black;
+    height: 90%;
+    width: 38.5%;
+    border-radius: 7px;
+    border-style: groove;
+    border-width: 1px;
+    border-color: gray;
 }

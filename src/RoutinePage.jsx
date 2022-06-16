@@ -44,9 +44,8 @@ const RoutinePage = (props) => {
                     <div className="titDivider"></div>
                 </div>
                 <div className="operations">
-                    {/* <OperationsPanel/> */}
+                    <OperationsPanel/>
                 </div>
-                
             </div>
 
             {/* <div className="routineList">
