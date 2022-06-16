@@ -7,7 +7,6 @@ const HoverTitleComp = (props) => {
                         {props.title}
                     </div> : <></>
     )
-
 }
 
 export default HoverTitleComp;

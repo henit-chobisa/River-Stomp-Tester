@@ -8,25 +8,24 @@ const OperationsPanel = () => {
     return (
         <div className="panel">
             <div className="statisticsPanel">
-                <StatisticsPanel/>
                 <div className="statBottomTitle">
                     <div className="content">
-                    <p>Statistics</p>
+                        <p>Statistics</p>
                     </div>
                 </div>
+                <StatisticsPanel />
             </div>
             <div className="observationsPanel">
-                <ObservationPanel/>
                 <div className="obsvBottomTitle">
                     <div className="content">
                         <p>Observations</p>
                     </div>
-                    
                 </div>
+                <ObservationPanel />
             </div>
         </div>
     )
-
 }
+
 
 export default OperationsPanel;
