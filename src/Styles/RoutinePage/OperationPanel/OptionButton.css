@@ -1,17 +1,20 @@
 .optionButton {
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
     border-radius: 20px;
-    background-color: rgb(0, 160, 198);
+    
     font-size: small;
     font-weight: bold;
     margin-left: 8px;
     margin-right: 8px;
+    white-space: nowrap;
+    cursor:pointer;
 }
 
 
 .optionButton p {
-    cursor:default;
+    transform: rotate(-90deg);
 }

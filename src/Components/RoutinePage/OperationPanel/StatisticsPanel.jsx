@@ -14,17 +14,20 @@ const StatisticsPanel = (props) => {
 
     return (
         <div className="statsPanelDiv">
+            <div className="featureBar">
+                <OptionButton isSelected={false} title={"Routine Map"} />
+                <OptionButton isSelected={true} title={"Graph"} />
+                <OptionButton isSelected={false} title={"Create Routine"} />
+            </div>
+            <div className="divider">
+
+            </div>
             <div className="presentationBar">
-                <FlexibleXYPlot className="plot" height={230} width={700} xType = "ordinal">
+                {/* <FlexibleXYPlot className="plot" height={230} width={700} xType = "ordinal">
                     <XAxis />
                     <YAxis />
                     <VerticalBarSeries data={data} barWidth={0.2} color={"rgb(0, 160, 198)"}/>
-                </FlexibleXYPlot>
-            </div>
-            <div className="featureBar">
-                <OptionButton title={"Routine Map"} />
-                <OptionButton title={"Graph"} />
-                <OptionButton title={"Create Routine"} />
+                </FlexibleXYPlot> */}
             </div>
         </div>
     )
