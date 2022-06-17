@@ -32,6 +32,15 @@
     flex-direction: column;
     justify-content: center;
 }
+
+.statsPanelDiv .presentationBar .noSelectionWarning {
+    font-size: small;
+    color: gray;
+    font-style: italic;
+
+}
+
+
 .statsPanelDiv .divider {
     width: 1px;
     height: 98%;

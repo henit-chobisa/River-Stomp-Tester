@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from "react"
 const OptionButton = (props) => {
 
     const titleReference = useRef();
-    
+
     useEffect(() => {
         if (props.isSelected === true){
             titleReference.current.style.color = "rgb(0, 160, 198)"
@@ -14,8 +14,12 @@ const OptionButton = (props) => {
         }
     })
 
+    const handleClick = () => {
+        props.onClickOption(props.index);
+    }
+
     return (
-        <div className="optionButton">
+        <div className="optionButton" onClick={handleClick}>
             <p ref={titleReference}>{props.title}</p>
         </div>
     )
