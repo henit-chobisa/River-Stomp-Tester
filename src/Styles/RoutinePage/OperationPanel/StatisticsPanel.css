@@ -3,37 +3,95 @@
     width: 96.5%;
     margin: 10px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
 }
 
 .statsPanelDiv .presentationBar {
-    height: 80%;
+    height: 100%;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.statsPanelDiv .presentationBar .plot {
+    height: 100;
+    width: 90;
+    color: rgb(0, 160, 198);
+}
+
+.statsPanelDiv .presentationBar .title {
+    margin-left: 3%;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+}
+
+.statsPanelDiv .featureBar {
+    height: 100%;
+    width: 5%;
+    margin-left: 20px;
+    top: -4%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.statsPanelDiv .presentationBar .warningView {
+    position: relative;
+    top: 40%;
+    left: 30%;
+}
+
+.statsPanelDiv .presentationBar .graphView{
+    height: 75%;
+    width: 95%;
+    position: relative;
+    left: 5%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.statsPanelDiv .presentationBar .plot {
-    height: 100;
-    width: 100;
-    color: rgb(0, 160, 198);
-    
+.statsPanelDiv .presentationBar .graphView .graph {
+    width: 95%;
 }
 
-.statsPanelDiv .featureBar {
-    height: 15%;
-    width: 95%;
-    position: relative;
-    top: 5%;
+.statsPanelDiv .presentationBar .graphView .options {
+    height: 110%;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+    transform: rotate(180deg);
+    position: relative;
+}
+
+.statsPanelDiv .presentationBar .graphView .graph .plot {
+    width: 20%;
+}
+
+.statsPanelDiv .presentationBar .noSelectionWarning {
+    height: 100%;
+    width: 100%;
+    font-size: small;
+    color: gray;
+    font-style: italic;
+}
+
+
+.statsPanelDiv .divider {
+    width: 1px;
+    height: 98%;
+    background-color: gray;
+    margin-left: 20px;
 }
 
 .statsPanelDiv .featureBar .optionButton {
-    height: 80%;
-    width: 20%;
+    width: 100%;
 }
 
