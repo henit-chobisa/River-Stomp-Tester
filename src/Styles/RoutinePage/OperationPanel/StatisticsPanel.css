@@ -8,18 +8,26 @@
 }
 
 .statsPanelDiv .presentationBar {
-    height: 80%;
+    height: 100%;
     width: 100%;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
 }
 
 .statsPanelDiv .presentationBar .plot {
     height: 100;
     width: 90;
     color: rgb(0, 160, 198);
-    
+}
+
+.statsPanelDiv .presentationBar .title {
+    margin-left: 3%;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    letter-spacing: 1.5px;
 }
 
 .statsPanelDiv .featureBar {
@@ -33,11 +41,46 @@
     justify-content: center;
 }
 
+.statsPanelDiv .presentationBar .warningView {
+    position: relative;
+    top: 40%;
+    left: 30%;
+}
+
+.statsPanelDiv .presentationBar .graphView{
+    height: 75%;
+    width: 95%;
+    position: relative;
+    left: 5%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.statsPanelDiv .presentationBar .graphView .graph {
+    width: 95%;
+}
+
+.statsPanelDiv .presentationBar .graphView .options {
+    height: 110%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+    transform: rotate(180deg);
+    position: relative;
+}
+
+.statsPanelDiv .presentationBar .graphView .graph .plot {
+    width: 20%;
+}
+
 .statsPanelDiv .presentationBar .noSelectionWarning {
+    height: 100%;
+    width: 100%;
     font-size: small;
     color: gray;
     font-style: italic;
-
 }
 
 
