@@ -6,13 +6,6 @@ import { FlexibleXYPlot, VerticalBarSeries, LabelSeries, XAxis, YAxis, LineSerie
 import testRoutineData from "../../../Assets/testRoutineData";
 
 const StatisticsPanel = (props) => {
-
-    const data = [
-        { x: 'A', y: 10, color: "rgb(0, 160, 198)" },
-        { x: 'B', y: 5, color: "rgb(0, 160, 198)" },
-        { x: 'C', y: 15, color: "rgb(0, 160, 198)" }
-    ];
-
     const graphViewRef = useRef();
 
     useEffect(() => {
@@ -23,14 +16,40 @@ const StatisticsPanel = (props) => {
         })
     });
 
+    const executionTimePublish = testRoutineData.routine.filter((data) => {
+        if (data.operation === "PUBLISH"){
+            return data;
+        }
+    }).map((data) => {
+        return {x : data.title, y : data.executionTime}
+    }) ;
 
-    const executionTimeData = testRoutineData.routine.map((dat) => {
-        return { x: dat.title, y: dat.executionTime }
+    const executionTimeSubscribe = testRoutineData.routine.filter((data) => {
+        if (data.operation !== "PUBLISH"){
+            return data;
+        }
+    }).map((data) => {
+        return {x : data.title, y : data.executionTime}
     });
 
     const [execView, updateExecView] = useState(true);
 
-    const dataByteData = testRoutineData.routine.map((dat) => {
+    const dataByteDataPublish = testRoutineData.routine.filter((dat) => {
+        if (dat.operation === "PUBLISH"){
+            return dat;
+        }
+    }).map((dat) => {
+        return {
+            x: dat.title,
+            y: dat.dataBytes
+        }
+    })
+
+    const dataByteDataSubscribe = testRoutineData.routine.filter((dat) => {
+        if (dat.operation !== "PUBLISH"){
+            return dat;
+        }
+    }).map((dat) => {
         return {
             x: dat.title,
             y: dat.dataBytes
@@ -43,6 +62,7 @@ const StatisticsPanel = (props) => {
 
 
     const handleOptionClickCallback = (index) => {
+        console.log(executionTimePublish);
         const clone = [...Options];
         if (selectedIndex !== null) {
             clone[selectedIndex].isSelected = false;
@@ -57,6 +77,7 @@ const StatisticsPanel = (props) => {
     }
 
     const handleGraphViewOption = (index) => {
+       
         if (index === 0) {
             updateExecView(false);
         }
@@ -78,9 +99,12 @@ const StatisticsPanel = (props) => {
                     <div className="graphView">
                         <div className="graph">
                             <FlexibleXYPlot className="plot" xType="ordinal" height={graphViewRef.current.offsetHeight * 0.7} width = {graphViewRef.current.offsetWidth * 0.75}>
-                                <XAxis />
-                                <YAxis />
-                                { execView === false ? <VerticalBarSeries data={dataByteData} barWidth={0.2} color={"rgb(0, 160, 198)"} /> : <LineSeries data={executionTimeData} color={"rgb(0, 160, 198)"}/>}
+                                <XAxis/>
+                                <YAxis/>
+                                { execView === false ? <VerticalBarSeries data={dataByteDataPublish} barWidth={0.4} opacity={1} color={"rgb(245, 61, 61)"} /> : <></> } 
+                                { execView === false ? <VerticalBarSeries data={dataByteDataSubscribe} barWidth={0.4} opacity={1} color={"rgb(0, 160, 198)"} /> : <></> } 
+                                {execView === true ? <LineSeries data={executionTimePublish} color={"rgb(245, 61, 61)"}/> : <></>}
+                                {execView === true ? <LineSeries data={executionTimeSubscribe} color={"rgb(0, 160, 198)"} /> : <></>}
                             </FlexibleXYPlot>
                         </div>
                         <div className="options">
