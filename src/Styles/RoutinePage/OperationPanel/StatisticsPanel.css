@@ -113,17 +113,30 @@
 /* Map View Styling */
 
 .statsPanelDiv .presentationBar .mapView {
-    height: 80%;
+    height: 75%;
     width: 95%;
     /* position: relative; */
     /* left: 10%; */
     display: flex;
     flex-direction: row;
     align-items: center;
+    
+}
+
+
+.statsPanelDiv .presentationBar .mapView .routineTree {
+    height: 100%;
+    width: 50%;
     overflow-y: hidden;
     overflow: scroll;
+}
 
-
+.statsPanelDiv .presentationBar .mapView .utilities {
+    height: 100%;
+    width: 45%;
+    margin-left: 5%;
+    background-color: rgb(245, 61, 61);
+    border-radius: 10px 0 10px 0;
 }
 
 .statsPanelDiv .presentationBar .mapView .timelineMap {
@@ -136,10 +149,6 @@
     margin-bottom: 0%;
 }
 
-.tContent {
-    margin: 0px;
-    padding: 0px;
-}
 
 
 

@@ -2,16 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import '../../../Styles/RoutinePage/OperationPanel/StatisticsPanel.css'
 import OptionButton from "./OptionButton";
 import '../../../../node_modules/react-vis/dist/style.css';
-import Timeline from '@mui/lab/Timeline';
-import TimelineItem from '@mui/lab/TimelineItem';
-import TimelineSeparator from '@mui/lab/TimelineSeparator';
-import TimelineConnector from '@mui/lab/TimelineConnector';
-import TimelineContent from '@mui/lab/TimelineContent';
-import TimelineDot from '@mui/lab/TimelineDot';
+
 import testRoutineData from "../../../Assets/testRoutineData";
 import GraphView from "./GraphView";
-import theme from "../../Generic/Theme";
-import { ThemeProvider } from "@mui/system";
+
+import MapView from "./MapView";
 
 const StatisticsPanel = (props) => {
     const graphViewRef = useRef();
@@ -43,31 +38,6 @@ const StatisticsPanel = (props) => {
         return Options.map((option) => (<OptionButton onClickOption={handleOptionClickCallback} index={option.key} isSelected={option.isSelected} title={option.title} />));
     }
 
-    const renderTimeLineItems = () => {
-        return testRoutineData.routine.map((data) => {
-            if (data.operation === "PUBLISH") {
-                return (<TimelineItem>
-                    <TimelineSeparator>
-                        <TimelineDot variant="outlined" color="primary" />
-                        <TimelineConnector />
-                    </TimelineSeparator>
-                    <TimelineContent className="tContent" color={"white"}>{data.title}</TimelineContent>
-                </TimelineItem>)
-            }
-            else {
-                return (
-                    <TimelineItem>
-                        <TimelineSeparator>
-                            <TimelineDot variant="outlined" color="secondary" />
-                            <TimelineConnector />
-                        </TimelineSeparator>
-                        <TimelineContent className="tContent" color={"white"}>{data.title}</TimelineContent>
-                    </TimelineItem>
-                )
-            }
-    })};
-
-
     const renderPresentationComponent = () => {
         if (selectedIndex === null) {
             return <div className="warningView">
@@ -83,13 +53,7 @@ const StatisticsPanel = (props) => {
             }
             else if (selectedIndex === 0) {
                 return (
-                    <div className="mapView">
-                        <ThemeProvider theme={theme}>
-                            <Timeline position="alternate" className="timelineMap">
-                                {renderTimeLineItems()}
-                            </Timeline>
-                        </ThemeProvider>
-                    </div>
+                   <MapView routineData={testRoutineData}/>
                 )
             }
         }
