@@ -14,7 +14,7 @@ const StatisticsPanel = (props) => {
     useEffect(() => {
         window.addEventListener("resize", () => {
             if (selectedIndex === 1) {
-                handleOptionClickCallback(1);
+                // handleOptionClickCallback(1);
             }
         })
     });
