@@ -1,41 +1,74 @@
 import React from "react"
 import Timeline from '@mui/lab/Timeline';
-import TimelineItem from '@mui/lab/TimelineItem';
-import TimelineSeparator from '@mui/lab/TimelineSeparator';
-import TimelineConnector from '@mui/lab/TimelineConnector';
-import TimelineContent from '@mui/lab/TimelineContent';
-import TimelineDot from '@mui/lab/TimelineDot';
+
 import theme from "../../Generic/Theme";
 import { ThemeProvider } from "@mui/system";
+import MapViewComp from "./MapViewComp/MapViewComp";
+import { useState } from "react";
 
 const MapView = (props) => {
 
+    const mapCompClicked = (index) => {
+        updateSelectedIndex(index);
+    }
+
+    const [selectedIndex, updateSelectedIndex] = useState(null);
+
     const renderTimeLineItems = () => {
-        return props.routineData.routine.map((data) => {
-            if (data.operation === "PUBLISH") {
-                return (
-                    <TimelineItem style={{ cursor: "pointer" }}>
-                        <TimelineSeparator>
-                            <TimelineDot variant="outlined" color="primary" />
-                            <TimelineConnector />
-                        </TimelineSeparator>
-                        <TimelineContent className="tContent" color={"white"}>{data.title}</TimelineContent>
-                    </TimelineItem>
-                )
-            }
-            else {
-                return (
-                    <TimelineItem style={{ cursor: "pointer" }}>
-                        <TimelineSeparator>
-                            <TimelineDot variant="outlined" color="secondary" />
-                            <TimelineConnector />
-                        </TimelineSeparator>
-                        <TimelineContent className="tContent" color={"white"}>{data.title}</TimelineContent>
-                    </TimelineItem>
-                )
-            }
+        return props.routineData.routine.map((data, index) => {
+            return (<MapViewComp routineComp={data} handleMapCompClick={mapCompClicked} index={index}/>)
         })
     };
+
+    const fetchUtilitiesStyle = () => {
+        if (selectedIndex === null){
+            return {backgroundColor : "transparent"}
+        }
+        else if (props.routineData.routine[selectedIndex].operation === "PUBLISH"){
+            return {backgroundColor : "rgb(245, 61, 61)"}
+        }
+        else {
+            return {backgroundColor : "rgb(0, 160, 198)"}
+        }
+    }
+
+    const fetchUtilityInfo = () => {
+        if (selectedIndex === null){
+            return (
+                <div className="noSelectionWarning">
+                    <p>Select a routine component for info : ) </p>
+                </div>
+            )
+        }
+        else {
+            var routineComponent = props.routineData.routine[selectedIndex];
+            
+            return (
+                <div className="compUtilityInfo">
+                    <div className="title">
+                        <p>{routineComponent.title}</p>
+                    </div>
+                    <div className="description">
+                        <p>{routineComponent.description}</p>
+                    </div>
+                    <div className="attributes">
+                        <div className="type">
+                            <p id="key">Type : </p>
+                            <p id="value">{routineComponent.operation}</p>
+                        </div>
+                        <div className="executionTime">
+                            <p id="key">Execution Time : </p>
+                            <p id="value">{routineComponent.executionTime}ms</p>
+                        </div>
+                        <div className="data">
+                            <p id ="key">Data Interchange</p>
+                            <p id="value">{routineComponent.dataBytes} B</p>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+    }
 
     return (
         <div className="mapView">
@@ -46,8 +79,8 @@ const MapView = (props) => {
                     </Timeline>
                 </ThemeProvider>
             </div>
-            <div className="utilities">
-
+            <div className="utilities" style={fetchUtilitiesStyle()}>
+                {fetchUtilityInfo()}
             </div>
         </div>
     )
