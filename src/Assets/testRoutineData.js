@@ -53,6 +53,13 @@ const testRoutineData = {
             data : "{\n  \"Bye\" : \"Bye River Routine\"  \n}",
             executionTime : 100,
             dataBytes: 50
+        },
+        {
+            title: "Routine 6",
+            operation : "SUBSCRIBE",
+            data : "{\n  \"Bye\" : \"Bye River Routine\"  \n}",
+            executionTime : 80,
+            dataBytes: 200
         }
     ]
 }
