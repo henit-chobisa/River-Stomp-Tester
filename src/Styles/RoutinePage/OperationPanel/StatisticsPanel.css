@@ -7,6 +7,37 @@
     align-items: center;
 }
 
+.statsPanelDiv .divider {
+    width: 1px;
+    height: 98%;
+    background-color: gray;
+    margin-left: 20px;
+}
+
+
+/* Feature Bar View */
+
+.statsPanelDiv .featureBar {
+    height: 100%;
+    width: 5%;
+    margin-left: 20px;
+    top: -4%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+
+.statsPanelDiv .featureBar .optionButton {
+    width: 100%;
+}
+
+/* Feature Bar View */
+
+
+
+/* Presentation Bar View */
 .statsPanelDiv .presentationBar {
     height: 100%;
     width: 100%;
@@ -30,23 +61,25 @@
     letter-spacing: 1.5px;
 }
 
-.statsPanelDiv .featureBar {
+.statsPanelDiv .presentationBar .noSelectionWarning {
     height: 100%;
-    width: 5%;
-    margin-left: 20px;
-    top: -4%;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    width: 100%;
+    font-size: small;
+    color: gray;
+    font-style: italic;
 }
+
 
 .statsPanelDiv .presentationBar .warningView {
     position: relative;
     top: 40%;
     left: 30%;
 }
+/* Presentation Bar View */
 
+
+
+/* Graph View Styling */
 .statsPanelDiv .presentationBar .graphView{
     height: 75%;
     width: 95%;
@@ -74,24 +107,139 @@
 .statsPanelDiv .presentationBar .graphView .graph .plot {
     width: 20%;
 }
+/* Graph View Styling */
 
-.statsPanelDiv .presentationBar .noSelectionWarning {
+
+/* Map View Styling */
+
+.statsPanelDiv .presentationBar .mapView {
+    height: 75%;
+    width: 95%;
+    /* position: relative; */
+    /* left: 10%; */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+.statsPanelDiv .presentationBar .mapView .routineTree {
+    height: 100%;
+    width: 50%;
+    overflow-y: hidden;
+    overflow: scroll;
+}
+
+.statsPanelDiv .presentationBar .mapView .utilities {
+    max-height: 100%;
+    width: 45%;
+    margin-left: 5%;
+    border-radius: 25px 0 25px 0;
+    display: flex;
+}
+
+.statsPanelDiv .presentationBar .mapView .utilities .noSelectionWarning {
     height: 100%;
     width: 100%;
-    font-size: small;
     color: gray;
-    font-style: italic;
+    font-size: smaller;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-
-.statsPanelDiv .divider {
-    width: 1px;
-    height: 98%;
-    background-color: gray;
-    margin-left: 20px;
+.statsPanelDiv .presentationBar .mapView .utilities .compUtilityInfo {
+    height: 90%;
+    width: 90%;
+    margin: 10px;
 }
 
-.statsPanelDiv .featureBar .optionButton {
+.statsPanelDiv .presentationBar .mapView .utilities .compUtilityInfo .title {
+    font-weight: bold;
+    font-size: 17px;
+    overflow-x: hidden;
+    padding: 0%;
+}
+
+.statsPanelDiv .presentationBar .mapView .utilities .compUtilityInfo .description {
+    font-size: 12px;
+    color: white;
+    max-height: 30%;
+    overflow-y: scroll;
+    margin: 5px;
+    text-align: start;
+}
+
+.statsPanelDiv .presentationBar .mapView .utilities .compUtilityInfo .description::-webkit-scrollbar{
+    width: 0px;
+}
+
+.statsPanelDiv .presentationBar .mapView .utilities .compUtilityInfo .attributes {
+    max-height: 70px;
+    height: 40%;
     width: 100%;
+    color: white;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    justify-content:flex-start;
 }
+
+.statsPanelDiv .presentationBar .mapView .utilities .compUtilityInfo .attributes .type {
+    height: 25%;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.statsPanelDiv .presentationBar .mapView .utilities .compUtilityInfo .attributes #key {
+    font-size: small;
+    justify-content: space-between;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.statsPanelDiv .presentationBar .mapView .utilities .compUtilityInfo .attributes #value {
+    font-weight: bold;
+}
+
+
+.statsPanelDiv .presentationBar .mapView .utilities .compUtilityInfo .attributes .executionTime {
+    height: 25%;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.statsPanelDiv .presentationBar .mapView .utilities .compUtilityInfo .attributes .data {
+    height: 25%;
+    display: flex;
+    justify-content: space-between;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.statsPanelDiv .presentationBar .mapView .utilities .compUtilityInfo .attributes::-webkit-scrollbar {
+    width: 0px;
+}
+
+.statsPanelDiv .presentationBar .mapView .timelineMap {
+    margin: 0%;
+    padding: 0%;
+    height: 250px;
+    width: 100%;
+    padding: 0px;
+    /* transform: rotate(-90deg); */
+    margin-bottom: 0%;
+}
+
+
+
+
+
+
+
+
 
