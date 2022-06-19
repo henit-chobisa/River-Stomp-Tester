@@ -6,7 +6,8 @@
     max-width: 25%;
     max-height: 150px;
     padding: 0%;
-    margin-right: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
     display: flex;
     align-items: center;
     cursor: pointer;

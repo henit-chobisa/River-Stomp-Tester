@@ -14,8 +14,14 @@ const RoutineItem = (props) => {
         // updateWindowOpen(true);
     }
 
-    const handleClick = () => {
-        props.clickHandler(props.index);
+    const handleDelete = () => {
+        props.deleteHandler(props.index);
+    }
+
+    const handleClick = (event) => {
+        if (event.target.className !== "deleteButton"){
+            props.clickHandler(props.index);
+        }
     }
 
     const fetchPreesentBackgroundColor = () => {
@@ -30,7 +36,7 @@ const RoutineItem = (props) => {
                     <div className="topBar">
                         <div className="heading">
                             <h3 className="title">{props.routine.title}</h3>
-                            <div className="deleteButton">x</div>
+                            <div onClick={handleDelete} className="deleteButton">x</div>
                         </div>
                     </div>
 
