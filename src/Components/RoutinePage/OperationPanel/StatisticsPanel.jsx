@@ -7,13 +7,10 @@ import testRoutineData from "../../../Assets/testRoutineData";
 import GraphView from "./GraphView";
 
 import MapView from "./MapView";
+import CreateView from "./CreateView";
 
 const StatisticsPanel = (props) => {
     const graphViewRef = useRef();
-    const [author, updateAuthor] = useState("");
-    const [title, updateTitle] = useState("");
-    const [description, updateDescription] = useState("");
-    const goButton = useRef();
     var innerHeight = 0;
     var innerWidth = 0;
 
@@ -30,17 +27,6 @@ const StatisticsPanel = (props) => {
         })
     });
 
-
-    const addRoutine = () => {
-        if (title === "" || description === "" || author === ""){
-            shakeCreateRoutineButton();
-        }
-        else {
-            props.addRoutine({title : title, description : description, lastUpdated : "new", author : author, isActive: false});
-        }
-        
-    }
-
     const [selectedIndex, updateSelectedIndex] = useState(null);
 
     const [Options, UpdateOptions] = useState([{ key: 0, title: "Routine Map", isSelected: false }, { key: 1, title: "Graph", isSelected: false }, { key: 2, title: "Create Routine", isSelected: false }]);
@@ -56,25 +42,6 @@ const StatisticsPanel = (props) => {
         UpdateOptions(clone);
     }
 
-    const handleAuthorInputChange = (event) => {
-        updateAuthor(event.target.value);
-    }
-
-    const handleTitleInputChange = (event) => {
-        updateTitle(event.target.value);
-    }
-
-    const handleDescriptionInputChange = (event) => {
-        updateDescription(event.target.value);
-    }
-
-    const shakeCreateRoutineButton = () => {
-        goButton.current.className = "goButtonAnim";
-        setTimeout(() => {
-            goButton.current.className = "goButton";
-        }, 700);
-
-    }
 
     const renderOptions = () => {
         return Options.map((option, index) => (<OptionButton key={index} onClickOption={handleOptionClickCallback} index={option.key} isSelected={option.isSelected} title={option.title} />));
@@ -100,25 +67,7 @@ const StatisticsPanel = (props) => {
             }
             else {
                 return (
-                    <div className="routineCreationView">
-                        <div className="titleAuthorLayer">
-                            <div className="title">
-                                <p>Routine Title</p>
-                                <input type="text" placeholder="Routine Name" value={title} onChange={handleTitleInputChange}/>
-                            </div>
-                            <div className="author">
-                                <p>Author</p>
-                                <input type="text" placeholder="Author Info" value={author} onChange={handleAuthorInputChange}/>
-                            </div>
-                        </div>
-                        <div className="descriptionLayer">
-                            <p>Description</p>
-                            <textarea type="text" placeholder="Description of Routine" onChange={handleDescriptionInputChange} value={description}/>
-                        </div>
-                        <div className="goButton" ref={goButton} onClick={addRoutine}>
-                            <p>Add Routine +</p>
-                        </div>
-                    </div>
+                    <CreateView addRoutine={props.addRoutine}/>
                 )
             }
         }
