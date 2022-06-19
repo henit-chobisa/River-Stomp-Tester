@@ -10,14 +10,30 @@ import MapView from "./MapView";
 
 const StatisticsPanel = (props) => {
     const graphViewRef = useRef();
+    const [author, updateAuthor] = useState("");
+    const [title, updateTitle] = useState("");
+    const [description, updateDescription] = useState("");
+
+    var innerHeight = 0;
+    var innerWidth = 0;
 
     useEffect(() => {
-        window.addEventListener("resize", () => {
-            if (selectedIndex === 1) {
-                // handleOptionClickCallback(1);
-            }
+        window.addEventListener("resize", (event) => {
+            // if (event.target.innerHeight !== innerHeight || event.target.innerWidth !== innerWidth){
+            //     if (selectedIndex === 1) {
+            //         handleOptionClickCallback(1);
+            //         console.log("Hello");
+            //         innerHeight = event.target.innerHeight;
+            //         innerWidth = event.target.innerWidth;
+            //     }
+            // }
         })
     });
+
+
+    const addRoutine = () => {
+        props.addRoutine({title : title, description : description, lastUpdated : "new", author : author});
+    }
 
     const [selectedIndex, updateSelectedIndex] = useState(null);
 
@@ -32,6 +48,18 @@ const StatisticsPanel = (props) => {
         updateSelectedIndex(index);
         clone[index].isSelected = true;
         UpdateOptions(clone);
+    }
+
+    const handleAuthorInputChange = (event) => {
+        updateAuthor(event.target.value);
+    }
+
+    const handleTitleInputChange = (event) => {
+        updateTitle(event.target.value);
+    }
+
+    const handleDescriptionInputChange = (event) => {
+        updateDescription(event.target.value);
     }
 
     const renderOptions = () => {
@@ -54,6 +82,29 @@ const StatisticsPanel = (props) => {
             else if (selectedIndex === 0) {
                 return (
                    <MapView routineData={testRoutineData}/>
+                )
+            }
+            else {
+                return (
+                    <div className="routineCreationView">
+                        <div className="titleAuthorLayer">
+                            <div className="title">
+                                <p>Routine Title</p>
+                                <input type="text" placeholder="Routine Name" value={title} onChange={handleTitleInputChange}/>
+                            </div>
+                            <div className="author">
+                                <p>Author</p>
+                                <input type="text" placeholder="Author Info" value={author} onChange={handleAuthorInputChange}/>
+                            </div>
+                        </div>
+                        <div className="descriptionLayer">
+                            <p>Description</p>
+                            <textarea type="text" placeholder="Description of Routine" onChange={handleDescriptionInputChange} value={description}/>
+                        </div>
+                        <div className="goButton" onClick={addRoutine}>
+                            <p>Add Routine +</p>
+                        </div>
+                    </div>
                 )
             }
         }

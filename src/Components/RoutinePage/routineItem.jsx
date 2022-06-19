@@ -22,10 +22,10 @@ const RoutineItem = (props) => {
 
                     <div className="topBar">
                         <div className="heading">
-                            <h3 className="title">Routine Heading</h3>
+                            <h3 className="title">{props.routine.title}</h3>
                         </div>
                         <div className="lastUpdate">
-                            <p className="lastUpdate">last updated</p>
+                            <p className="lastUpdate">{props.routine.lastUpdated}</p>
                         </div>
                     </div>
 

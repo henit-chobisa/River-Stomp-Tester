@@ -18,9 +18,15 @@ const RoutinePage = (props) => {
         }
         else {
             return routines.map((routine) => {
-                return <RoutineItem present={true} title={routine.title} lastUpdated={routine.lastUpdated} />
+                return <RoutineItem present={true} routine={routine} />
             })
         }
+    }
+
+    const addRoutine = (routine) => {
+        const clone = [...routines];
+        clone.push(routine);
+        updateRoutines(clone);
     }
 
     return (
@@ -37,20 +43,10 @@ const RoutinePage = (props) => {
 
             </div>
             <div className="operationsBar">
-                {/* <div className="sideBarDiv">
-                    <div className="titleBox">
-                        <p>Operations Panel</p>
-                    </div>
-                    <div className="titDivider"></div>
-                </div> */}
                 <div className="operations">
-                    <OperationsPanel/>
+                    <OperationsPanel addRoutine={addRoutine}/>
                 </div>
             </div>
-
-            {/* <div className="routineList">
-                <RoutineItem present={true}/>
-            </div> */}
         </div>
     );
 }
