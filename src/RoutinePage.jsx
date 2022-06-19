@@ -8,7 +8,7 @@ import OperationsPanel from "./Components/RoutinePage/OperationPanel";
 import { useRef } from "react";
 import { useEffect } from "react";
 
-const RoutinePage = (props) => {
+const RoutinePage = () => {
 
     const [routines, updateRoutines] = useState([]);
     const [selectedRoutine, updateSelectedRoutine] = useState(null);

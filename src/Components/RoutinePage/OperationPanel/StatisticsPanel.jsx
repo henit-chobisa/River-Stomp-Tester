@@ -13,7 +13,7 @@ const StatisticsPanel = (props) => {
     const [author, updateAuthor] = useState("");
     const [title, updateTitle] = useState("");
     const [description, updateDescription] = useState("");
-
+    const goButton = useRef();
     var innerHeight = 0;
     var innerWidth = 0;
 
@@ -32,7 +32,13 @@ const StatisticsPanel = (props) => {
 
 
     const addRoutine = () => {
-        props.addRoutine({title : title, description : description, lastUpdated : "new", author : author, isActive: false});
+        if (title === "" || description === "" || author === ""){
+            shakeCreateRoutineButton();
+        }
+        else {
+            props.addRoutine({title : title, description : description, lastUpdated : "new", author : author, isActive: false});
+        }
+        
     }
 
     const [selectedIndex, updateSelectedIndex] = useState(null);
@@ -62,8 +68,16 @@ const StatisticsPanel = (props) => {
         updateDescription(event.target.value);
     }
 
+    const shakeCreateRoutineButton = () => {
+        goButton.current.className = "goButtonAnim";
+        setTimeout(() => {
+            goButton.current.className = "goButton";
+        }, 700);
+
+    }
+
     const renderOptions = () => {
-        return Options.map((option) => (<OptionButton onClickOption={handleOptionClickCallback} index={option.key} isSelected={option.isSelected} title={option.title} />));
+        return Options.map((option, index) => (<OptionButton key={index} onClickOption={handleOptionClickCallback} index={option.key} isSelected={option.isSelected} title={option.title} />));
     }
 
     const renderPresentationComponent = () => {
@@ -101,7 +115,7 @@ const StatisticsPanel = (props) => {
                             <p>Description</p>
                             <textarea type="text" placeholder="Description of Routine" onChange={handleDescriptionInputChange} value={description}/>
                         </div>
-                        <div className="goButton" onClick={addRoutine}>
+                        <div className="goButton" ref={goButton} onClick={addRoutine}>
                             <p>Add Routine +</p>
                         </div>
                     </div>

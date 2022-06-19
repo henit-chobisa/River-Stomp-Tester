@@ -77,7 +77,7 @@ const ResultTab = (props) => {
     const loadSubscriptions = () => {
         if (subscriptions.length !== 0) {
             return subscriptions.map((subscription, index) =>
-                <SubsItem route={subscription.route} index={index} handleListPop={handleSubsPop} handleSubsMessage={handleSubscriptionMessage} handleSubsClick={handleSubsClick} isActive={subscription.isActive} isSubscribed={true} />
+                <SubsItem key={index} route={subscription.route} index={index} handleListPop={handleSubsPop} handleSubsMessage={handleSubscriptionMessage} handleSubsClick={handleSubsClick} isActive={subscription.isActive} isSubscribed={true} />
             )
         }
         else {

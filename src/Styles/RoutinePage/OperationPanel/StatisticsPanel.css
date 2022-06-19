@@ -75,12 +75,13 @@
     top: 40%;
     left: 30%;
 }
+
 /* Presentation Bar View */
 
 
 
 /* Graph View Styling */
-.statsPanelDiv .presentationBar .graphView{
+.statsPanelDiv .presentationBar .graphView {
     height: 75%;
     width: 95%;
     position: relative;
@@ -107,6 +108,7 @@
 .statsPanelDiv .presentationBar .graphView .graph .plot {
     width: 20%;
 }
+
 /* Graph View Styling */
 
 
@@ -170,7 +172,7 @@
     text-align: start;
 }
 
-.statsPanelDiv .presentationBar .mapView .utilities .compUtilityInfo .description::-webkit-scrollbar{
+.statsPanelDiv .presentationBar .mapView .utilities .compUtilityInfo .description::-webkit-scrollbar {
     width: 0px;
 }
 
@@ -182,7 +184,7 @@
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
-    justify-content:flex-start;
+    justify-content: flex-start;
 }
 
 .statsPanelDiv .presentationBar .mapView .utilities .compUtilityInfo .attributes .type {
@@ -253,7 +255,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    
+
 }
 
 .statsPanelDiv .presentationBar .routineCreationView .titleAuthorLayer .title {
@@ -318,7 +320,7 @@
     font-weight: bold;
 }
 
-.statsPanelDiv .presentationBar .routineCreationView .descriptionLayer p{
+.statsPanelDiv .presentationBar .routineCreationView .descriptionLayer p {
     margin: 0px;
     margin-bottom: 10px;
 }
@@ -334,7 +336,39 @@
     resize: none;
 }
 
+@keyframes shakeAnimation {
+    0% {
+        left: 0.5%;
+    }
+
+    50% {
+        right: 0.5%;
+    }
+
+    100% {
+        left: 0%;
+    }
+}
+
+
 .statsPanelDiv .presentationBar .routineCreationView .goButton {
+    height: 24%;
+    max-height: 40px;
+    width: 100%;
+    margin: 10px;
+    margin-bottom: 0px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: center;
+    font-size: small;
+    font-weight: bold;
+    color: white;
+    background-color: rgb(0, 160, 198);
+    border-radius: 20px;
+}
+
+.statsPanelDiv .presentationBar .routineCreationView .goButtonAnim {
     height: 24%;
     max-height: 40px;
     width: 100%;
@@ -344,22 +378,20 @@
     align-items: center;
     justify-content: center;
     font-size: small;
+    position: relative;
     font-weight: bold;
     color: white;
     background-color: rgb(0, 160, 198);
     border-radius: 20px;
+    animation-name: shakeAnimation;
+    animation-duration: 0.1s;
+    animation-iteration-count: infinite;
+}
+
+.statsPanelDiv .presentationBar .routineCreationView .goButtonAnim:hover {
+    background-color: rgb(245, 61, 61);
 }
 
 .statsPanelDiv .presentationBar .routineCreationView .goButton:hover {
     background-color: rgb(245, 61, 61);
 }
-
-
-
-
-
-
-
-
-
-
