@@ -23,6 +23,13 @@ const Storehandler = () => {
         getSubscriptions : () => {
             const subs = ipcRenderer.sendSync("getSubs");
             return subs;
+        },
+        getRoutines : () => {
+            const routines = ipcRenderer.sendSync("getRoutines");
+            return routines;
+        },
+        setRoutines : (routines) => {
+            ipcRenderer.send("setRoutines", routines);
         }
     }
 }

@@ -155,7 +155,7 @@
 }
 
 .routineItem .null .nullText {
-    font-size: medium;
+    font-size: small;
     color: gray;
     font-style: italic;
 }
