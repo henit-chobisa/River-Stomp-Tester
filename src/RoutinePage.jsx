@@ -9,6 +9,7 @@ import OperationsPanel from "./Components/RoutinePage/OperationPanel";
 const RoutinePage = (props) => {
 
     const [routines, updateRoutines] = useState([]);
+    const [selectedRoutine, updateSelectedRoutine] = useState(null);
 
     const renderRoutineItems = () => {
         if (routines.length === 0 ) {
@@ -17,10 +18,20 @@ const RoutinePage = (props) => {
             )
         }
         else {
-            return routines.map((routine) => {
-                return <RoutineItem present={true} routine={routine} />
+            return routines.map((routine, index) => {
+                return <RoutineItem present={true} index={index} isActive={routine.isActive} clickHandler={handleRoutineItemClicked} routine={routine} />
             })
         }
+    }
+
+    const handleRoutineItemClicked = (index) => {
+        const clone = [...routines];
+        if (selectedRoutine !== null){
+            clone[selectedRoutine].isActive = false; 
+        }
+
+        clone[index].isActive = true;
+        updateRoutines(clone);
     }
 
     const addRoutine = (routine) => {

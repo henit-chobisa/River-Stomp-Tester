@@ -32,7 +32,7 @@ const StatisticsPanel = (props) => {
 
 
     const addRoutine = () => {
-        props.addRoutine({title : title, description : description, lastUpdated : "new", author : author});
+        props.addRoutine({title : title, description : description, lastUpdated : "new", author : author, isActive: false});
     }
 
     const [selectedIndex, updateSelectedIndex] = useState(null);
