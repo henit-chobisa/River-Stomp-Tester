@@ -3,7 +3,7 @@ import '../../Styles/RoutinePage/OperationsPanel.css'
 import StatisticsPanel from "./OperationPanel/StatisticsPanel";
 import ObservationPanel from "./OperationPanel/ObservationPanel";
 
-const OperationsPanel = () => {
+const OperationsPanel = (props) => {
 
     return (
         <div className="panel">
@@ -13,7 +13,7 @@ const OperationsPanel = () => {
                         <p>Statistics</p>
                     </div>
                 </div>
-                <StatisticsPanel />
+                <StatisticsPanel addRoutine={props.addRoutine}/>
             </div>
             <div className="observationsPanel">
                 <div className="obsvBottomTitle">

@@ -27,6 +27,15 @@ ipcMain.on("getSubs", (event) => {
 
 ipcMain.on("setSubs", (event, subs) => {
     store.set("Subscriptions", subs);
+});
+
+ipcMain.on("setRoutines", (event, routines) => {
+    store.set("Routines", routines);
+});
+
+ipcMain.on("getRoutines", (event) => {
+    const routines = store.get("Routines");
+    event.returnValue = routines;
 })
 
 

@@ -7,15 +7,23 @@ import testRoutineData from "../../../Assets/testRoutineData";
 import GraphView from "./GraphView";
 
 import MapView from "./MapView";
+import CreateView from "./CreateView";
 
 const StatisticsPanel = (props) => {
     const graphViewRef = useRef();
+    var innerHeight = 0;
+    var innerWidth = 0;
 
     useEffect(() => {
-        window.addEventListener("resize", () => {
-            if (selectedIndex === 1) {
-                // handleOptionClickCallback(1);
-            }
+        window.addEventListener("resize", (event) => {
+            // if (event.target.innerHeight !== innerHeight || event.target.innerWidth !== innerWidth){
+            //     if (selectedIndex === 1) {
+            //         handleOptionClickCallback(1);
+            //         console.log("Hello");
+            //         innerHeight = event.target.innerHeight;
+            //         innerWidth = event.target.innerWidth;
+            //     }
+            // }
         })
     });
 
@@ -34,8 +42,9 @@ const StatisticsPanel = (props) => {
         UpdateOptions(clone);
     }
 
+
     const renderOptions = () => {
-        return Options.map((option) => (<OptionButton onClickOption={handleOptionClickCallback} index={option.key} isSelected={option.isSelected} title={option.title} />));
+        return Options.map((option, index) => (<OptionButton key={index} onClickOption={handleOptionClickCallback} index={option.key} isSelected={option.isSelected} title={option.title} />));
     }
 
     const renderPresentationComponent = () => {
@@ -54,6 +63,11 @@ const StatisticsPanel = (props) => {
             else if (selectedIndex === 0) {
                 return (
                    <MapView routineData={testRoutineData}/>
+                )
+            }
+            else {
+                return (
+                    <CreateView addRoutine={props.addRoutine}/>
                 )
             }
         }

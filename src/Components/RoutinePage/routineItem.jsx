@@ -14,18 +14,29 @@ const RoutineItem = (props) => {
         // updateWindowOpen(true);
     }
 
+    const handleDelete = () => {
+        props.deleteHandler(props.index);
+    }
+
+    const handleClick = (event) => {
+        if (event.target.className !== "deleteButton"){
+            props.clickHandler(props.index);
+        }
+    }
+
+    const fetchPreesentBackgroundColor = () => {
+        return props.isActive ? {backgroundColor : "rgb(245, 61, 61)"} : {backgroundColor : "rgb(0, 160, 198)"}
+    }
+
     return (
         <div className="routineItem">
             {props.present
                 ? // If the container is working for an active entity
-                <div className="present">
-
+                <div className="present" onClick={handleClick} style={fetchPreesentBackgroundColor()}>
                     <div className="topBar">
                         <div className="heading">
-                            <h3 className="title">Routine Heading</h3>
-                        </div>
-                        <div className="lastUpdate">
-                            <p className="lastUpdate">last updated</p>
+                            <h3 className="title">{props.routine.title}</h3>
+                            <div onClick={handleDelete} className="deleteButton">x</div>
                         </div>
                     </div>
 
@@ -33,14 +44,13 @@ const RoutineItem = (props) => {
                         <RoutineDisplay/>
                     </RoutineExecPage> : <></>}
                     <div className="bottomBar">
-                        <div className="removeButtonDiv">
-                            <button className="removeButton">X</button>
-                        </div>
-
                         <div className="utilitiesDiv">
-                            <button className="shareButton">
-                                <img src={shareIcon} alt="" />
-                            </button>
+                        <div className="lastUpdate">
+                            <p className="lastUpdate">{props.routine.lastUpdated}</p>
+                        </div>
+                            <div className="shareButton">
+                                <p>📤</p>
+                            </div>
                             <button className="run" onClick={handleButtonClick}>
                                 <p>View</p>
                             </button>

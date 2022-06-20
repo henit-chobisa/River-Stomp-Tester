@@ -16,7 +16,7 @@ const MapView = (props) => {
 
     const renderTimeLineItems = () => {
         return props.routineData.routine.map((data, index) => {
-            return (<MapViewComp routineComp={data} handleMapCompClick={mapCompClicked} index={index}/>)
+            return (<MapViewComp routineComp={data} key={index} handleMapCompClick={mapCompClicked} index={index}/>)
         })
     };
 

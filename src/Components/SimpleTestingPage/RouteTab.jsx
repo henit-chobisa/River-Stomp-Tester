@@ -152,7 +152,7 @@ const RouteTab = (props) => {
             return (<p className='warning'> No Routes added yet, add one. </p>)
         }
         else {
-            return routes.map((route) => (<RouteItem route={route.value} index={route.index} isActive={route.isActive} handleRoutePop={handleRoutePop} handleSelection={handleRouteItemSelection} />));
+            return routes.map((route, index) => (<RouteItem key={index} route={route.value} index={route.index} isActive={route.isActive} handleRoutePop={handleRoutePop} handleSelection={handleRouteItemSelection} />));
         }
     }
 
