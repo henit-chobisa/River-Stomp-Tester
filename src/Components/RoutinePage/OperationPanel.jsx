@@ -13,7 +13,7 @@ const OperationsPanel = (props) => {
                         <p>Statistics</p>
                     </div>
                 </div>
-                <StatisticsPanel addRoutine={props.addRoutine}/>
+                <StatisticsPanel addRoutine={props.addRoutine} selectedRoutine={props.selectedRoutine}/>
             </div>
             <div className="observationsPanel">
                 <div className="obsvBottomTitle">
@@ -21,7 +21,7 @@ const OperationsPanel = (props) => {
                         <p>Observations</p>
                     </div>
                 </div>
-                <ObservationPanel />
+                <ObservationPanel present={true} selectedRoutine={props.selectedRoutine}/>
             </div>
         </div>
     )

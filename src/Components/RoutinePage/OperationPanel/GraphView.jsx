@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { FlexibleXYPlot, VerticalBarSeries, LabelSeries, XAxis, YAxis, LineSeries } from 'react-vis';
+import { FlexibleXYPlot, VerticalBarSeries, XAxis, YAxis, LineSeries } from 'react-vis';
 import OptionButton from "./OptionButton";
 
 const GraphView = (props) => {

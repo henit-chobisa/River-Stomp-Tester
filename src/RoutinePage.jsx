@@ -111,7 +111,7 @@ const RoutinePage = () => {
             </div>
             <div className="operationsBar">
                 <div className="operations">
-                    <OperationsPanel addRoutine={addRoutine} />
+                    <OperationsPanel addRoutine={addRoutine} selectedRoutine={selectedRoutine === null ? null : routines[selectedRoutine]}/>
                 </div>
             </div>
         </div>
