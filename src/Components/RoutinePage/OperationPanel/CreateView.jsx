@@ -33,9 +33,10 @@ const CreateView = (props) => {
             shakeCreateRoutineButton();
         }
         else {
-            props.addRoutine({title : title, description : description, lastUpdated : "new", author : author, isActive: false});
+            var time = new Date();
+            var lastUpdate = `${time.getHours()}:${time.getMinutes()} ${time.getUTCDate()}/${time.getUTCMonth()}/${time.getUTCFullYear()}`
+            props.addRoutine({title : title, description : description, lastUpdated : lastUpdate, author : author, isActive: false});
         }
-        
     }
 
     return (
