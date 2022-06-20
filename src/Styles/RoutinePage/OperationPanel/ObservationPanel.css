@@ -3,3 +3,173 @@
     width: 95%;
     margin: 10px;
 }
+
+.observPanelDiv .observationPanelAbsent {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: gray;
+    font-size: small;
+    font-style: italic;
+}
+
+.observPanelDiv .observationPanelPresent {
+    height: 100%;
+    width: 98%;
+    position: relative;
+    top: -5%;
+    display: flex;
+    flex-direction:column;
+    align-items: flex-start;
+    margin: 10px;
+    color: white;
+}
+
+.observPanelDiv .observationPanelPresent .heading {
+    height: 13%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+    margin: 0px;
+}
+
+.observPanelDiv .observationPanelPresent .heading .routineType {
+    width: 28%;
+    height: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(0, 160, 198);
+    border-radius: 20px;
+}
+
+
+.observPanelDiv .observationPanelPresent .heading .routineType p {
+    font-size: smaller;
+}
+
+.observPanelDiv .observationPanelPresent .heading p {
+    font-weight: bold;
+    font-size: 23px;
+    max-width: 60%;
+    overflow: scroll;
+    white-space: nowrap;
+}
+
+.observPanelDiv .observationPanelPresent .descriptionDiv {
+    max-height: 140px;
+    height: 25%;
+    width: 100%;
+    display: flex;
+    color: gray;
+    align-items: center;
+    font-size: small;
+    font-style: italic;
+    margin-left: 1%;
+    margin-top: 1%;
+    overflow: scroll;
+    text-align: right;
+}
+
+.observPanelDiv .observationPanelPresent .authorDiv {
+    height: 10%;
+    width: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 10px;
+    font-size: small;
+    font-style: italic;
+}
+
+.observPanelDiv .observationPanelPresent .statsView {
+    height: 40%;
+    width: 100%;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+
+.observPanelDiv .observationPanelPresent .statsView .dataBlock {
+    height: 90%;
+    width: 40%;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    flex-direction: column;
+    font-size: medium;
+}
+
+
+
+.observPanelDiv .observationPanelPresent .statsView .dataBlock p {
+    margin: 0px;
+}
+
+.observPanelDiv .observationPanelPresent .statsView .dataBlock .divider {
+    width: 80%;
+    height: 2px;
+    background-color: gray;
+    margin: 5px;
+}
+
+.observPanelDiv .observationPanelPresent .statsView .dataBlock .data {
+    height: 60%;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.observPanelDiv .observationPanelPresent .statsView .dataBlock .data .num {
+    font-size: 55px;
+}
+
+.observPanelDiv .observationPanelPresent .statsView .dataBlock .data .unit {
+    font-size: medium;
+}
+
+.observPanelDiv .observationPanelPresent .statsView .dataBlockExec {
+    height: 90%;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: bold;
+}
+
+.observPanelDiv .observationPanelPresent .statsView .dataBlockExec p {
+    margin: 0px;
+}
+
+.observPanelDiv .observationPanelPresent .statsView .dataBlockExec .dividerExec {
+    width: 80%;
+    height: 2px;
+    background-color: gray;
+    margin: 5px;
+
+}
+
+
+.observPanelDiv .observationPanelPresent .statsView .dataBlockExec .dataExec {
+    height: 60%;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.observPanelDiv .observationPanelPresent .statsView .dataBlockExec .dataExec .numExec {
+    font-size: 55px;
+}
+
