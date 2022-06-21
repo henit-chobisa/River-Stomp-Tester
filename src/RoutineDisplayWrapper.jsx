@@ -1,8 +1,8 @@
-import RoutineDisplay from "./Components/RoutinePage/RoutineDisplay";
+import RoutineDisplay from "./Components/RoutineDisplay/RoutineDisplay";
 import './Styles/RoutineDisplay/RoutineExec.css'
 import React from "react";
 
-const RoutineExecPage = (props) => {
+const RoutineDisplayWrapper = (props) => {
 
     return (
         <div className="routineExec">
@@ -11,4 +11,4 @@ const RoutineExecPage = (props) => {
     )
 }
 
-export default RoutineExecPage;
+export default RoutineDisplayWrapper;
