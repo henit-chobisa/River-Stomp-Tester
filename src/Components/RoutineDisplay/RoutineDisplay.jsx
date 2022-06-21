@@ -12,7 +12,20 @@ const RoutineDisplay = () => {
 
     return (
         <div className="routineDisplay">
-            <p>{getSearchParams()}</p>
+            <div className="topBar">
+
+            </div>
+            <div className="middleBar">
+                <div className="utilities">
+
+                </div>
+                <div className="subRoutines">
+                    
+                </div>
+            </div>
+            <div className="endBar">
+
+            </div>
         </div>
 
     )

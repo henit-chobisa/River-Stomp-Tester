@@ -2,5 +2,45 @@
     height: 100%;
     width: 100%;
     margin: 0px;
+    background-color: yellow;
+    display: flex;
+    flex-direction: column;
+}
+
+.routineDisplay .topBar {
+    margin: 20px;
+    margin-bottom: 0px;
+    background-color: red;
+    height: 8%;
+    width: 100% - 40px;
+}
+
+.routineDisplay .middleBar{
+    margin: 20px;
+    width: 100% - 40px;
+    height: 80%;
+    background-color: aqua;
+    display: flex;
+    flex-direction: row;
+}
+
+.routineDisplay .middleBar .utilities {
+    margin: 10px;
+    width: calc(32% - 20px);
+    height: calc(100% - 20px);
     background-color: black;
+}
+
+.routineDisplay .middleBar .subRoutines {
+    width: calc(68% - 20px);
+    height: calc(100% - 20px);
+    margin: 10px;
+    background-color: black;
+}
+
+.routineDisplay .endBar {
+    width: 100% - 10px;
+    margin: 5px;
+    height: 4%;
+    background-color: gray;
 }
