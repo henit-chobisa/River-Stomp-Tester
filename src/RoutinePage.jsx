@@ -87,6 +87,7 @@ const RoutinePage = () => {
             if (rout.title === routine.title) {
                 contains = true;
             }
+            return rout;
         })
 
         if (contains === false) {

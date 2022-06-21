@@ -9,9 +9,10 @@ const ObservationPanel = (props) => {
             return "0";
         }
         else {
-            const sum = 0;
-            props.selectedRoutine.routine.map((routine) => {
+            var sum = 0;
+            props.selectedRoutine.routines.map((routine) => {
                 sum += routine.executionTime;
+                return routine;
             })
             return sum;
         }
@@ -22,9 +23,10 @@ const ObservationPanel = (props) => {
             return "0";
         }
         else {
-            const sum = 0;
-            props.selectedRoutine.routine.map((routine) => {
+            var sum = 0;
+            props.selectedRoutine.routines.map((routine) => {
                 sum += routine.dataBytes;
+                return routine;
             })
             return sum;
         }

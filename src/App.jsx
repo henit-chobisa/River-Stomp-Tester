@@ -15,7 +15,7 @@ const App = (props) => {
     const [connectionURL, updateConnectionURL] = useState(props.conURL);
     const [error, updateError] = useState(props.error);
     const [soundOn, updateSoundOn] = useState(true);
-    const [isConnected, updateIsConnected] = useState(props.isConnected);
+    const isConnected = props.isConnected;
     const [checked, setChecked] = useState(false);
     const [mode, updateMode] = useState("Simple Mode")
 

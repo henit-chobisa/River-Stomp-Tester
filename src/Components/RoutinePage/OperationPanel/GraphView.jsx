@@ -5,26 +5,21 @@ import OptionButton from "./OptionButton";
 const GraphView = (props) => {
 
 
-    const executionTimePublish = props.routineData.routine.filter((data) => {
-        if (data.operation === "PUBLISH"){
-            return data;
-        }
+    const executionTimePublish = props.routineData.routines.filter((data) => {
+        return data.operation === "PUBLISH"
     }).map((data) => {
         return {x : data.title, y : data.executionTime}
     }) ;
 
-    const executionTimeSubscribe = props.routineData.routine.filter((data) => {
-        if (data.operation !== "PUBLISH"){
-            return data;
-        }
+    const executionTimeSubscribe = props.routineData.routines.filter((data) => {
+        return data.operation !== "PUBLISH"
     }).map((data) => {
         return {x : data.title, y : data.executionTime}
     });
 
-    const dataByteDataPublish = props.routineData.routine.filter((dat) => {
-        if (dat.operation === "PUBLISH"){
-            return dat;
-        }
+    const dataByteDataPublish = props.routineData.routines.filter((dat) => {
+        return dat.operation === "PUBLISH"
+   
     }).map((dat) => {
         return {
             x: dat.title,
@@ -32,10 +27,8 @@ const GraphView = (props) => {
         }
     });
 
-    const dataByteDataSubscribe = props.routineData.routine.filter((dat) => {
-        if (dat.operation !== "PUBLISH"){
-            return dat;
-        }
+    const dataByteDataSubscribe = props.routineData.routines.filter((dat) => {
+        return dat.operation !== "PUBLISH"
     }).map((dat) => {
         return {
             x: dat.title,

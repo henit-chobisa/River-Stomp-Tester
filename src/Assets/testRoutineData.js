@@ -1,11 +1,12 @@
 
 const testRoutineData = {
-    name : "Test Routine",
+    title : "Test Routine",
     lastModified : "16th June 2022",
-    description: "",
+    description: "This routine is made in order to test the routine functionality of River Stomp Tester",
+    lastUpdated: "20th June",
     author : "Henit Chobisa",
     executed : 0, // Number of times executed by the program
-    routine : [
+    routines : [
         {
             title : "Routine 1",
             operation : "PUBLISH", // Operations PUBLISH || SUBSCRIBE 

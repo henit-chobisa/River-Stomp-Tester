@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useRef } from "react";
+import testRoutineData from "../../../Assets/testRoutineData";
 
 const CreateView = (props) => {
 
@@ -25,12 +26,12 @@ const CreateView = (props) => {
         setTimeout(() => {
             goButton.current.className = "goButton";
         }, 700);
-
     }
 
     const addRoutine = () => {
         if (title === "" || description === "" || author === ""){
             shakeCreateRoutineButton();
+            props.addRoutine(testRoutineData);
         }
         else {
             var time = new Date();
