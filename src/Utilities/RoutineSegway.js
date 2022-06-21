@@ -1,7 +1,7 @@
 const electron = window.require("electron");
 const { ipcRenderer } = electron;
 
-const launchRoutineWindow = () => {
+const launchRoutineWindow = (routineID) => {
     ipcRenderer.send("launchRoutineWindow");
 }
 

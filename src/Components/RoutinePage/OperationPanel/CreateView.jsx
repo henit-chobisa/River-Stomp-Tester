@@ -1,6 +1,5 @@
 import React from "react";
 import { useState, useRef } from "react";
-import testRoutineData from "../../../Assets/testRoutineData";
 
 const CreateView = (props) => {
 
@@ -31,12 +30,11 @@ const CreateView = (props) => {
     const addRoutine = () => {
         if (title === "" || description === "" || author === ""){
             shakeCreateRoutineButton();
-            props.addRoutine(testRoutineData);
         }
         else {
             var time = new Date();
             var lastUpdate = `${time.getHours()}:${time.getMinutes()} ${time.getUTCDate()}/${time.getUTCMonth()}/${time.getUTCFullYear()}`
-            props.addRoutine({title : title, description : description, lastUpdated : lastUpdate, author : author, isActive: false});
+            props.addRoutine({title : title, id: `${Math.floor((Math.random() * 999999) + 1)}` ,description : description, lastUpdated : lastUpdate, author : author, isActive: false});
         }
     }
 

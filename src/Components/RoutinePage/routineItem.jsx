@@ -5,7 +5,7 @@ import launchRoutineWindow from "../../Utilities/RoutineSegway";
 const RoutineItem = (props) => {
 
     const handleButtonClick = () => {
-        launchRoutineWindow()
+        launchRoutineWindow(props.routine.id);
     }
 
     const handleDelete = () => {
@@ -14,6 +14,7 @@ const RoutineItem = (props) => {
 
     const handleClick = (event) => {
         if (event.target.className !== "deleteButton"){
+            console.log(props.routine.id);
             props.clickHandler(props.index);
         }
     }
