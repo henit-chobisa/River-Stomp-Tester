@@ -73,9 +73,7 @@ const RoutinePage = () => {
         if (selectedRoutine !== null) {
             clone[selectedRoutine].isActive = false;
         }
-
         clone[index].isActive = true;
-        
         updateSelectedRoutine(index);
         updateRoutines(clone);
     }
@@ -84,9 +82,13 @@ const RoutinePage = () => {
         const clone = [...routines];
         var contains = false;
         clone.map((rout) => {
-            if (rout.title === routine.title) {
+            if (rout.title === routine.title  ) {
                 contains = true;
             }
+            if (rout.id === routine.id){
+                routine.id = `${Math.floor((Math.random() * 10) + 1)}`
+            }
+            return rout;
         })
 
         if (contains === false) {

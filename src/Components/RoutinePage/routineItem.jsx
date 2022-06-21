@@ -1,17 +1,11 @@
 import "../../Styles/RoutineItem.css"
-import shareIcon from '../../Assets/Icons/shareIcon.png'
-import React, { useState } from 'react';
-import RoutineExecPage from "../../RoutineExecPage";
-import RoutineDisplay from "./RoutineDisplay";
+import React from 'react';
 import launchRoutineWindow from "../../Utilities/RoutineSegway";
 
 const RoutineItem = (props) => {
 
-    const [windowOpen, updateWindowOpen] = useState(false);
-
     const handleButtonClick = () => {
-        launchRoutineWindow()
-        // updateWindowOpen(true);
+        launchRoutineWindow(props.routine.id);
     }
 
     const handleDelete = () => {
@@ -20,6 +14,7 @@ const RoutineItem = (props) => {
 
     const handleClick = (event) => {
         if (event.target.className !== "deleteButton"){
+            console.log(props.routine.id);
             props.clickHandler(props.index);
         }
     }
@@ -39,10 +34,6 @@ const RoutineItem = (props) => {
                             <div onClick={handleDelete} className="deleteButton">x</div>
                         </div>
                     </div>
-
-                    {windowOpen === true ? <RoutineExecPage>
-                        <RoutineDisplay/>
-                    </RoutineExecPage> : <></>}
                     <div className="bottomBar">
                         <div className="utilitiesDiv">
                         <div className="lastUpdate">

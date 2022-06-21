@@ -6,12 +6,26 @@ const RoutineDisplay = () => {
     const [searchParams, updateSearchParams] = useSearchParams();
 
     const getSearchParams = () => {
+        console.log(searchParams.get("routineID"));
         return searchParams.get("routineID");
     }
 
     return (
         <div className="routineDisplay">
+            <div className="topBar">
 
+            </div>
+            <div className="middleBar">
+                <div className="utilities">
+
+                </div>
+                <div className="subRoutines">
+                    
+                </div>
+            </div>
+            <div className="endBar">
+
+            </div>
         </div>
 
     )

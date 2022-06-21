@@ -25,7 +25,6 @@ const CreateView = (props) => {
         setTimeout(() => {
             goButton.current.className = "goButton";
         }, 700);
-
     }
 
     const addRoutine = () => {
@@ -35,7 +34,7 @@ const CreateView = (props) => {
         else {
             var time = new Date();
             var lastUpdate = `${time.getHours()}:${time.getMinutes()} ${time.getUTCDate()}/${time.getUTCMonth()}/${time.getUTCFullYear()}`
-            props.addRoutine({title : title, description : description, lastUpdated : lastUpdate, author : author, isActive: false});
+            props.addRoutine({title : title, id: `${Math.floor((Math.random() * 999999) + 1)}` ,description : description, lastUpdated : lastUpdate, author : author, isActive: false});
         }
     }
 

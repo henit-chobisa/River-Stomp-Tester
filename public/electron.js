@@ -6,6 +6,8 @@ require("../src/Utilities/dbMain");
 require("../src/Utilities/RoutineSegwayListener");
 require("fs");
 
+const openedWindowInfo = [];
+
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 1280,
@@ -22,22 +24,6 @@ const createWindow = () => {
     }
   });
 
-  win.webContents.on('new-window', (event, url, frameName, disposition, options, additionalFeatures) => {
-    if (frameName == 'RoutineExecPage') {
-      event.preventDefault();
-      Object.assign(options, {
-        parent: win,
-        width: 1280,
-        title: "River",
-        height: 720,
-        minHeight: 720,
-        minWidth: 1080,
-        show: true,
-      });
-      event.newGuest = new BrowserWindow(options);
-      event.newGuest.webContents.openDevTools({ mode: 'detach' });
-    }
-  })
   const splashScreen = new BrowserWindow({
     width: 720,
     height: 320,
@@ -53,7 +39,7 @@ const createWindow = () => {
     }
   });
 
-  ipcMain.on('launchRoutineWindow', () => {
+  ipcMain.on('launchRoutineWindow', (event, routineID) => {
     const routineWin = new BrowserWindow({
         width: 1280,
         title: "Routine System",
@@ -70,13 +56,13 @@ const createWindow = () => {
         }
     });
 
-    console.log(__dirname);
-    
+    console.log(routineID);
     // routineWin.loadURL(`file://${path.join(__dirname, '../build/index.html#/disprout?routineID=1000')}`);
-    routineWin.loadURL('http://localhost:3000/disprout?routineID=1000');
+    routineWin.loadURL(`http://localhost:3000/disprout?routineID=${routineID}`);
 
     routineWin.webContents.openDevTools({mode:"detach"});
     routineWin.show();
+    openedWindowInfo.push({routineID, routineWin});
 })
 
   splashScreen.loadURL(`file://${path.join(__dirname, '../build/splash.html')}`);

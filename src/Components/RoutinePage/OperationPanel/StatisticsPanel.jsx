@@ -11,8 +11,8 @@ import CreateView from "./CreateView";
 
 const StatisticsPanel = (props) => {
     const graphViewRef = useRef();
-    var innerHeight = 0;
-    var innerWidth = 0;
+    // var innerHeight = 0;
+    // var innerWidth = 0;
 
     useEffect(() => {
         window.addEventListener("resize", (event) => {
@@ -48,11 +48,10 @@ const StatisticsPanel = (props) => {
     }
 
     const renderPresentationComponent = () => {
-        if (selectedIndex === null) {
+        if ((selectedIndex === null || props.selectedRoutine === null || props.selectedRoutine.routines === undefined) && selectedIndex !== 2) {
             return <div className="warningView">
-                <p className="noSelectionWarning">No Option Selected to Show, kindly select one :)</p>
+                <p className="noSelectionWarning">No Subroutines availabe to display :)</p>
             </div>
-
         }
         else {
             if (selectedIndex === 1) {
@@ -82,7 +81,9 @@ const StatisticsPanel = (props) => {
             <div className="presentationBar" ref={graphViewRef}>
                 {selectedIndex !== null ? <div className="title">
                     <p>{Options[selectedIndex].title}</p>
-                </div> : <></>}
+                </div> : <div className="title">
+                    <p>No Selection</p>
+                </div>}
                 {renderPresentationComponent()}
             </div>
         </div>
