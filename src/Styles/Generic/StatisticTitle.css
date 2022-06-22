@@ -1,0 +1,40 @@
+.statisticTitle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.statisticTitle .heading {
+    margin-bottom: 10px;
+    margin-left: 5%;
+    height: 20%;
+    width: 100%;
+    color: white;
+    font-size: small;
+    font-weight: bold;
+}
+.statisticTitle .divider {
+    width: 100%;
+    height: 1px;
+    margin-bottom: 20px;
+    background-color: gray;
+}
+
+.statisticTitle .stat {
+    height: 60%;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    color: white;
+}
+
+.statisticTitle .stat .num {
+    font-size: 50px;
+    margin: 0px;
+}
+
+.statisticTitle .stat .unit {
+    margin: 0px;
+    margin-bottom: 5px;
+}
