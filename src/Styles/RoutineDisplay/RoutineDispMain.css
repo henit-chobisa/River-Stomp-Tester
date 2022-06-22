@@ -2,7 +2,7 @@
     height: 100%;
     width: 100%;
     margin: 0px;
-    background-color: yellow;
+    background-color: black;
     display: flex;
     flex-direction: column;
 }
@@ -13,6 +13,17 @@
     background-color: black;
     height: 8%;
     width: 100% - 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.routineDisplay .leftBar {
+    width: 30%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
 }
 
 .routineDisplay .topBar .logo {
@@ -24,16 +35,36 @@
     justify-content: center;
 }
 
+.routineDisplay .topBar .routineName {
+    height: 80%;
+    color: white;
+    font-weight: bold;
+    font-size: large;
+    margin-left: 15px;
+}
+
+.routineDisplay .topBar .routineDisplay p {
+    margin: 0px;
+}
+
 .routineDisplay .topBar .logo .logoIMG {
     height: 100%;
     width: 100%;
+}
+
+.routineDisplay .topBar .rightBarTitle {
+    color: white;
+    width: 10%;
+    height: 80%;
+    font-size: large;
+    display: flex;
+    align-items: center;
 }
 
 .routineDisplay .middleBar{
     margin: 20px;
     width: 100% - 40px;
     height: 80%;
-    background-color: aqua;
     display: flex;
     flex-direction: row;
 }
@@ -42,19 +73,95 @@
     margin: 10px;
     width: calc(32% - 20px);
     height: calc(100% - 20px);
-    background-color: black;
+    background-color: rgb(30, 30, 30);
 }
 
 .routineDisplay .middleBar .subRoutines {
     width: calc(68% - 20px);
     height: calc(100% - 20px);
     margin: 10px;
-    background-color: black;
+    background-color: rgb(30, 30, 30);
 }
 
 .routineDisplay .endBar {
-    width: 100% - 10px;
-    margin: 5px;
-    height: 4%;
-    background-color: gray;
+    width: calc(100% - 80px);
+    align-self: center;
+    border-radius: 5px;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    height: 6%;
+    background-color: rgb(30, 30, 30);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
 }
+
+@keyframes messageSlider {
+    0%{
+        opacity: 0;
+        right: 50%;
+    }
+    100% {
+        opacity: 1;
+        right: 0%;
+    }
+}
+
+.routineDisplay .endBar .messages {
+    width: 40%;
+    color: white;
+    font-size: small;
+    font-weight: bold;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+    animation-name: messageSlider;
+    animation-duration: 0.5s;
+}
+
+.routineDisplay .endBar .messages .messageTitle {
+    margin-right: 15px;
+    white-space: nowrap;
+}
+
+.routineDisplay .endBar .connectionInfo {
+    height: 100%;
+    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.routineDisplay .endBar .connectionInfo .connectionStatus {
+    height: 70%;
+    width: 30%;
+    border: 3px;
+    border-radius: 50px;
+    border-style: groove;
+    border-color: rgb(0, 160, 198);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: small;
+    font-weight: bold;
+}
+
+.routineDisplay .endBar .connectionInfo .connectionURL {
+    background-color: rgb(0, 160, 198);
+    height: calc(70%);
+    width: max-content;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: white;
+    font-size: small;
+    font-weight: bold;
+    border-radius: 50px;
+}
+
