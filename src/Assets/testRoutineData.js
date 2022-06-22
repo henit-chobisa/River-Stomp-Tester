@@ -9,7 +9,8 @@ const testRoutineData = {
     routines : [
         {
             title : "Routine 1",
-            operation : "PUBLISH", // Operations PUBLISH || SUBSCRIBE 
+            operation : "PUBLISH", // Operations PUBLISH || SUBSCRIBE,
+            route : "/hello",
             description : "This Routine Component is Made for testing purposes for River Tester, Thank You!",
             data : "{\n \"hii\" : \"River Routine\" \n \"pack\" : \"routine[1].data.hii\" \n}", // NULL or Last time Data
             executionTime : 200,
@@ -20,6 +21,7 @@ const testRoutineData = {
             operation : "SUBSCRIBE",
             description : "This Routine Component is Made for testing purposes for River Tester, Thank You!",
             data : "{\n  \"Bye\" : \"Bye River Routine\"  \n}",
+            route : "/hello",
             executionTime : 400,
             dataBytes: 200
         },
@@ -28,6 +30,7 @@ const testRoutineData = {
             operation : "PUBLISH",
             description : "This Routine Component is Made for testing purposes for River Tester, Thank You!",
             data : "{\n  \"Bye\" : \"Bye River Routine\"  \n}",
+            route : "/hello",
             executionTime : 700,
             dataBytes: 1000
         },
@@ -36,6 +39,7 @@ const testRoutineData = {
             operation : "PUBLISH",
             description : "This Routine Component is Made for testing purposes for River Tester, Thank You!",
             data : "{\n  \"Bye\" : \"Bye River Routine\"  \n}",
+            route : "/hello",
             executionTime : 250,
             dataBytes: 400
         },
@@ -45,6 +49,7 @@ const testRoutineData = {
             description : "This Routine Component is Made for testing purposes for River Tester, Thank You!",
             data : "{\n  \"Bye\" : \"Bye River Routine\"  \n}",
             executionTime : 450,
+            route : "/hello",
             dataBytes: 800
         },
         {
@@ -53,6 +58,7 @@ const testRoutineData = {
             description : "This Routine Component is Made for testing purposes for River Tester, Thank You!",
             data : "{\n  \"Bye\" : \"Bye River Routine\"  \n}",
             executionTime : 200,
+            route : "/hello",
             dataBytes: 100
         },
         {
@@ -61,6 +67,7 @@ const testRoutineData = {
             description : "This Routine Component is Made for testing purposes for River Tester, Thank You!",
             data : "{\n  \"Bye\" : \"Bye River Routine\"  \n}",
             executionTime : 100,
+            route : "/hello",
             dataBytes: 50
         },
         {
@@ -69,6 +76,7 @@ const testRoutineData = {
             description : "This Routine Component is Made for testing purposes for River Tester, Thank You!",
             data : "{\n  \"Bye\" : \"Bye River Routine\"  \n}",
             executionTime : 80,
+            route : "/hello",
             dataBytes: 200
         }
     ]
