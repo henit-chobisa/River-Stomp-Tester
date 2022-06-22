@@ -10,9 +10,23 @@
 .routineDisplay .topBar {
     margin: 20px;
     margin-bottom: 0px;
-    background-color: red;
+    background-color: black;
     height: 8%;
     width: 100% - 40px;
+}
+
+.routineDisplay .topBar .logo {
+    height: 100%;
+    width: 65px;
+    margin-left: 1.2%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.routineDisplay .topBar .logo .logoIMG {
+    height: 100%;
+    width: 100%;
 }
 
 .routineDisplay .middleBar{

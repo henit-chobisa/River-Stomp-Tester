@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import '../../Styles/RoutineDisplay/RoutineDispMain.css'
+import logo from '../../Assets/logo.png'
 
 const RoutineDisplay = () => {
     const [searchParams, updateSearchParams] = useSearchParams();
@@ -13,7 +14,9 @@ const RoutineDisplay = () => {
     return (
         <div className="routineDisplay">
             <div className="topBar">
-
+                <div className="logo">
+                    <img className="logoIMG" src={logo} alt="" />
+                </div>
             </div>
             <div className="middleBar">
                 <div className="utilities">
