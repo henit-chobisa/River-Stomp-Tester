@@ -62,7 +62,8 @@
 }
 
 .routineDisplay .middleBar{
-    margin: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
     width: 100% - 40px;
     height: 80%;
     display: flex;
