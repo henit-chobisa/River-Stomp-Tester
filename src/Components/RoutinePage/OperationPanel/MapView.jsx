@@ -13,7 +13,7 @@ const MapView = (props) => {
     }
 
     const [selectedIndex, updateSelectedIndex] = useState(null);
-
+    
     const renderTimeLineItems = () => {
         return props.routineData.routines.map((data, index) => {
             return (<MapViewComp routineComp={data} key={index} handleMapCompClick={mapCompClicked} index={index}/>)

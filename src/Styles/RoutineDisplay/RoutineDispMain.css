@@ -62,7 +62,8 @@
 }
 
 .routineDisplay .middleBar{
-    margin: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
     width: 100% - 40px;
     height: 80%;
     display: flex;
@@ -116,7 +117,9 @@
     display: flex;
     flex-direction: row;
     align-items: center;   
-    overflow: scroll; 
+    overflow-x: scroll; 
+    overflow-y: hidden;
+    /* chore: Fixed Overflow Y scroll in RoutDisp-Utilities*/
 }
 
 .routineDisplay .middleBar .utilities .options::-webkit-scrollbar {

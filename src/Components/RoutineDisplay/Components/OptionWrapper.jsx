@@ -1,6 +1,8 @@
 import React from "react";
 import '../../../Styles/RoutineDisplay/Components/OptionWrapper.css'
+import CreateSubRoutine from "./CreateSubRoutine";
 import RoutineMap from "./RoutineMap";
+import RoutineStatistics from "./RoutineStatistics";
 
 const OptionWrapper = (props) => {
 
@@ -23,6 +25,12 @@ const OptionWrapper = (props) => {
         switch (props.selection){
             case 0:
                 return (<RoutineMap/>)
+            case 1:
+                // feat: Initialized Routine Statistics Utility
+                return (<RoutineStatistics/>)
+            case 3:
+                // feat: Initialized Create SubRoutine Menu
+                return (<CreateSubRoutine/>)
             default:
                 return (<></>);
         }
