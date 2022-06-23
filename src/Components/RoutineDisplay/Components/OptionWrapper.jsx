@@ -1,6 +1,7 @@
 import React from "react";
 import '../../../Styles/RoutineDisplay/Components/OptionWrapper.css'
 import RoutineMap from "./RoutineMap";
+import RoutineStatistics from "./RoutineStatistics";
 
 const OptionWrapper = (props) => {
 
@@ -23,6 +24,9 @@ const OptionWrapper = (props) => {
         switch (props.selection){
             case 0:
                 return (<RoutineMap/>)
+            case 1:
+                // feat: Initialized Routine Statistics Utility
+                return (<RoutineStatistics/>)
             default:
                 return (<></>);
         }
