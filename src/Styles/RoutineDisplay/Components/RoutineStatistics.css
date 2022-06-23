@@ -1,27 +1,56 @@
 .routineStatistics {
     height: calc(105% - 20px);
     width: calc(100% - 20px);
-    background-color: red;
     position: relative;
     top: -5%;
     padding: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content:center;
 }
 
 
 .routineStatistics .dataBar {
     height: 49%;
     width: 100%;
-    background-color: aqua;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: small;
+    font-weight: bold;
+    justify-content: center;
 
+}
+
+.routineStatistics .dataBar .graph {
+    height: 80%;
+    width: 100%;
+}
+
+.routineStatistics .execBar .graph2 {
+    height: 80%;
+    width: 100%;
+}
+
+.routineStatistics .dataBar p {
+    margin: 0px;
 }
 
 .routineStatistics .execBar {
     height: 49%;
     width: 100%;
-    background-color: aqua;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: small;
+    font-weight: bold;
+    justify-content:center;
+    color: white;
+}
+
+.routineStatistics .execBar p {
+    margin: 0px;
 }
 
