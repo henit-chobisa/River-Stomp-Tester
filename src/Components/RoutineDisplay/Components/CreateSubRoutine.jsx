@@ -4,12 +4,29 @@ import EditorComp from "../../SimpleTestingPage/EditorComp";
 import { useState } from "react";
 import OptionButton from "../../RoutinePage/OperationPanel/OptionButton";
 var defaultBody = "{\n\t\"message\" : \"Insert your body here\"\n}";
+var defaultHeader = "{\n\t\"message\" : \"Insert your header here\"\n}"
 
 const CreateSubRoutine = () => {
 
     const [data, updateData] = useState(defaultBody);
+    const [header, updateHeader] = useState(defaultHeader);
+    const [bodySelected, updateBodySelected] = useState(true);
+    const [description, updateDescription] = useState("");
 
     const handlePersistence = () => {}
+
+    const handleDataOptionClick = (index) => {
+        if (index === 0){
+            updateBodySelected(true);
+        }
+        else {
+            updateBodySelected(false);
+        }
+    }
+
+    const handleDescriptionInputChange = (event) => {
+        updateDescription(event.target.value);
+    }
 
     // feat: Created editor for subroutine creation
 
@@ -35,13 +52,21 @@ const CreateSubRoutine = () => {
                 </div>
                 <div className="dataInput">
                     <div className="dataOptions">
-                        <OptionButton title={"Body"} isSelected={true}/>
-                        <OptionButton title={"header"}/>
+                        <OptionButton title={"Body"} isSelected={bodySelected} index={0} onClickOption={handleDataOptionClick}/>
+                        <OptionButton title={"Headers"} index={1} onClickOption={handleDataOptionClick} isSelected={!bodySelected}/>
                     </div>
                     <div className="editor">
-                        <EditorComp data={data} handlePersistence={handlePersistence} updateData={updateData}/>
-
+                        <EditorComp data={ bodySelected ? data : header} handlePersistence={handlePersistence} updateData={bodySelected ? updateData : updateHeader}/>
                     </div>
+                </div>
+                <div className="sRDescription">
+                    <div className="heading">
+                        <p>Description</p>
+                    </div>
+                    <div className="container">
+                        <textarea type="text" placeholder="Description of Subroutine" onChange={handleDescriptionInputChange} value={description}></textarea>
+                    </div>
+
                 </div>
             </div>
             <div className="saveButtonSection">

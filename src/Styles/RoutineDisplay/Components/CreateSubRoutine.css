@@ -94,6 +94,7 @@
     height: calc(60% - 40px);
     width: calc(100% - 40px);
     padding: 20px;
+    letter-spacing: 1.5px;
     background-color: black;
     color: rgb(0, 160, 198);
     border-radius: 10px;
@@ -255,6 +256,42 @@ input:focus {
 
 .createSubRoutine .contentSection .dataInput .editor .subsEditor .seditor .token.entity {
     cursor: help;
+}
+
+.createSubRoutine .contentSection .sRDescription {
+    height: calc(50% - 40px);
+    width: calc(100% - 40px);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.createSubRoutine .contentSection .sRDescription .heading {
+    height: 20%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    font-size: medium;
+}
+
+.createSubRoutine .contentSection .sRDescription .container {
+    height: 70%;
+    width: 100%;
+}
+
+.createSubRoutine .contentSection .sRDescription .container textarea {
+    background-color: black;
+    height: 90%;
+    width: 97%;
+    border-radius: 10px;
+    color: white;
+    padding: 10px;
+    border: none;
+    resize: none;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 
