@@ -1,0 +1,27 @@
+.routineStatistics {
+    height: calc(105% - 20px);
+    width: calc(100% - 20px);
+    background-color: red;
+    position: relative;
+    top: -5%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+
+.routineStatistics .dataBar {
+    height: 49%;
+    width: 100%;
+    background-color: aqua;
+
+}
+
+.routineStatistics .execBar {
+    height: 49%;
+    width: 100%;
+    background-color: aqua;
+}
+
