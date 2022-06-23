@@ -3,7 +3,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .RoutineMap .mapView {
@@ -43,7 +43,9 @@
 .RoutineMap .info {
     height: calc(40% - 20px);
     width: calc(100% - 20px);
-    margin: 10px;
+    /* max-height: 100px; */
+    margin-left: 10px;
+    margin-right: 10px;
     background-color: rgb(0, 160, 198);
     border-radius: 15px 0 15px 0;
 
@@ -77,6 +79,12 @@
     font-size: small;
 }
 
+/* Chore: Margin Overflow Fixed */
+
+.RoutineMap .info .subRDescription p{
+    margin: 0px;
+}
+
 .RoutineMap .info .highlights {
     height: 25%;
     margin: 10px;
@@ -103,6 +111,7 @@
 .RoutineMap .info .highlights .route p{
     max-width: 90%;
     overflow: scroll;
+    margin: 0px;
 }
 
 
@@ -125,6 +134,7 @@
 
 .RoutineMap .info .highlights .type p{
     max-width: 90%;
+    margin: 0px;
     overflow: scroll;
 }
 
