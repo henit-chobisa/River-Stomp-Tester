@@ -12,7 +12,8 @@ const testRoutineData = {
             operation : "PUBLISH", // Operations PUBLISH || SUBSCRIBE,
             route : "/hello",
             description : "This Routine Component is Made for testing purposes for River Tester, Thank You!",
-            data : "{\n \"hii\" : \"River Routine\" \n \"pack\" : \"routine[1].data.hii\" \n}", // NULL or Last time Data
+            body : "{\n \"hii\" : \"River Routine\" \n \"pack\" : \"routine[1].data.hii\" \n}", // NULL or Last time Data
+            headers : "{\n \"hii\" : \"River Routine\" \n \"pack\" : \"routine[1].data.hii\" \n}",
             executionTime : 200,
             dataBytes : 300,
         },
@@ -29,7 +30,8 @@ const testRoutineData = {
             title: "Routine 3",
             operation : "PUBLISH",
             description : "This Routine Component is Made for testing purposes for River Tester, Thank You!",
-            data : "{\n  \"Bye\" : \"Bye River Routine\"  \n}",
+            body : "{\n  \"Bye\" : \"Bye River Routine\"  \n}",
+            headers : "{\n \"hii\" : \"River Routine\" \n \"pack\" : \"routine[1].data.hii\" \n}",
             route : "/hello",
             executionTime : 700,
             dataBytes: 1000
@@ -38,7 +40,8 @@ const testRoutineData = {
             title: "Routine 4",
             operation : "PUBLISH",
             description : "This Routine Component is Made for testing purposes for River Tester, Thank You!",
-            data : "{\n  \"Bye\" : \"Bye River Routine\"  \n}",
+            body : "{\n  \"Bye\" : \"Bye River Routine\"  \n}",
+            headers : "{\n \"hii\" : \"River Routine\" \n \"pack\" : \"routine[1].data.hii\" \n}",
             route : "/hello",
             executionTime : 250,
             dataBytes: 400
@@ -56,7 +59,8 @@ const testRoutineData = {
             title: "Routine 5",
             operation : "PUBLISH",
             description : "This Routine Component is Made for testing purposes for River Tester, Thank You!",
-            data : "{\n  \"Bye\" : \"Bye River Routine\"  \n}",
+            body : "{\n  \"Bye\" : \"Bye River Routine\"  \n}",
+            headers : "{\n \"hii\" : \"River Routine\" \n \"pack\" : \"routine[1].data.hii\" \n}",
             executionTime : 200,
             route : "/hello",
             dataBytes: 100

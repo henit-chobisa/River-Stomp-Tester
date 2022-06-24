@@ -83,7 +83,7 @@ const RoutineDisplay = () => {
                     </div>
                 </div>
                 <div className="subRoutines">
-
+                    
                 </div>
             </div>
             <div className="endBar">
