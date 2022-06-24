@@ -58,6 +58,13 @@ const RoutineDisplay = () => {
         return searchParams.get("routineID");
     }
 
+    const loadSubRoutines = () => {
+        // return (
+
+        // )
+
+    }
+
     return (
         <div className="routineDisplay">
             <div className="topBar">
@@ -88,6 +95,16 @@ const RoutineDisplay = () => {
                         <div className="heading">
                             <p>Sub-Routines</p>
                         </div>
+                        
+                    </div>
+                    <div className="subRoutineContainer">
+                        <div className="runnerButton">
+                           <div className="tria"></div>
+                        </div>
+                        <div className="buttonDivider">
+                            
+                        </div>
+                        
                     </div>
 
                 </div>

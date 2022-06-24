@@ -138,6 +138,55 @@
     margin: 10px;
     background-color: rgb(30, 30, 30);
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.routineDisplay .middleBar .subRoutines .subRoutineContainer {
+    width: calc(100% - 20px);
+    height: calc(10% - 20px);
+    position: relative;
+    top: -7%;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.routineDisplay .middleBar .subRoutines .subRoutineContainer .runnerButton {
+    height: 50px;
+    width: 50px;
+    background-color: rgb(0, 160, 198);
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    color: white;
+    font-weight: bold;
+    font-size: small;
+    border-radius: 25px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.routineDisplay .middleBar .subRoutines .subRoutineContainer .buttonDivider {
+    width: 2px;
+    height: 100%;
+    background-color: gray;
+}
+
+.routineDisplay .middleBar .subRoutines .subRoutineContainer .runnerButton:hover {
+    transform: scale(1.1);
+    transition-duration: 0.1s;
+
+}
+
+.routineDisplay .middleBar .subRoutines .subRoutineContainer .runnerButton .tria {
+  width: 0; 
+  height: 0; 
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 15px solid white;
+    
 }
 
 .routineDisplay .middleBar .subRoutines .topBar {
@@ -163,6 +212,10 @@
     font-size: small;
     font-weight: bold;
     border-radius: 15px 0 15px 0;
+}
+
+.routineDisplay .middleBar .subRoutines .topBar .heading p{
+    margin: 0px;
 }
 
 
