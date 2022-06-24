@@ -71,6 +71,8 @@
     
 }
 
+
+
 .routineDisplay .middleBar .utilities {
     margin: 10px;
     max-width: 450px;
@@ -137,6 +139,32 @@
     background-color: rgb(30, 30, 30);
     border-radius: 10px;
 }
+
+.routineDisplay .middleBar .subRoutines .topBar {
+    height: 10%;
+    width: 96.5%;
+    display: flex;
+    background-color: transparent;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+    top: -7.5%;
+    color: white;
+}
+
+.routineDisplay .middleBar .subRoutines .topBar .heading {
+    height: 80%;
+    width: 30%;
+    background-color: rgb(0, 160, 198);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: small;
+    font-weight: bold;
+    border-radius: 15px 0 15px 0;
+}
+
 
 .routineDisplay .endBar {
     width: calc(100% - 80px);

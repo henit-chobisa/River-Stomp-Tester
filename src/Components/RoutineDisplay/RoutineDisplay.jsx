@@ -12,6 +12,7 @@ import OptionWrapper from "./Components/OptionWrapper";
 const RoutineDisplay = () => {
     const [searchParams, updateSearchParams] = useSearchParams();
     const [selectedIndex, updateSelectedIndex] = useState(null);
+
     const [options, updateOptions] = useState([
         {title: "Routine Map", isSelected: false},
         {title: "Statistics", isSelected: false},
@@ -83,7 +84,12 @@ const RoutineDisplay = () => {
                     </div>
                 </div>
                 <div className="subRoutines">
-                    
+                    <div className="topBar">
+                        <div className="heading">
+                            <p>Sub-Routines</p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <div className="endBar">
