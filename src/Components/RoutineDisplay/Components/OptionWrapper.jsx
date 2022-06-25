@@ -30,7 +30,7 @@ const OptionWrapper = (props) => {
                 return (<RoutineStatistics data={props.data}/>)
             case 3:
                 // feat: Initialized Create SubRoutine Menu
-                return (<CreateSubRoutine data={props.data}/>)
+                return (<CreateSubRoutine data={props.data} addSubRoutine={props.addSubRoutine}/>)
             default:
                 return (<></>);
         }

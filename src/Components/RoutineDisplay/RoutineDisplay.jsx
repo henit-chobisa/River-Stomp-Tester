@@ -48,7 +48,7 @@ const RoutineDisplay = () => {
         else {
             return (
                 <div className="OptionView">
-                    <OptionWrapper data={subRoutines} selection={selectedIndex} />
+                    <OptionWrapper data={subRoutines} selection={selectedIndex} addSubRoutine={addSubRoutine}/>
                 </div>
             )
         }
