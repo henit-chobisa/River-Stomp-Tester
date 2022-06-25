@@ -24,13 +24,13 @@ const OptionWrapper = (props) => {
     const getView = () => {
         switch (props.selection){
             case 0:
-                return (<RoutineMap/>)
+                return (<RoutineMap data={props.data}/>)
             case 1:
                 // feat: Initialized Routine Statistics Utility
-                return (<RoutineStatistics/>)
+                return (<RoutineStatistics data={props.data}/>)
             case 3:
                 // feat: Initialized Create SubRoutine Menu
-                return (<CreateSubRoutine/>)
+                return (<CreateSubRoutine data={props.data}/>)
             default:
                 return (<></>);
         }

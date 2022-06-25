@@ -48,13 +48,18 @@ const RoutineDisplay = () => {
         else {
             return (
                 <div className="OptionView">
-                    <OptionWrapper data={testRoutineData} selection={selectedIndex} />
+                    <OptionWrapper data={subRoutines} selection={selectedIndex} />
                 </div>
             )
         }
-
     }
-    
+
+    const addSubRoutine = (subRoutineObject) => {
+        const clone = [...subRoutines];
+        clone.push(subRoutineObject);
+        updateSubRoutines(clone);
+    }
+
 
     const getSearchParams = () => {
         console.log(searchParams.get("routineID"));
