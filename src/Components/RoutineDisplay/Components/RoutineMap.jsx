@@ -19,8 +19,8 @@ const RoutineMap = (props) => {
         if (selectedMapIndex != null){
             return (
                 <div className="stats">
-                    <StatisticTitle heading={"Data Exchange"} num={testRoutineData.routines[selectedMapIndex].dataBytes} unit={"b"}/>
-                    <StatisticTitle heading={"Execution Time"} num={testRoutineData.routines[selectedMapIndex].executionTime} unit={"ms"}/>
+                    <StatisticTitle heading={"Data Exchange"} num={props.data[selectedMapIndex].dataBytes} unit={"b"}/>
+                    <StatisticTitle heading={"Execution Time"} num={props.data[selectedMapIndex].executionTime} unit={"ms"}/>
                 </div>
             )
         }
@@ -35,7 +35,7 @@ const RoutineMap = (props) => {
     }
 
     const renderTimeLineItems = () => {
-        return testRoutineData.routines.map((data, index) => {
+        return props.data.map((data, index) => {
             return (<MapViewComp routineComp={data} key={index} handleMapCompClick={mapCompClicked} index={index} />)
         })
     };
@@ -54,17 +54,17 @@ const RoutineMap = (props) => {
             </div>
             { selectedMapIndex !== null ? <div className="info">
                 <div className="subRTitle">
-                    <div className="p">{testRoutineData.routines[selectedMapIndex].title}</div>
+                    <div className="p">{props.data[selectedMapIndex].title}</div>
                 </div>
                 <div className="subRDescription">
-                    <p>{testRoutineData.routines[selectedMapIndex].description}</p>
+                    <p>{props.data[selectedMapIndex].description}</p>
                 </div>
                 <div className="highlights">
                     <div className="route">
-                        <p>{testRoutineData.routines[selectedMapIndex].route}</p>
+                        <p>{props.data[selectedMapIndex].route}</p>
                     </div>
                     <div className="type">
-                        <p>{testRoutineData.routines[selectedMapIndex].operation}</p>
+                        <p>{props.data[selectedMapIndex].operation}</p>
                     </div>
                 </div>
             </div> : <div className="noSelectionWarningInfo">
