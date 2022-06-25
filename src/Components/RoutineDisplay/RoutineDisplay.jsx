@@ -15,6 +15,7 @@ const RoutineDisplay = () => {
     const [searchParams, updateSearchParams] = useSearchParams();
     const [selectedIndex, updateSelectedIndex] = useState(null);
     const [subRoutines, updateSubRoutines] = useState(testRoutineData.routines);
+    const [selectedSubRoutine, updateSelectedSubRoutine] = useState(null);
     const [runTime, updateRunTime] = useState(true);
     const subRoutineGroupComponent = useRef();
     const [subRoutineUpdateStatus, updateSRUS] = useState(0);
@@ -68,9 +69,36 @@ const RoutineDisplay = () => {
 
     const addSubRoutine = (subRoutineObject) => {
         const clone = [...subRoutines];
+        var count = 2;
+        clone.map((subRoutine) => {
+            if (subRoutineObject.title === subRoutine.title){
+
+                if (subRoutineObject.operation != subRoutine.operation){
+                    subRoutine.title = `${subRoutine.title}#${subRoutine.operation.slice(0, 3)}`
+                    subRoutineObject.title = `${subRoutineObject.title}#${subRoutineObject.operation.slice(0, 3)}`
+                }
+                else {
+                    subRoutineObject.title = count === 2 ? `${subRoutineObject.title}${count}` : `${subRoutineObject.title.slice(0, -1)}${count}`;
+                    count++;
+                }
+            }
+            if (subRoutineObject.id === subRoutine.id){
+                subRoutineObject.id = Math.floor(Math.random() * 10000);
+            }
+        });
         clone.push(subRoutineObject);
         updateSubRoutines(clone);
         updateSRUS(1);
+    }
+
+    const deleteRoutine = (index) => {
+        const clone = [...subRoutines];
+        clone.splice(index, 1);
+        updateSubRoutines(clone);
+    }
+
+    const selectSubRoutine = (index) => {
+        updateSelectedSubRoutine(index);
     }
 
 
@@ -82,7 +110,7 @@ const RoutineDisplay = () => {
     const loadSubRoutines = () => {
         return subRoutines.map((routine, index) => {
             return (
-                <SubRoutineItem key={index} index={index} runTime={runTime} subRoutine={routine}/>
+                <SubRoutineItem key={index} index={index} runTime={runTime} selectSubRoutine={selectSubRoutine} deleteRoutine={deleteRoutine} isSelected={selectedSubRoutine === index} subRoutine={routine}/>
             )
         })
     }

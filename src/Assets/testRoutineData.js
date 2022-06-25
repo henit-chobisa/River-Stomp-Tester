@@ -17,7 +17,6 @@ const testRoutineData = {
             headers : "{\n \"hii\" : \"River Routine\" \n \"pack\" : \"routine[1].data.hii\" \n}",
             executionTime : 200,
             dataBytes : 300,
-            isSelected: false,
         },
         {
             id: 456,
@@ -28,7 +27,6 @@ const testRoutineData = {
             route : "/hello",
             executionTime : 400,
             dataBytes: 200,
-            isSelected: false,
         },
         {
             id: 789,
@@ -40,7 +38,6 @@ const testRoutineData = {
             route : "/hello",
             executionTime : 700,
             dataBytes: 1000,
-            isSelected: false,
         },
         {
             id: 100,
@@ -52,7 +49,6 @@ const testRoutineData = {
             route : "/hello",
             executionTime : 250,
             dataBytes: 400,
-            isSelected: false,
         },
         {
             id:321,
@@ -63,7 +59,6 @@ const testRoutineData = {
             executionTime : 450,
             route : "/hello",
             dataBytes: 800,
-            isSelected: false,
         },
         {
             id: 543,
@@ -75,7 +70,6 @@ const testRoutineData = {
             executionTime : 200,
             route : "/hello",
             dataBytes: 100,
-            isSelected: false,
         },
         {
             id:876,
@@ -86,7 +80,6 @@ const testRoutineData = {
             executionTime : 100,
             route : "/hello",
             dataBytes: 50,
-            isSelected: false,
         },
         {
             id: 987,
@@ -97,7 +90,6 @@ const testRoutineData = {
             executionTime : 80,
             route : "/hello",
             dataBytes: 200,
-            isSelected: false,
         }
     ]
 }

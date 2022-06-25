@@ -23,12 +23,12 @@
 .subRoutineItem .itemComponent {
     width: 90%;
     height: 100%;
-    background-color: rgb(0, 160, 198);
     border-radius: 20px;
     display: flex;
     padding: 5px;
     align-items: center;
     justify-content: space-between;
+    cursor: pointer;
 }
 
 .subRoutineItem .itemComponent .basics {
@@ -37,6 +37,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    cursor: pointer;
 }
 
 .subRoutineItem .itemComponent .basics .srName {
@@ -46,6 +47,7 @@
     color: white;
     font-weight: bold;
     overflow-x: scroll;
+    cursor: pointer;
 }
 
 .subRoutineItem .itemComponent .basics .srDelete {
@@ -55,6 +57,21 @@
     justify-content: center;
     font-weight: bold;
     color: white;
+    cursor: pointer;
+    
+}
+
+.subRoutineItem .itemComponent .basics .srDelete:hover {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: red;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 10px;
 }
 
 .subRoutineItem .itemComponent .idContainer {

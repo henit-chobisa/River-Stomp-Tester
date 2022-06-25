@@ -14,13 +14,13 @@ const SubRoutineItem = (props) => {
 
     const handleSelection = (event) => {
         if (event.target.className !== "srDelete" && event.target.className !== "deleteCrosshair") {
-            console.log(event.target);
-            console.log("Selected");
+            console.log("Select");
+            props.selectSubRoutine(props.index);
         }
     }
 
     const handleDeletion = (event) => {
-        console.log("Deleted");
+        props.deleteRoutine(props.index);
     }
 
 

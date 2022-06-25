@@ -56,8 +56,7 @@ const CreateSubRoutine = (props) => {
                 body: data,
                 headers: header,
                 executionTime: 0,
-                dataBytes: 0,
-                isSelected: false
+                dataBytes: 0
             } : {
                 id: Math.floor(Math.random() * 10000),
                 title: title,
@@ -67,7 +66,6 @@ const CreateSubRoutine = (props) => {
                 data: data,
                 executionTime: 0,
                 dataBytes: 0,
-                isSelected: false
             }
 
             props.addSubRoutine(subRoutine);
