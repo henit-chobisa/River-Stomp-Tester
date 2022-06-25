@@ -12,11 +12,12 @@ import OptionWrapper from "./Components/OptionWrapper";
 const RoutineDisplay = () => {
     const [searchParams, updateSearchParams] = useSearchParams();
     const [selectedIndex, updateSelectedIndex] = useState(null);
+
     const [options, updateOptions] = useState([
-        {title: "Routine Map", isSelected: false},
-        {title: "Statistics", isSelected: false},
-        {title: "Observations", isSelected: false},
-        {title: "Create Subroutine", isSelected: false}
+        { title: "Routine Map", isSelected: false },
+        { title: "Statistics", isSelected: false },
+        { title: "Observations", isSelected: false },
+        { title: "Create Subroutine", isSelected: false }
     ]);
 
     const handleOptionClickCallback = (index) => {
@@ -32,29 +33,36 @@ const RoutineDisplay = () => {
     const renderOptions = () => {
         return options.map((option, index) => (<OptionButton key={index} onClickOption={handleOptionClickCallback} index={index} isSelected={option.isSelected} title={option.title} />));
     }
-  
+
     const renderOptionComponent = () => {
-        if (selectedIndex === null){
+        if (selectedIndex === null) {
             return (
-            <div className="nullOptionWarning">
-                <p>Select an option to display :)</p>
-            </div>
+                <div className="nullOptionWarning">
+                    <p>Select an option to display :)</p>
+                </div>
             )
         }
         else {
             return (
                 <div className="OptionView">
-                    <OptionWrapper data={testRoutineData} selection={selectedIndex}/>
+                    <OptionWrapper data={testRoutineData} selection={selectedIndex} />
                 </div>
             )
         }
-        
+
     }
 
 
     const getSearchParams = () => {
         console.log(searchParams.get("routineID"));
         return searchParams.get("routineID");
+    }
+
+    const loadSubRoutines = () => {
+        // return (
+
+        // )
+
     }
 
     return (
@@ -83,6 +91,33 @@ const RoutineDisplay = () => {
                     </div>
                 </div>
                 <div className="subRoutines">
+                    <div className="topBar">
+                        <div className="heading">
+                            <p>Sub-Routines</p>
+                        </div>
+
+                    </div>
+                    <div className="subRoutineContainer">
+                        <div className="runnerButton">
+                            <div className="tria"></div>
+                        </div>
+                        <div className="buttonDivider"></div>
+                        <div className="subRoutineContainerGroup">
+                            <div className="subRoutineItem">
+                                <div className="idContainer">
+                                    <p>8913</p>
+                                </div>
+                                <div className="basics">
+                                    <div className="srName">
+                                        <p>Routine Name</p>
+                                    </div>
+                                    <div className="srDelete">
+                                        <p>x</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
             </div>
@@ -90,7 +125,7 @@ const RoutineDisplay = () => {
                 <div className="messages">
                     <p className="messageTitle">Initiating Subscriptions...</p>
                     <ThemeProvider theme={theme}>
-                        <CircularProgress color="primary" size={"15px"}/>
+                        <CircularProgress color="primary" size={"15px"} />
                     </ThemeProvider>
                 </div>
                 <div className="connectionInfo">

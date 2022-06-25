@@ -71,6 +71,8 @@
     
 }
 
+
+
 .routineDisplay .middleBar .utilities {
     margin: 10px;
     max-width: 450px;
@@ -136,7 +138,143 @@
     margin: 10px;
     background-color: rgb(30, 30, 30);
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
 }
+
+.routineDisplay .middleBar .subRoutines .subRoutineContainer {
+    width: calc(100% - 20px);
+    height: calc(10% - 20px);
+    position: relative;
+    top: -7%;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.routineDisplay .middleBar .subRoutines .subRoutineContainer .runnerButton {
+    height: 45px;
+    width: 45px;
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    color: white;
+    font-weight: bold;
+    font-size: small;
+    border-radius: 22.5px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.routineDisplay .middleBar .subRoutines .subRoutineContainer .buttonDivider {
+    width: 2px;
+    height: 100%;
+    background-color: gray;
+    margin-right: 10px;
+}
+
+.routineDisplay .middleBar .subRoutines .subRoutineContainer .runnerButton:hover {
+    transform: scale(1.1);
+    transition-duration: 0.1s;
+
+}
+
+.routineDisplay .middleBar .subRoutines .subRoutineContainer .subRoutineContainerGroup {
+    height: 100%;
+    width: 90%;
+    max-width: 90%;
+    display: flex;
+    align-items: center;
+}
+
+.routineDisplay .middleBar .subRoutines .subRoutineContainer .subRoutineContainerGroup .subRoutineItem {
+    width: calc(35% - 10px);
+    height: calc(90% - 10px);
+    background-color: rgb(0, 160, 198);
+    border-radius: 20px;
+    display: flex;
+    padding: 5px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.routineDisplay .middleBar .subRoutines .subRoutineContainer .subRoutineContainerGroup .subRoutineItem .basics {
+    height: 100%;
+    width: 75%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.routineDisplay .middleBar .subRoutines .subRoutineContainer .subRoutineContainerGroup .subRoutineItem .basics .srName {
+    width: 80%;
+    max-width: 80%;
+    text-align: right;
+    color: white;
+    font-weight: bold;
+    overflow-x: scroll;
+}
+.routineDisplay .middleBar .subRoutines .subRoutineContainer .subRoutineContainerGroup .subRoutineItem .basics .srDelete {
+    width: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+}
+
+.routineDisplay .middleBar .subRoutines .subRoutineContainer .subRoutineContainerGroup .subRoutineItem .idContainer {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 50px;
+    font-size: small;
+    font-weight: bold;
+}
+
+.routineDisplay .middleBar .subRoutines .subRoutineContainer .runnerButton .tria {
+  width: 0; 
+  height: 0; 
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-left: 20px solid rgb(0, 160, 198);
+    
+}
+
+.routineDisplay .middleBar .subRoutines .topBar {
+    height: 10%;
+    width: 96.5%;
+    display: flex;
+    background-color: transparent;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+    top: -7.5%;
+    color: white;
+}
+
+.routineDisplay .middleBar .subRoutines .topBar .heading {
+    height: 80%;
+    width: 30%;
+    background-color: rgb(0, 160, 198);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: small;
+    font-weight: bold;
+    border-radius: 15px 0 15px 0;
+}
+
+.routineDisplay .middleBar .subRoutines .topBar .heading p{
+    margin: 0px;
+}
+
 
 .routineDisplay .endBar {
     width: calc(100% - 80px);
