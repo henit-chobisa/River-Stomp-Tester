@@ -154,16 +154,16 @@
 }
 
 .routineDisplay .middleBar .subRoutines .subRoutineContainer .runnerButton {
-    height: 50px;
-    width: 50px;
-    background-color: rgb(0, 160, 198);
+    height: 45px;
+    width: 45px;
+    background-color: white;
     align-items: center;
     justify-content: center;
     display: flex;
     color: white;
     font-weight: bold;
     font-size: small;
-    border-radius: 25px;
+    border-radius: 22.5px;
     margin-left: 10px;
     margin-right: 10px;
 }
@@ -172,6 +172,7 @@
     width: 2px;
     height: 100%;
     background-color: gray;
+    margin-right: 10px;
 }
 
 .routineDisplay .middleBar .subRoutines .subRoutineContainer .runnerButton:hover {
@@ -180,12 +181,68 @@
 
 }
 
+.routineDisplay .middleBar .subRoutines .subRoutineContainer .subRoutineContainerGroup {
+    height: 100%;
+    width: 90%;
+    max-width: 90%;
+    display: flex;
+    align-items: center;
+}
+
+.routineDisplay .middleBar .subRoutines .subRoutineContainer .subRoutineContainerGroup .subRoutineItem {
+    width: calc(35% - 10px);
+    height: calc(90% - 10px);
+    background-color: rgb(0, 160, 198);
+    border-radius: 20px;
+    display: flex;
+    padding: 5px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.routineDisplay .middleBar .subRoutines .subRoutineContainer .subRoutineContainerGroup .subRoutineItem .basics {
+    height: 100%;
+    width: 75%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.routineDisplay .middleBar .subRoutines .subRoutineContainer .subRoutineContainerGroup .subRoutineItem .basics .srName {
+    width: 80%;
+    max-width: 80%;
+    text-align: right;
+    color: white;
+    font-weight: bold;
+    overflow-x: scroll;
+}
+.routineDisplay .middleBar .subRoutines .subRoutineContainer .subRoutineContainerGroup .subRoutineItem .basics .srDelete {
+    width: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+}
+
+.routineDisplay .middleBar .subRoutines .subRoutineContainer .subRoutineContainerGroup .subRoutineItem .idContainer {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 50px;
+    font-size: small;
+    font-weight: bold;
+}
+
 .routineDisplay .middleBar .subRoutines .subRoutineContainer .runnerButton .tria {
   width: 0; 
   height: 0; 
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  border-left: 15px solid white;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-left: 20px solid rgb(0, 160, 198);
     
 }
 
