@@ -8,10 +8,13 @@ import { ThemeProvider } from "@mui/system";
 import OptionButton from "../RoutinePage/OperationPanel/OptionButton";
 import testRoutineData from "../../Assets/testRoutineData";
 import OptionWrapper from "./Components/OptionWrapper";
+import SubRoutineItem from "./Components/SubRoutineItem";
 
 const RoutineDisplay = () => {
     const [searchParams, updateSearchParams] = useSearchParams();
     const [selectedIndex, updateSelectedIndex] = useState(null);
+    const [subRoutines, updateSubRoutines] = useState(testRoutineData.routines);
+    const [runTime, updateRunTime] = useState(true);
 
     const [options, updateOptions] = useState([
         { title: "Routine Map", isSelected: false },
@@ -51,7 +54,7 @@ const RoutineDisplay = () => {
         }
 
     }
-
+    
 
     const getSearchParams = () => {
         console.log(searchParams.get("routineID"));
@@ -59,10 +62,11 @@ const RoutineDisplay = () => {
     }
 
     const loadSubRoutines = () => {
-        // return (
-
-        // )
-
+        return subRoutines.map((routine, index) => {
+            return (
+                <SubRoutineItem key={index} index={index} runTime={runTime} subRoutine={routine}/>
+            )
+        })
     }
 
     return (
@@ -103,19 +107,7 @@ const RoutineDisplay = () => {
                         </div>
                         <div className="buttonDivider"></div>
                         <div className="subRoutineContainerGroup">
-                            <div className="subRoutineItem">
-                                <div className="idContainer">
-                                    <p>8913</p>
-                                </div>
-                                <div className="basics">
-                                    <div className="srName">
-                                        <p>Routine Name</p>
-                                    </div>
-                                    <div className="srDelete">
-                                        <p>x</p>
-                                    </div>
-                                </div>
-                            </div>
+                            {loadSubRoutines()}
                         </div>
                     </div>
 

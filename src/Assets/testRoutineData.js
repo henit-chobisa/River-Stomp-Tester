@@ -8,6 +8,7 @@ const testRoutineData = {
     executed : 0, // Number of times executed by the program
     routines : [
         {
+            id: 123,
             title : "Routine 1",
             operation : "PUBLISH", // Operations PUBLISH || SUBSCRIBE,
             route : "/hello",
@@ -16,17 +17,21 @@ const testRoutineData = {
             headers : "{\n \"hii\" : \"River Routine\" \n \"pack\" : \"routine[1].data.hii\" \n}",
             executionTime : 200,
             dataBytes : 300,
+            isSelected: false,
         },
         {
+            id: 456,
             title: "Routine 1",
             operation : "SUBSCRIBE",
             description : "This Routine Component is Made for testing purposes for River Tester, Thank You!",
             data : "{\n  \"Bye\" : \"Bye River Routine\"  \n}",
             route : "/hello",
             executionTime : 400,
-            dataBytes: 200
+            dataBytes: 200,
+            isSelected: false,
         },
         {
+            id: 789,
             title: "Routine 3",
             operation : "PUBLISH",
             description : "This Routine Component is Made for testing purposes for River Tester, Thank You!",
@@ -34,9 +39,11 @@ const testRoutineData = {
             headers : "{\n \"hii\" : \"River Routine\" \n \"pack\" : \"routine[1].data.hii\" \n}",
             route : "/hello",
             executionTime : 700,
-            dataBytes: 1000
+            dataBytes: 1000,
+            isSelected: false,
         },
         {
+            id: 100,
             title: "Routine 4",
             operation : "PUBLISH",
             description : "This Routine Component is Made for testing purposes for River Tester, Thank You!",
@@ -44,18 +51,22 @@ const testRoutineData = {
             headers : "{\n \"hii\" : \"River Routine\" \n \"pack\" : \"routine[1].data.hii\" \n}",
             route : "/hello",
             executionTime : 250,
-            dataBytes: 400
+            dataBytes: 400,
+            isSelected: false,
         },
         {
+            id:321,
             title: "Routine 4",
             operation : "SUBSCRIBE",
             description : "This Routine Component is Made for testing purposes for River Tester, Thank You!",
             data : "{\n  \"Bye\" : \"Bye River Routine\"  \n}",
             executionTime : 450,
             route : "/hello",
-            dataBytes: 800
+            dataBytes: 800,
+            isSelected: false,
         },
         {
+            id: 543,
             title: "Routine 5",
             operation : "PUBLISH",
             description : "This Routine Component is Made for testing purposes for River Tester, Thank You!",
@@ -63,25 +74,30 @@ const testRoutineData = {
             headers : "{\n \"hii\" : \"River Routine\" \n \"pack\" : \"routine[1].data.hii\" \n}",
             executionTime : 200,
             route : "/hello",
-            dataBytes: 100
+            dataBytes: 100,
+            isSelected: false,
         },
         {
+            id:876,
             title: "Routine 5",
             operation : "SUBSCRIBE",
             description : "This Routine Component is Made for testing purposes for River Tester, Thank You!",
             data : "{\n  \"Bye\" : \"Bye River Routine\"  \n}",
             executionTime : 100,
             route : "/hello",
-            dataBytes: 50
+            dataBytes: 50,
+            isSelected: false,
         },
         {
+            id: 987,
             title: "Routine 6",
             operation : "SUBSCRIBE",
             description : "This Routine Component is Made for testing purposes for River Tester, Thank You!",
             data : "{\n  \"Bye\" : \"Bye River Routine\"  \n}",
             executionTime : 80,
             route : "/hello",
-            dataBytes: 200
+            dataBytes: 200,
+            isSelected: false,
         }
     ]
 }
