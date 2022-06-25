@@ -3,6 +3,7 @@ import '../../../Styles/RoutineDisplay/Components/CreateSubRoutine.css'
 import EditorComp from "../../SimpleTestingPage/EditorComp";
 import { useState } from "react";
 import OptionButton from "../../RoutinePage/OperationPanel/OptionButton";
+import { useRef } from "react";
 var defaultBody = "{\n\t\"message\" : \"Insert your body here\"\n}";
 var defaultHeader = "{\n\t\"message\" : \"Insert your header here\"\n}"
 
@@ -15,12 +16,13 @@ const CreateSubRoutine = (props) => {
     const [description, updateDescription] = useState("");
     const [route, updateRoute] = useState("");
     const [title, updateTitle] = useState("");
-    
+    const saveButton = useRef();
 
-    const handlePersistence = () => {}
+
+    const handlePersistence = () => { }
 
     const handleDataOptionClick = (index) => {
-        if (index === 0){
+        if (index === 0) {
             updateBodySelected(true);
         }
         else {
@@ -37,12 +39,16 @@ const CreateSubRoutine = (props) => {
     }
 
     const addSubRoutine = () => {
-        if (title === "" || route === "" || description === "" || data === "" , header === ""){
-
+        if (title === "" || route === "" || description === "" || data === "") {
+            
+            saveButton.current.className = "saveButtonAnim";
+            setTimeout(() => {
+                saveButton.current.className = "saveButton";
+            }, 700);
         }
         else {
             const subRoutine = typeSelection === "PUBLISH" ? {
-                id : Math.floor(Math.random() * 10000),
+                id: Math.floor(Math.random() * 10000),
                 title: title,
                 operation: typeSelection,
                 route: route,
@@ -51,9 +57,9 @@ const CreateSubRoutine = (props) => {
                 headers: header,
                 executionTime: 0,
                 dataBytes: 0,
-                isSelected : false
+                isSelected: false
             } : {
-                id : Math.floor(Math.random() * 10000),
+                id: Math.floor(Math.random() * 10000),
                 title: title,
                 operation: typeSelection,
                 route: route,
@@ -61,9 +67,10 @@ const CreateSubRoutine = (props) => {
                 data: data,
                 executionTime: 0,
                 dataBytes: 0,
-                isSelected : false
+                isSelected: false
             }
 
+            props.addSubRoutine(subRoutine);
         }
 
     }
@@ -96,16 +103,16 @@ const CreateSubRoutine = (props) => {
                     </div>
                 </div>
                 <div className="route">
-                        <p>Route</p>
-                        <input type="text" value={route} onChange={handleRouteChange} placeholder="Route for Operation" />
+                    <p>Route</p>
+                    <input type="text" value={route} onChange={handleRouteChange} placeholder="Route for Operation" />
                 </div>
                 {typeSelection === "PUBLISH" ? <div className="dataInput">
                     <div className="dataOptions">
-                        <OptionButton title={"Body"} isSelected={bodySelected} index={0} onClickOption={handleDataOptionClick}/>
-                        <OptionButton title={"Headers"} index={1} onClickOption={handleDataOptionClick} isSelected={!bodySelected}/>
+                        <OptionButton title={"Body"} isSelected={bodySelected} index={0} onClickOption={handleDataOptionClick} />
+                        <OptionButton title={"Headers"} index={1} onClickOption={handleDataOptionClick} isSelected={!bodySelected} />
                     </div>
                     <div className="editor">
-                        <EditorComp data={ bodySelected ? data : header} handlePersistence={handlePersistence} updateData={bodySelected ? updateData : updateHeader}/>
+                        <EditorComp data={bodySelected ? data : header} handlePersistence={handlePersistence} updateData={bodySelected ? updateData : updateHeader} />
                     </div>
                 </div> : <></>}
                 <div className="sRDescription">
@@ -119,7 +126,7 @@ const CreateSubRoutine = (props) => {
                 </div>
             </div>
             <div className="saveButtonSection">
-                <div className="saveButton">
+                <div className="saveButton" ref={saveButton} onClick={addSubRoutine}>
                     <p>Initialize Subroutine</p>
                 </div>
             </div>
