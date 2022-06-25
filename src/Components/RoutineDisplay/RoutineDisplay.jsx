@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import '../../Styles/RoutineDisplay/RoutineDispMain.css'
 import logo from '../../Assets/logo.png'
@@ -9,12 +9,24 @@ import OptionButton from "../RoutinePage/OperationPanel/OptionButton";
 import testRoutineData from "../../Assets/testRoutineData";
 import OptionWrapper from "./Components/OptionWrapper";
 import SubRoutineItem from "./Components/SubRoutineItem";
+import { useRef } from "react";
 
 const RoutineDisplay = () => {
     const [searchParams, updateSearchParams] = useSearchParams();
     const [selectedIndex, updateSelectedIndex] = useState(null);
     const [subRoutines, updateSubRoutines] = useState(testRoutineData.routines);
     const [runTime, updateRunTime] = useState(true);
+    const subRoutineGroupComponent = useRef();
+    const [subRoutineUpdateStatus, updateSRUS] = useState(0);
+
+    useEffect(() => {
+        if (subRoutineUpdateStatus === 1){
+            if (subRoutines.length > 2){
+                subRoutineGroupComponent.current.getElementsByClassName("subRoutineItem")[subRoutines.length - 1].scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
+                updateSRUS(0);
+            }
+        }
+    }, [subRoutineUpdateStatus]);
 
     const [options, updateOptions] = useState([
         { title: "Routine Map", isSelected: false },
@@ -58,6 +70,7 @@ const RoutineDisplay = () => {
         const clone = [...subRoutines];
         clone.push(subRoutineObject);
         updateSubRoutines(clone);
+        updateSRUS(1);
     }
 
 
@@ -111,7 +124,7 @@ const RoutineDisplay = () => {
                             <div className="tria"></div>
                         </div>
                         <div className="buttonDivider"></div>
-                        <div className="subRoutineContainerGroup">
+                        <div className="subRoutineContainerGroup" ref={subRoutineGroupComponent}>
                             {loadSubRoutines()}
                         </div>
                     </div>
