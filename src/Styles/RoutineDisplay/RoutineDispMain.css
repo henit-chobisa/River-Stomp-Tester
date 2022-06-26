@@ -71,8 +71,6 @@
     
 }
 
-
-
 .routineDisplay .middleBar .utilities {
     margin: 10px;
     max-width: 450px;
@@ -217,6 +215,18 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+.routineDisplay .middleBar .subRoutines .subRoutineManagerContainer .nullWarning {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: gray;
+    font-style: italic;
+    font-size: small;
 }
 
 .routineDisplay .middleBar .subRoutines .topBar {

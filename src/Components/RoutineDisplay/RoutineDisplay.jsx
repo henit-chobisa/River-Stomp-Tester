@@ -22,8 +22,8 @@ const RoutineDisplay = () => {
     const [subRoutineUpdateStatus, updateSRUS] = useState(0);
 
     useEffect(() => {
-        if (subRoutineUpdateStatus === 1){
-            if (subRoutines.length > 2){
+        if (subRoutineUpdateStatus === 1) {
+            if (subRoutines.length > 2) {
                 subRoutineGroupComponent.current.getElementsByClassName("subRoutineItem")[subRoutines.length - 1].scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
                 updateSRUS(0);
             }
@@ -62,7 +62,7 @@ const RoutineDisplay = () => {
         else {
             return (
                 <div className="OptionView">
-                    <OptionWrapper data={subRoutines} selection={selectedIndex} addSubRoutine={addSubRoutine}/>
+                    <OptionWrapper data={subRoutines} selection={selectedIndex} addSubRoutine={addSubRoutine} />
                 </div>
             )
         }
@@ -72,9 +72,9 @@ const RoutineDisplay = () => {
         const clone = [...subRoutines];
         var count = 2;
         clone.map((subRoutine) => {
-            if (subRoutineObject.title === subRoutine.title){
+            if (subRoutineObject.title === subRoutine.title) {
 
-                if (subRoutineObject.operation != subRoutine.operation){
+                if (subRoutineObject.operation != subRoutine.operation) {
                     subRoutine.title = `${subRoutine.title}#${subRoutine.operation.slice(0, 3)}`
                     subRoutineObject.title = `${subRoutineObject.title}#${subRoutineObject.operation.slice(0, 3)}`
                 }
@@ -83,7 +83,7 @@ const RoutineDisplay = () => {
                     count++;
                 }
             }
-            if (subRoutineObject.id === subRoutine.id){
+            if (subRoutineObject.id === subRoutine.id) {
                 subRoutineObject.id = Math.floor(Math.random() * 10000);
             }
         });
@@ -111,7 +111,7 @@ const RoutineDisplay = () => {
     const loadSubRoutines = () => {
         return subRoutines.map((routine, index) => {
             return (
-                <SubRoutineItem key={index} index={index} runTime={runTime} selectSubRoutine={selectSubRoutine} deleteRoutine={deleteRoutine} isSelected={selectedSubRoutine === index} subRoutine={routine}/>
+                <SubRoutineItem key={index} index={index} runTime={runTime} selectSubRoutine={selectSubRoutine} deleteRoutine={deleteRoutine} isSelected={selectedSubRoutine === index} subRoutine={routine} />
             )
         })
     }
@@ -158,14 +158,16 @@ const RoutineDisplay = () => {
                         </div>
                     </div>
                     <div className="subRoutineManagerContainer">
-                        <SubRoutineManager SubRoutine={subRoutines[selectedSubRoutine]}/>
+                        {selectedSubRoutine !== null ? <SubRoutineManager SubRoutine={subRoutines[selectedSubRoutine]} /> : <div className="nullWarning">
+                            <p>Select a subRoutine for getting solo run info</p>
+                        </div>}
                     </div>
                 </div>
 
             </div>
             <div className="endBar">
                 <div className="messages">
-                    <p className="messageTitle">Initiating Subscriptions...</p>
+                    <p className="messageTitle">Initializing Startup Sequence...</p>
                     <ThemeProvider theme={theme}>
                         <CircularProgress color="primary" size={"15px"} />
                     </ThemeProvider>
