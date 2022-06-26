@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import '../../Styles/RoutineDisplay/RoutineDispMain.css'
 import logo from '../../Assets/logo.png'
@@ -8,10 +8,26 @@ import { ThemeProvider } from "@mui/system";
 import OptionButton from "../RoutinePage/OperationPanel/OptionButton";
 import testRoutineData from "../../Assets/testRoutineData";
 import OptionWrapper from "./Components/OptionWrapper";
+import SubRoutineItem from "./Components/SubRoutineItem";
+import { useRef } from "react";
 
 const RoutineDisplay = () => {
     const [searchParams, updateSearchParams] = useSearchParams();
     const [selectedIndex, updateSelectedIndex] = useState(null);
+    const [subRoutines, updateSubRoutines] = useState(testRoutineData.routines);
+    const [selectedSubRoutine, updateSelectedSubRoutine] = useState(null);
+    const [runTime, updateRunTime] = useState(true);
+    const subRoutineGroupComponent = useRef();
+    const [subRoutineUpdateStatus, updateSRUS] = useState(0);
+
+    useEffect(() => {
+        if (subRoutineUpdateStatus === 1){
+            if (subRoutines.length > 2){
+                subRoutineGroupComponent.current.getElementsByClassName("subRoutineItem")[subRoutines.length - 1].scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
+                updateSRUS(0);
+            }
+        }
+    }, [subRoutineUpdateStatus]);
 
     const [options, updateOptions] = useState([
         { title: "Routine Map", isSelected: false },
@@ -45,11 +61,44 @@ const RoutineDisplay = () => {
         else {
             return (
                 <div className="OptionView">
-                    <OptionWrapper data={testRoutineData} selection={selectedIndex} />
+                    <OptionWrapper data={subRoutines} selection={selectedIndex} addSubRoutine={addSubRoutine}/>
                 </div>
             )
         }
+    }
 
+    const addSubRoutine = (subRoutineObject) => {
+        const clone = [...subRoutines];
+        var count = 2;
+        clone.map((subRoutine) => {
+            if (subRoutineObject.title === subRoutine.title){
+
+                if (subRoutineObject.operation != subRoutine.operation){
+                    subRoutine.title = `${subRoutine.title}#${subRoutine.operation.slice(0, 3)}`
+                    subRoutineObject.title = `${subRoutineObject.title}#${subRoutineObject.operation.slice(0, 3)}`
+                }
+                else {
+                    subRoutineObject.title = count === 2 ? `${subRoutineObject.title}${count}` : `${subRoutineObject.title.slice(0, -1)}${count}`;
+                    count++;
+                }
+            }
+            if (subRoutineObject.id === subRoutine.id){
+                subRoutineObject.id = Math.floor(Math.random() * 10000);
+            }
+        });
+        clone.push(subRoutineObject);
+        updateSubRoutines(clone);
+        updateSRUS(1);
+    }
+
+    const deleteRoutine = (index) => {
+        const clone = [...subRoutines];
+        clone.splice(index, 1);
+        updateSubRoutines(clone);
+    }
+
+    const selectSubRoutine = (index) => {
+        updateSelectedSubRoutine(index);
     }
 
 
@@ -59,10 +108,11 @@ const RoutineDisplay = () => {
     }
 
     const loadSubRoutines = () => {
-        // return (
-
-        // )
-
+        return subRoutines.map((routine, index) => {
+            return (
+                <SubRoutineItem key={index} index={index} runTime={runTime} selectSubRoutine={selectSubRoutine} deleteRoutine={deleteRoutine} isSelected={selectedSubRoutine === index} subRoutine={routine}/>
+            )
+        })
     }
 
     return (
@@ -102,20 +152,8 @@ const RoutineDisplay = () => {
                             <div className="tria"></div>
                         </div>
                         <div className="buttonDivider"></div>
-                        <div className="subRoutineContainerGroup">
-                            <div className="subRoutineItem">
-                                <div className="idContainer">
-                                    <p>8913</p>
-                                </div>
-                                <div className="basics">
-                                    <div className="srName">
-                                        <p>Routine Name</p>
-                                    </div>
-                                    <div className="srDelete">
-                                        <p>x</p>
-                                    </div>
-                                </div>
-                            </div>
+                        <div className="subRoutineContainerGroup" ref={subRoutineGroupComponent}>
+                            {loadSubRoutines()}
                         </div>
                     </div>
 

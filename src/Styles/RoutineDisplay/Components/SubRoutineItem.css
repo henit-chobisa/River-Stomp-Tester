@@ -1,0 +1,87 @@
+.subRoutineItem {
+    min-width: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+@keyframes shine {
+    0%{background-position:10% 0%}
+    50%{background-position:91% 100%}
+    100%{background-position: 10% 0%}
+}
+
+.subRoutineItem .link {
+    height: 3px;
+    width: 10%;
+    background: rgb(0, 160, 198);
+    background: linear-gradient(81deg, rgba(0, 160, 198, 1) 27%, rgba(255, 255, 255, 1) 50%, rgba(245, 61, 61, 1) 75%);
+    animation: shine 5s ease infinite;
+    background-size: 200% 200%;
+}
+
+.subRoutineItem .itemComponent {
+    width: 90%;
+    height: 100%;
+    border-radius: 20px;
+    display: flex;
+    padding: 5px;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.subRoutineItem .itemComponent .basics {
+    height: 100%;
+    width: 75%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.subRoutineItem .itemComponent .basics .srName {
+    width: 80%;
+    max-width: 80%;
+    text-align: right;
+    color: white;
+    font-weight: bold;
+    overflow-x: scroll;
+    cursor: pointer;
+}
+
+.subRoutineItem .itemComponent .basics .srDelete {
+    width: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    
+}
+
+.subRoutineItem .itemComponent .basics .srDelete:hover {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: red;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.subRoutineItem .itemComponent .idContainer {
+    height: 100%;
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 50px;
+    font-size: small;
+    font-weight: bold;
+}

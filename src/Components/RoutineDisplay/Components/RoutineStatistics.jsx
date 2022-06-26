@@ -3,21 +3,21 @@ import '../../../Styles/RoutineDisplay/Components/RoutineStatistics.css';
 import testRoutineData from "../../../Assets/testRoutineData";
 import { FlexibleXYPlot, VerticalBarSeries, XAxis, YAxis, LineSeries } from 'react-vis';
 
-const RoutineStatistics = () => {
+const RoutineStatistics = (props) => {
 
-    const executionTimePublish = testRoutineData.routines.filter((data) => {
+    const executionTimePublish = props.data.filter((data) => {
         return data.operation === "PUBLISH"
     }).map((data) => {
         return { x: data.title, y: data.executionTime }
     });
 
-    const executionTimeSubscribe = testRoutineData.routines.filter((data) => {
+    const executionTimeSubscribe = props.data.filter((data) => {
         return data.operation !== "PUBLISH"
     }).map((data) => {
         return { x: data.title, y: data.executionTime }
     });
 
-    const dataByteDataPublish = testRoutineData.routines.filter((dat) => {
+    const dataByteDataPublish = props.data.filter((dat) => {
         return dat.operation === "PUBLISH"
 
     }).map((dat) => {
@@ -27,7 +27,7 @@ const RoutineStatistics = () => {
         }
     });
 
-    const dataByteDataSubscribe = testRoutineData.routines.filter((dat) => {
+    const dataByteDataSubscribe = props.data.filter((dat) => {
         return dat.operation !== "PUBLISH"
     }).map((dat) => {
         return {
