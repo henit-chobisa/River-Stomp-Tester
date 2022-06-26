@@ -1,6 +1,5 @@
 import React from "react";
 import '../../../Styles/RoutineDisplay/Components/RoutineStatistics.css';
-import testRoutineData from "../../../Assets/testRoutineData";
 import { FlexibleXYPlot, VerticalBarSeries, XAxis, YAxis, LineSeries } from 'react-vis';
 
 const RoutineStatistics = (props) => {
