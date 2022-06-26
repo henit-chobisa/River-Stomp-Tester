@@ -1,0 +1,60 @@
+.subRoutineManager {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+}
+
+.subRoutineManager .basicEntities {
+    height: calc(10% - 10px);
+    width: calc(100% - 10px);
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.subRoutineManager .basicEntities .basicInfo{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.subRoutineManager .basicEntities .basicInfo .idContainer {
+    height: 80%;
+    width: 45%;
+    background-color: white;
+    font-size: small;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    color: black;
+}
+
+.subRoutineManager .basicEntities .basicInfo .idContainer p {
+    margin: 0px;
+}
+
+.subRoutineManager .basicEntities .basicInfo .typeContainer {
+    height: 80%;
+    width: 45%;
+    background-color: rgb(0, 160, 198);
+    font-size: small;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50px;
+    color: white;
+}
+
+.subRoutineManager .basicEntities .subRoutineFire {
+    
+}
+
+

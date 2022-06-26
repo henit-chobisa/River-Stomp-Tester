@@ -10,6 +10,7 @@ import testRoutineData from "../../Assets/testRoutineData";
 import OptionWrapper from "./Components/OptionWrapper";
 import SubRoutineItem from "./Components/SubRoutineItem";
 import { useRef } from "react";
+import SubRoutineManager from "./Components/SubRoutineManager";
 
 const RoutineDisplay = () => {
     const [searchParams, updateSearchParams] = useSearchParams();
@@ -156,8 +157,11 @@ const RoutineDisplay = () => {
                             {loadSubRoutines()}
                         </div>
                     </div>
-
+                    <div className="subRoutineManagerContainer">
+                        <SubRoutineManager SubRoutine={subRoutines[selectedSubRoutine]}/>
+                    </div>
                 </div>
+
             </div>
             <div className="endBar">
                 <div className="messages">
@@ -176,7 +180,6 @@ const RoutineDisplay = () => {
                 </div>
             </div>
         </div>
-
     )
 }
 
