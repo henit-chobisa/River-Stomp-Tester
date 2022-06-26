@@ -209,10 +209,11 @@
 
 .routineDisplay .middleBar .subRoutines .subRoutineManagerContainer {
     width: calc(100% - 20px);
-    height: calc(90% - 20px);
+    height: calc(75% - 20px);
     position: relative;
-    top: -2%;
+    top: -4%;
     margin: 10px;
+    max-height: calc(90% - 20px);
     display: flex;
     flex-direction: row;
     align-items: center;
