@@ -15,8 +15,22 @@ const SubRoutineManager = () => {
                     </div>
                 </div>
                 <div className="subRoutineFire">
+                    <p>Run Alone</p>
+                </div>
+            </div>
+
+            <div className="middleInfoBar">
+                <div className="leftBasicBar">
 
                 </div>
+                <div className="barDivider"></div>
+                <div className="rightEditorBar">
+
+                </div>
+
+            </div>
+            <div className="bottomStatusBar">
+
             </div>
         </div>
     )
