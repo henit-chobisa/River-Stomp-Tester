@@ -30,6 +30,13 @@ const Storehandler = () => {
         },
         setRoutines : (routines) => {
             ipcRenderer.send("setRoutines", routines);
+        },
+        getRoutineWithID : (id) => {
+            const routine = ipcRenderer.sendSync("getRoutineWithID", id);
+            return routine;
+        },
+        setSingleRoutine : (routine) => {
+            ipcRenderer.send("setSingleRoutine", routine);
         }
     }
 }

@@ -7,18 +7,27 @@ import RoutineStatistics from "./RoutineStatistics";
 const OptionWrapper = (props) => {
 
     const getTitle = () => {
-        switch (props.selection) {
-            case 0:
-                return "Routine Map";
-            case 1:
-                return "Statistics";
-            case 2:
-                return "Observations";
-            case 3:
-                return "Create Subroutine";
-            default:
-                break;
+        if (props.data.length > 0){
+            switch (props.selection) {
+                case 0:
+                    return "Routine Map";
+                case 1:
+                    return "Statistics";
+                case 2:
+                    return "Observations";
+                case 3:
+                    return "Create Subroutine";
+                default:
+                    break;
+            }
         }
+        else {
+            switch (props.selection) {
+                case 3:
+                    return "Create Subroutine";
+                default:
+                    break;
+        }}
     }
 
     const getView = () => {

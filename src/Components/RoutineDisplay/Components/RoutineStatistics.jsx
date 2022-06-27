@@ -18,7 +18,6 @@ const RoutineStatistics = (props) => {
 
     const dataByteDataPublish = props.data.filter((dat) => {
         return dat.operation === "PUBLISH"
-
     }).map((dat) => {
         return {
             x: dat.title,

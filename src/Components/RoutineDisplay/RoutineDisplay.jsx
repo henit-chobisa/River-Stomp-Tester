@@ -11,17 +11,46 @@ import OptionWrapper from "./Components/OptionWrapper";
 import SubRoutineItem from "./Components/SubRoutineItem";
 import { useRef } from "react";
 import SubRoutineManager from "./Components/SubRoutineManager";
+import Storehandler from "../../Utilities/renderer";
 
 const RoutineDisplay = () => {
     const [searchParams, updateSearchParams] = useSearchParams();
     const [selectedIndex, updateSelectedIndex] = useState(null);
-    const [subRoutines, updateSubRoutines] = useState(testRoutineData.routines);
+    const [subRoutines, updateSubRoutines] = useState([]);
+    const [initLoad, updateInitLoad] = useState(true);
     const [selectedSubRoutine, updateSelectedSubRoutine] = useState(null);
     const [runTime, updateRunTime] = useState(true);
     const subRoutineGroupComponent = useRef();
     const [subRoutineUpdateStatus, updateSRUS] = useState(0);
+    const store = Storehandler();
+    const [targetRoutine, updateTargetRoutine] = useState({});
+
+    const getTargetRoutineID = () => {
+        return searchParams.get("routineID");
+    }
 
     useEffect(() => {
+        if (initLoad === true) {
+            const fetched = store.getRoutineWithID(getTargetRoutineID());
+            if (fetched.subRoutines === undefined) {
+                fetched["subRoutines"] = subRoutines;
+                store.setSingleRoutine(fetched);
+            }
+            else {
+                updateSubRoutines(fetched["subRoutines"]);
+            }
+            updateTargetRoutine(fetched);
+            updateInitLoad(false);
+        }
+
+        if (subRoutineUpdateStatus !== 0) {
+            const ref = targetRoutine;
+            ref["subRoutines"] = subRoutines;
+            updateTargetRoutine(ref);
+            store.setSingleRoutine(ref);
+            updateSRUS(0);
+        }
+
         if (subRoutineUpdateStatus === 1) {
             if (subRoutines.length > 2) {
                 subRoutineGroupComponent.current.getElementsByClassName("subRoutineItem")[subRoutines.length - 1].scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
@@ -38,6 +67,7 @@ const RoutineDisplay = () => {
     ]);
 
     const handleOptionClickCallback = (index) => {
+        console.log(targetRoutine);
         const clone = [...options];
         if (selectedIndex !== null) {
             clone[selectedIndex].isSelected = false;
@@ -48,7 +78,15 @@ const RoutineDisplay = () => {
     }
 
     const renderOptions = () => {
-        return options.map((option, index) => (<OptionButton key={index} onClickOption={handleOptionClickCallback} index={index} isSelected={option.isSelected} title={option.title} />));
+        if (subRoutines.length > 0){
+            return options.map((option, index) => (<OptionButton key={index} onClickOption={handleOptionClickCallback} index={index} isSelected={option.isSelected} title={option.title} />));
+        }
+        else {
+            return options.filter((option, index) => {
+                return index === 3;
+            }).map((option, index) => (<OptionButton key={index} onClickOption={handleOptionClickCallback} index={3} isSelected={option.isSelected} title={option.title} />));
+        }
+        
     }
 
     const renderOptionComponent = () => {
@@ -74,7 +112,7 @@ const RoutineDisplay = () => {
         clone.map((subRoutine) => {
             if (subRoutineObject.title === subRoutine.title) {
 
-                if (subRoutineObject.operation != subRoutine.operation) {
+                if (subRoutineObject.operation !== subRoutine.operation) {
                     subRoutine.title = `${subRoutine.title}#${subRoutine.operation.slice(0, 3)}`
                     subRoutineObject.title = `${subRoutineObject.title}#${subRoutineObject.operation.slice(0, 3)}`
                 }
@@ -94,18 +132,16 @@ const RoutineDisplay = () => {
 
     const deleteRoutine = (index) => {
         const clone = [...subRoutines];
+        if (index === selectSubRoutine) {
+            updateSelectedSubRoutine(null);
+        }
         clone.splice(index, 1);
         updateSubRoutines(clone);
+        updateSRUS(2);
     }
 
     const selectSubRoutine = (index) => {
         updateSelectedSubRoutine(index);
-    }
-
-
-    const getSearchParams = () => {
-        console.log(searchParams.get("routineID"));
-        return searchParams.get("routineID");
     }
 
     const loadSubRoutines = () => {
@@ -114,6 +150,19 @@ const RoutineDisplay = () => {
                 <SubRoutineItem key={index} index={index} runTime={runTime} selectSubRoutine={selectSubRoutine} deleteRoutine={deleteRoutine} isSelected={selectedSubRoutine === index} subRoutine={routine} />
             )
         })
+    }
+
+    const renderSubRoutineManager = () => {
+        if (selectedSubRoutine === null) {
+            return (
+                <div className="nullWarning">
+                    <p>Select a subRoutine for getting solo run info</p>
+                </div>
+            )
+        }
+        else {
+            return (<SubRoutineManager SubRoutine={subRoutines[selectedSubRoutine]} />)
+        }
     }
 
     return (
@@ -158,9 +207,7 @@ const RoutineDisplay = () => {
                         </div>
                     </div>
                     <div className="subRoutineManagerContainer">
-                        {selectedSubRoutine !== null ? <SubRoutineManager SubRoutine={subRoutines[selectedSubRoutine]} /> : <div className="nullWarning">
-                            <p>Select a subRoutine for getting solo run info</p>
-                        </div>}
+                        {renderSubRoutineManager()}
                     </div>
                 </div>
 

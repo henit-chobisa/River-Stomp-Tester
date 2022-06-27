@@ -15,14 +15,16 @@ const SubRoutineManager = (props) => {
     const [header, updateHeader] = useState(defaultHeader);
 
     useEffect(() => {
-        if (props.SubRoutine.operation === "PUBLISH"){
-            updateData(props.SubRoutine.body);
-            updateHeader(props.SubRoutine.headers);
-        }
+        if (props.SubRoutine !== undefined) {
+            if (props.SubRoutine.operation === "PUBLISH") {
+                updateData(props.SubRoutine.body);
+                updateHeader(props.SubRoutine.headers);
+            }
 
-        else {
-            updateBodySelected(true);
-            updateData(props.SubRoutine.data);
+            else {
+                updateBodySelected(true);
+                updateData(props.SubRoutine.data);
+            }
         }
     })
 
@@ -38,7 +40,7 @@ const SubRoutineManager = (props) => {
     }
 
     return (
-        <div className="subRoutineManager">
+        props.SubRoutine !== undefined ? <div className="subRoutineManager">
             <div className="basicEntities">
                 <div className="basicInfo">
                     <div className="idContainer">
@@ -79,8 +81,8 @@ const SubRoutineManager = (props) => {
                 <div className="barDivider"></div>
                 <div className="rightEditorBar">
                     <div className="optionsBar">
-                        <OptionButton title={"Body"} isSelected={bodySelected} index={0} onClickOption={handleDataOptionClick}/>
-                        {props.SubRoutine.operation === "PUBLISH" ?<OptionButton title={"Headers"} index={1} onClickOption={handleDataOptionClick} isSelected={!bodySelected} /> : <></>}
+                        <OptionButton title={"Body"} isSelected={bodySelected} index={0} onClickOption={handleDataOptionClick} />
+                        {props.SubRoutine.operation === "PUBLISH" ? <OptionButton title={"Headers"} index={1} onClickOption={handleDataOptionClick} isSelected={!bodySelected} /> : <></>}
                     </div>
                     <div className="mainEditor">
                         <EditorComp data={bodySelected ? data : header} handlePersistence={handlePersistence} updateData={bodySelected ? updateData : updateHeader} />
@@ -91,6 +93,8 @@ const SubRoutineManager = (props) => {
             <div className="bottomStatusBar">
                 <p>Operation Status such as save || modification || Run Alone Success/ Failure shall be shown over here</p>
             </div>
+        </div> : <div className="nullWarning">
+            <p>Select a subRoutine for getting solo run info</p>
         </div>
     )
 

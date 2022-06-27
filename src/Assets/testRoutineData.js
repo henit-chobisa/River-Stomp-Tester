@@ -6,7 +6,7 @@ const testRoutineData = {
     lastUpdated: "20th June",
     author : "Henit Chobisa",
     executed : 0, // Number of times executed by the program
-    routines : [
+    subRoutines : [
         {
             id: 123,
             title : "Routine 1",
