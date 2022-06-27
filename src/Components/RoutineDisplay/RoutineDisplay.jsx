@@ -78,7 +78,15 @@ const RoutineDisplay = () => {
     }
 
     const renderOptions = () => {
-        return options.map((option, index) => (<OptionButton key={index} onClickOption={handleOptionClickCallback} index={index} isSelected={option.isSelected} title={option.title} />));
+        if (subRoutines.length > 0){
+            return options.map((option, index) => (<OptionButton key={index} onClickOption={handleOptionClickCallback} index={index} isSelected={option.isSelected} title={option.title} />));
+        }
+        else {
+            return options.filter((option, index) => {
+                return index === 3;
+            }).map((option, index) => (<OptionButton key={index} onClickOption={handleOptionClickCallback} index={3} isSelected={option.isSelected} title={option.title} />));
+        }
+        
     }
 
     const renderOptionComponent = () => {
