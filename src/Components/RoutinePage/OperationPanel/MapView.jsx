@@ -15,7 +15,7 @@ const MapView = (props) => {
     const [selectedIndex, updateSelectedIndex] = useState(null);
     
     const renderTimeLineItems = () => {
-        return props.routineData.routines.map((data, index) => {
+        return props.routineData.subRoutines.map((data, index) => {
             return (<MapViewComp routineComp={data} key={index} handleMapCompClick={mapCompClicked} index={index}/>)
         })
     };
@@ -24,7 +24,7 @@ const MapView = (props) => {
         if (selectedIndex === null){
             return {backgroundColor : "transparent"}
         }
-        else if (props.routineData.routines[selectedIndex].operation === "PUBLISH"){
+        else if (props.routineData.subRoutines[selectedIndex].operation === "PUBLISH"){
             return {backgroundColor : "rgb(245, 61, 61)"}
         }
         else {
@@ -41,7 +41,7 @@ const MapView = (props) => {
             )
         }
         else {
-            var routineComponent = props.routineData.routines[selectedIndex];
+            var routineComponent = props.routineData.subRoutines[selectedIndex];
             
             return (
                 <div className="compUtilityInfo">

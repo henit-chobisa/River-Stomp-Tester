@@ -48,7 +48,7 @@ const StatisticsPanel = (props) => {
     }
 
     const renderPresentationComponent = () => {
-        if ((selectedIndex === null || props.selectedRoutine === null || props.selectedRoutine.routines === undefined) && selectedIndex !== 2) {
+        if ((selectedIndex === null || props.selectedRoutine === null || props.selectedRoutine.subRoutines === undefined) && selectedIndex !== 2) {
             return <div className="warningView">
                 <p className="noSelectionWarning">No Subroutines availabe to display :)</p>
             </div>
@@ -56,12 +56,12 @@ const StatisticsPanel = (props) => {
         else {
             if (selectedIndex === 1) {
                 return (
-                    <GraphView routineData={testRoutineData} graphViewRef={graphViewRef} />
+                    <GraphView routineData={props.selectedRoutine} graphViewRef={graphViewRef} />
                 )
             }
             else if (selectedIndex === 0) {
                 return (
-                   <MapView routineData={testRoutineData}/>
+                   <MapView routineData={props.selectedRoutine}/>
                 )
             }
             else {
