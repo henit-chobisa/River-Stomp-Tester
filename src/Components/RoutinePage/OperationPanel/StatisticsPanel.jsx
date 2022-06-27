@@ -2,10 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import '../../../Styles/RoutinePage/OperationPanel/StatisticsPanel.css'
 import OptionButton from "./OptionButton";
 import '../../../../node_modules/react-vis/dist/style.css';
-
-import testRoutineData from "../../../Assets/testRoutineData";
 import GraphView from "./GraphView";
-
 import MapView from "./MapView";
 import CreateView from "./CreateView";
 
