@@ -312,12 +312,14 @@
 }
 
 .routineDisplay .endBar .connectionInfo .connectionStatus {
-    height: 70%;
+    height: 55%;
     width: 30%;
-    border: 3px;
+    /* border: 3px; */
+    border: none;
     border-radius: 50px;
-    border-style: groove;
-    border-color: rgb(0, 160, 198);
+    /* border-style: groove; */
+    /* border-color: rgb(0, 160, 198); */
+    background-color: rgb(69, 197, 69);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -328,7 +330,7 @@
 
 .routineDisplay .endBar .connectionInfo .connectionURL {
     background-color: rgb(0, 160, 198);
-    height: calc(70%);
+    height: calc(55%);
     width: max-content;
     align-items: center;
     justify-content: center;
@@ -336,8 +338,9 @@
     padding-left: 20px;
     padding-right: 20px;
     color: white;
-    font-size: small;
+    font-size: smaller;
     font-weight: bold;
     border-radius: 50px;
+    margin-left: 10px;
 }
 
