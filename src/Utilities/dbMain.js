@@ -44,19 +44,22 @@ ipcMain.on("getRoutineWithID", (event, id) => {
     const targetRoutine = jsonRout.filter((routine) => {
         return routine.id == id;
     });
-    event.returnValue = targetRoutine;
+    event.returnValue = targetRoutine[0];
 });
 
 ipcMain.on("setSingleRoutine", (event, routine) => {
     const routines = store.get("Routines");
     const jsonRout = JSON.parse(routines);
-    jsonRout.map((rout) => {
+    console.log("Renderer triggered");
+    
+    const toSave = jsonRout.map((rout) => {
         if (rout.id === routine.id){
-            rout = routine;
+            return routine;
         }
         return rout;
     });
-    store.set("Routines", JSON.stringify(jsonRout));
+
+    store.set("Routines", JSON.stringify(toSave));
 })
 
 
