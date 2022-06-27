@@ -36,6 +36,27 @@ ipcMain.on("setRoutines", (event, routines) => {
 ipcMain.on("getRoutines", (event) => {
     const routines = store.get("Routines");
     event.returnValue = routines;
+});
+
+ipcMain.on("getRoutineWithID", (event, id) => {
+    const routines = store.get("Routines");
+    const jsonRout = JSON.parse(routines);
+    const targetRoutine = jsonRout.filter((routine) => {
+        return routine.id == id;
+    });
+    event.returnValue = targetRoutine;
+});
+
+ipcMain.on("setSingleRoutine", (event, routine) => {
+    const routines = store.get("Routines");
+    const jsonRout = JSON.parse(routines);
+    jsonRout.map((rout) => {
+        if (rout.id === routine.id){
+            rout = routine;
+        }
+        return rout;
+    });
+    store.set("Routines", JSON.stringify(jsonRout));
 })
 
 
