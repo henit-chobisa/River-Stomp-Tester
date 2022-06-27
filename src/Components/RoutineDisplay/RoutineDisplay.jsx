@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import '../../Styles/RoutineDisplay/RoutineDispMain.css'
 import logo from '../../Assets/logo.png'
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, useThemeProps } from "@mui/material";
 import theme from "../Generic/Theme";
 import { ThemeProvider } from "@mui/system";
 import OptionButton from "../RoutinePage/OperationPanel/OptionButton";
@@ -13,7 +13,7 @@ import { useRef } from "react";
 import SubRoutineManager from "./Components/SubRoutineManager";
 import Storehandler from "../../Utilities/renderer";
 
-const RoutineDisplay = () => {
+const RoutineDisplay = (props) => {
     const [searchParams, updateSearchParams] = useSearchParams();
     const [selectedIndex, updateSelectedIndex] = useState(null);
     const [subRoutines, updateSubRoutines] = useState([]);
@@ -221,11 +221,11 @@ const RoutineDisplay = () => {
                 </div>
                 <div className="connectionInfo">
                     <div className="connectionStatus">
-                        <p>Connected</p>
+                        <p>{props.connected === true ? "Connected" : "Disconnected"}</p>
                     </div>
-                    <div className="connectionURL">
-                        <p>http://localhost:9000/disprout</p>
-                    </div>
+                    { props.connected === true ? <div className="connectionURL">
+                        <p>{props.connectionURL}</p>
+                    </div> : <></>}
                 </div>
             </div>
         </div>
