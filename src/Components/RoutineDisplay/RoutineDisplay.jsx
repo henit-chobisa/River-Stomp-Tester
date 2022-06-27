@@ -2,18 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import '../../Styles/RoutineDisplay/RoutineDispMain.css'
 import logo from '../../Assets/logo.png'
-import { CircularProgress } from "@mui/material";
-import theme from "../Generic/Theme";
-import { ThemeProvider } from "@mui/system";
 import OptionButton from "../RoutinePage/OperationPanel/OptionButton";
-import testRoutineData from "../../Assets/testRoutineData";
 import OptionWrapper from "./Components/OptionWrapper";
 import SubRoutineItem from "./Components/SubRoutineItem";
 import { useRef } from "react";
 import SubRoutineManager from "./Components/SubRoutineManager";
 import Storehandler from "../../Utilities/renderer";
+import MessageBar from "../../Styles/RoutineDisplay/Components/MessageBar";
 
-const RoutineDisplay = () => {
+const RoutineDisplay = (props) => {
     const [searchParams, updateSearchParams] = useSearchParams();
     const [selectedIndex, updateSelectedIndex] = useState(null);
     const [subRoutines, updateSubRoutines] = useState([]);
@@ -22,11 +19,20 @@ const RoutineDisplay = () => {
     const [runTime, updateRunTime] = useState(true);
     const subRoutineGroupComponent = useRef();
     const [subRoutineUpdateStatus, updateSRUS] = useState(0);
+    const [messageVisible, updateMessageVisible] = useState(false);
+    const [message, updateMessage] = useState(false);
+    const [loadingMessage, updateLoadingMessage] = useState(false);
     const store = Storehandler();
     const [targetRoutine, updateTargetRoutine] = useState({});
 
     const getTargetRoutineID = () => {
         return searchParams.get("routineID");
+    }
+
+    const showMessage = (message, isLoading) => {
+        updateMessage(message);
+        updateLoadingMessage(isLoading);
+        updateMessageVisible(true);
     }
 
     useEffect(() => {
@@ -41,6 +47,13 @@ const RoutineDisplay = () => {
             }
             updateTargetRoutine(fetched);
             updateInitLoad(false);
+
+            if(props.connected === true){
+                showMessage(`Routine System Connected with ${props.connectionURL}`, false);
+                setTimeout(() => {
+                    updateMessageVisible(false);
+                }, 5000);
+            }
         }
 
         if (subRoutineUpdateStatus !== 0) {
@@ -213,19 +226,14 @@ const RoutineDisplay = () => {
 
             </div>
             <div className="endBar">
-                <div className="messages">
-                    <p className="messageTitle">Initializing Startup Sequence...</p>
-                    <ThemeProvider theme={theme}>
-                        <CircularProgress color="primary" size={"15px"} />
-                    </ThemeProvider>
-                </div>
+                {messageVisible === true ? <MessageBar message={message} loading={loadingMessage}/> : <div className="messages"></div>}
                 <div className="connectionInfo">
                     <div className="connectionStatus">
-                        <p>Connected</p>
+                        <p>{props.connected === true ? "Connected" : "Disconnected"}</p>
                     </div>
-                    <div className="connectionURL">
-                        <p>http://localhost:9000/disprout</p>
-                    </div>
+                    { props.connected === true ? <div className="connectionURL">
+                        <p>{props.connectionURL}</p>
+                    </div> : <></>}
                 </div>
             </div>
         </div>
