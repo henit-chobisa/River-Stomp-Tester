@@ -16,7 +16,7 @@ const RoutineDisplay = (props) => {
     const [subRoutines, updateSubRoutines] = useState([]);
     const [initLoad, updateInitLoad] = useState(true);
     const [selectedSubRoutine, updateSelectedSubRoutine] = useState(null);
-    const [runTime, updateRunTime] = useState(true);
+    const [runTime, updateRunTime] = useState(false);
     const subRoutineGroupComponent = useRef();
     const [subRoutineUpdateStatus, updateSRUS] = useState(0);
     const [messageVisible, updateMessageVisible] = useState(false);

@@ -54,7 +54,7 @@ const SubRoutineManager = (props) => {
             var startTime = performance.now();
             stompClient.publish({ destination: subRoutine.route, body: subRoutine.body, headers: subRoutine.headers });
             var endTime = performance.now();
-            const executionTime = (Math.round((endTime - startTime) * 100) / 100).toFixed(2);
+            const executionTime = parseFloat((Math.round((endTime - startTime) * 100) / 100).toFixed(2));
             const dataExchange = (Buffer.from(subRoutine.body).length) + (Buffer.from(subRoutine.headers).length);
             setTimeout(() => {
                 const data = subRoutine;
