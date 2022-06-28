@@ -16,7 +16,7 @@ const RoutineDisplay = (props) => {
     const [subRoutines, updateSubRoutines] = useState([]);
     const [initLoad, updateInitLoad] = useState(true);
     const [selectedSubRoutine, updateSelectedSubRoutine] = useState(null);
-    const [runTime, updateRunTime] = useState(true);
+    const [runTime, updateRunTime] = useState(false);
     const subRoutineGroupComponent = useRef();
     const [subRoutineUpdateStatus, updateSRUS] = useState(0);
     const [messageVisible, updateMessageVisible] = useState(false);
@@ -169,6 +169,9 @@ const RoutineDisplay = (props) => {
     }
 
     const updateSubRoutineItem = (pos, subRoutine) => {
+
+        showMessage(`Updating SubRoutine "${subRoutines[selectedSubRoutine].title}" with ID "${subRoutines[selectedSubRoutine].id}"`, true);
+
         const clone = [...subRoutines];
         clone.map((srout, index) => {
             if (index === pos){
@@ -178,6 +181,15 @@ const RoutineDisplay = (props) => {
         })
         updateSubRoutines(clone);
         updateSRUS(1);
+
+        setTimeout(() => {
+            updateMessageVisible(false);
+        }, 3000);
+
+        if (selectedIndex !== null){
+            handleOptionClickCallback(selectedIndex);
+        }
+        
     }
 
     const renderSubRoutineManager = () => {

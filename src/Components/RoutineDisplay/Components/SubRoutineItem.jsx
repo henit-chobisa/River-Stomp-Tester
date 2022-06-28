@@ -23,10 +23,18 @@ const SubRoutineItem = (props) => {
         props.deleteRoutine(props.index);
     }
 
+    const giveLinkClassName = () => {
+        if (props.runTime === false){
+            return "linkInactive";
+        }
+        else {
+            return "linkActive";
+        }
+    }
 
     return (
         <div className="subRoutineItem">
-            {(props.index !== 0 && props.subRoutine.isSelected === true && props.runTime === true) && <div className="link"></div>}
+            {props.index === 0 ? <></> : <div className={giveLinkClassName()}></div>}
             <div className="itemComponent" style={renderBackgroundColor()} onClick={handleSelection}>
                 <div className="idContainer">
                     <p>{props.subRoutine.id}</p>

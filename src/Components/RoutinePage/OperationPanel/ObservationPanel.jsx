@@ -5,26 +5,28 @@ const ObservationPanel = (props) => {
 
 
     const getExecutionTime = () => {
-        if (props.selectedRoutine.routines === undefined){
+        if (props.selectedRoutine.subRoutines === undefined){
             return "0";
         }
         else {
             var sum = 0;
-            props.selectedRoutine.routines.map((routine) => {
+            props.selectedRoutine.subRoutines.map((routine) => {
+                console.log(routine);
                 sum += routine.executionTime;
                 return routine;
-            })
+            });
+
             return sum;
         }
     }
 
     const getDataExchange = () => {
-        if (props.selectedRoutine.routines === undefined){
+        if (props.selectedRoutine.subRoutines === undefined){
             return "0";
         }
         else {
             var sum = 0;
-            props.selectedRoutine.routines.map((routine) => {
+            props.selectedRoutine.subRoutines.map((routine) => {
                 sum += routine.dataBytes;
                 return routine;
             })
