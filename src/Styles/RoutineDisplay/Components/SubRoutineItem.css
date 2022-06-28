@@ -47,7 +47,9 @@
     color: white;
     font-weight: bold;
     overflow-x: scroll;
+    font-size: small;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 .subRoutineItem .itemComponent .basics .srDelete {
