@@ -48,11 +48,14 @@ const RoutineDisplay = (props) => {
             updateTargetRoutine(fetched);
             updateInitLoad(false);
 
-            if(props.connected === true){
-                showMessage(`Routine System Connected with ${props.connectionURL}`, false);
+            if (props.connected === true) {
                 setTimeout(() => {
-                    updateMessageVisible(false);
-                }, 5000);
+                    showMessage(`Routine System Connected with ${props.connectionURL}`, false);
+                    setTimeout(() => {
+                        updateMessageVisible(false);
+                    }, 5000);
+
+                }, 2000);
             }
         }
 
@@ -91,7 +94,7 @@ const RoutineDisplay = (props) => {
     }
 
     const renderOptions = () => {
-        if (subRoutines.length > 0){
+        if (subRoutines.length > 0) {
             return options.map((option, index) => (<OptionButton key={index} onClickOption={handleOptionClickCallback} index={index} isSelected={option.isSelected} title={option.title} />));
         }
         else {
@@ -99,7 +102,7 @@ const RoutineDisplay = (props) => {
                 return index === 3;
             }).map((option, index) => (<OptionButton key={index} onClickOption={handleOptionClickCallback} index={3} isSelected={option.isSelected} title={option.title} />));
         }
-        
+
     }
 
     const renderOptionComponent = () => {
@@ -165,6 +168,18 @@ const RoutineDisplay = (props) => {
         })
     }
 
+    const updateSubRoutineItem = (pos, subRoutine) => {
+        const clone = [...subRoutines];
+        clone.map((srout, index) => {
+            if (index === pos){
+                return subRoutine;
+            }
+            return srout;
+        })
+        updateSubRoutines(clone);
+        updateSRUS(1);
+    }
+
     const renderSubRoutineManager = () => {
         if (selectedSubRoutine === null) {
             return (
@@ -174,7 +189,7 @@ const RoutineDisplay = (props) => {
             )
         }
         else {
-            return (<SubRoutineManager SubRoutine={subRoutines[selectedSubRoutine]} />)
+            return (<SubRoutineManager SubRoutine={subRoutines[selectedSubRoutine]}  index={selectedSubRoutine} updateSubRoutineColl={updateSubRoutineItem}/>)
         }
     }
 
@@ -226,12 +241,12 @@ const RoutineDisplay = (props) => {
 
             </div>
             <div className="endBar">
-                {messageVisible === true ? <MessageBar message={message} loading={loadingMessage}/> : <div className="messages"></div>}
+                {messageVisible === true ? <MessageBar message={message} loading={loadingMessage} /> : <div className="messages"></div>}
                 <div className="connectionInfo">
                     <div className="connectionStatus">
                         <p>{props.connected === true ? "Connected" : "Disconnected"}</p>
                     </div>
-                    { props.connected === true ? <div className="connectionURL">
+                    {props.connected === true ? <div className="connectionURL">
                         <p>{props.connectionURL}</p>
                     </div> : <></>}
                 </div>
