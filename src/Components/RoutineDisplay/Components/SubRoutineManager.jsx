@@ -19,7 +19,9 @@ const SubRoutineManager = (props) => {
     const [runButtonActive, updateRunButtonActive] = useState(true);
     const [runButtonStatus, updateRunButtonStatus] = useState(defaultRunButtonStatus);
     const [bottomMessage, updateBottomMessage] = useState(defaultBottomMessage);
+    const [bottomBarActive, updateBottomBarActive] = useState(false);
     const stompClient = useStompClient();
+
 
     useEffect(() => {
         updateSubRoutine(props.SubRoutine);
@@ -41,6 +43,7 @@ const SubRoutineManager = (props) => {
         props.updateSubRoutineColl(props.index, subRoutine);
         setTimeout(() => {
             updateBottomMessage(defaultBottomMessage);
+            updateBottomBarActive(false);
         }, 3000);
     }
 
@@ -48,6 +51,7 @@ const SubRoutineManager = (props) => {
 
     const runAlone = () => {
         if (runButtonActive) {
+            updateBottomBarActive(true);
             updateBottomMessage("Initiating Client for Publishing SubRoutine")
             updateRunButtonActive(false);
             updateRunButtonStatus("Running");
@@ -69,6 +73,14 @@ const SubRoutineManager = (props) => {
         }
     }
 
+    const giveBottomBarClass = () => {
+        if (bottomBarActive === true){
+            return "bbTitleActive";
+        }
+        else {
+            return "bbTitleInActive";
+        }
+    }
 
     const handleDataOptionClick = (index) => {
         console.log(console.log(data));
@@ -132,7 +144,7 @@ const SubRoutineManager = (props) => {
 
             </div>
             <div className="bottomStatusBar">
-                <p>{bottomMessage}</p>
+                <p className={giveBottomBarClass()}>{bottomMessage}</p>
             </div>
         </div> : <div className="nullWarning">
             <p>Select a subRoutine for getting solo run info</p>

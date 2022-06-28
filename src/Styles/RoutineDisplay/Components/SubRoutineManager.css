@@ -197,7 +197,6 @@
 
 .subRoutineManager .bottomStatusBar {
     font-size: small;
-    color: gray;
     width: calc(100% - 40px);
     margin-left: 20px;
     margin-right: 20px;
@@ -205,6 +204,28 @@
     align-items: center;
     justify-content: flex-start;
 }
+
+@keyframes shine {
+    0%{background-position:10% 0%}
+    50%{background-position:91% 100%}
+    100%{background-position: 10% 0%}
+}
+
+.subRoutineManager .bottomStatusBar .bbTitleActive {
+    color: transparent;
+    background: rgb(0, 160, 198);
+    background: linear-gradient(81deg, rgba(0, 160, 198, 1) 27%, rgba(255, 255, 255, 1) 50%, rgba(245, 61, 61, 1) 75%);
+    background-clip: text;
+    animation: shine 5s ease infinite;
+    background-size: 200% 200%;
+    font-weight: bold;
+}
+
+.subRoutineManager .bottomStatusBar .bbTitleInActive {
+    color: grey;
+}
+
+
 
 
 
