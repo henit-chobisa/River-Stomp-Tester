@@ -34,20 +34,27 @@ const SubRoutineManager = (props) => {
         }
     });
 
+
+    useEffect(() => {
+        props.updateSubRoutineColl(props.index, subRoutine);
+    }, [subRoutine])
+
     // Run alone only valid for publish type subroutines
 
     const runAlone = () => {
-        if (runButtonActive){
+        if (runButtonActive) {
             updateRunButtonActive(false);
             updateRunButtonStatus("Running");
             var startTime = performance.now();
-            stompClient.publish({destination: subRoutine.route, body: subRoutine.body, headers: subRoutine.headers});
+            stompClient.publish({ destination: subRoutine.route, body: subRoutine.body, headers: subRoutine.headers });
             var endTime = performance.now();
             const executionTime = (Math.round((endTime - startTime) * 100) / 100).toFixed(2);
             const dataExchange = (Buffer.from(subRoutine.body).length) + (Buffer.from(subRoutine.headers).length);
-            
-        
             setTimeout(() => {
+                const data = subRoutine;
+                data.executionTime = executionTime;
+                data.dataBytes = dataExchange;
+                updateSubRoutine(data);
                 updateRunButtonActive(true);
                 updateRunButtonStatus(defaultRunButtonStatus);
             }, 1500)
@@ -76,9 +83,9 @@ const SubRoutineManager = (props) => {
                         <p>{subRoutine.operation}</p>
                     </div>
                 </div>
-                <div className="subRoutineFire" style={{opacity : runButtonActive === true ? 1 : 0.5}} onClick={runAlone}>
+                <div className="subRoutineFire" style={{ opacity: runButtonActive === true ? 1 : 0.5 }} onClick={runAlone}>
                     <p>{runButtonStatus}</p>
-                </div> 
+                </div>
             </div>
 
             <div className="middleInfoBar">
