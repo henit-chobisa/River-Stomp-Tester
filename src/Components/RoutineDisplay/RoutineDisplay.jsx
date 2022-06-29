@@ -9,6 +9,11 @@ import { useRef } from "react";
 import SubRoutineManager from "./Components/SubRoutineManager";
 import Storehandler from "../../Utilities/renderer";
 import MessageBar from "../../Styles/RoutineDisplay/Components/MessageBar";
+import { useStompClient } from "react-stomp-hooks";
+import { CircularProgress, useThemeProps } from "@mui/material";
+import theme from "../Generic/Theme";
+import { ThemeProvider } from "@mui/system";
+import { resolve } from "path";
 
 const RoutineDisplay = (props) => {
     const [searchParams, updateSearchParams] = useSearchParams();
@@ -23,18 +28,65 @@ const RoutineDisplay = (props) => {
     const [message, updateMessage] = useState(false);
     const [loadingMessage, updateLoadingMessage] = useState(false);
     const store = Storehandler();
+    const client = props.sclient();
     const [targetRoutine, updateTargetRoutine] = useState({});
 
+
+    // Generic Functions 
     const getTargetRoutineID = () => {
         return searchParams.get("routineID");
     }
 
-    const showMessage = (message, isLoading) => {
+    const showMessage = async (message, isLoading, time) => {
         updateMessage(message);
         updateLoadingMessage(isLoading);
         updateMessageVisible(true);
+        setTimeout(() => {
+            updateMessageVisible(false);
+        }, time);
     }
 
+    const publishMessage = (destination, body, headers) => {
+        client.publish({ destination, body, headers })
+    }
+
+
+    const ExecuteRoutine = async () => {
+        updateRunTime(true);
+        const clone = [...subRoutines];
+        for (const [index, subRoutine] of subRoutines.entries()) {
+            await new Promise((resolve) => {
+                scrollSubRoutineInView(index);
+                updateSelectedSubRoutine(index);
+                scrollSubRoutineInView(index);
+                updateMessage(`Executing SubRoutine : ${subRoutine.title}, Publishing at ${subRoutine.route}`);
+                updateLoadingMessage(true);
+                updateMessageVisible(true);
+                const startTime = performance.now();
+                publishMessage(subRoutine.route, subRoutine.body, subRoutine.headers);
+                const endTime = performance.now();
+                const executionTime = parseFloat((Math.round((endTime - startTime) * 100) / 100).toFixed(2));
+                const dataExchange = (Buffer.from(subRoutine.body).length) + (Buffer.from(subRoutine.headers).length);
+                clone[index].executionTime = executionTime;
+                clone[index].dataBytes = dataExchange;
+                setTimeout(() => {
+                    updateMessageVisible(false);
+                    resolve();
+                }, 3000);
+            })
+        }
+        
+        updateSubRoutines(clone);
+        updateSelectedIndex(1);
+        updateSRUS(1);
+        scrollSubRoutineInView(0);
+        updateSelectedSubRoutine(0);
+        updateRunTime(false);
+    }
+    // Generic Functions
+
+
+    // UseEffect for Updating the Routine in the database
     useEffect(() => {
         if (initLoad === true) {
             const fetched = store.getRoutineWithID(getTargetRoutineID());
@@ -50,11 +102,7 @@ const RoutineDisplay = (props) => {
 
             if (props.connected === true) {
                 setTimeout(() => {
-                    showMessage(`Routine System Connected with ${props.connectionURL}`, false);
-                    setTimeout(() => {
-                        updateMessageVisible(false);
-                    }, 5000);
-
+                    showMessage(`Routine System Connected with ${props.connectionURL}`, false, 5000);
                 }, 2000);
             }
         }
@@ -69,11 +117,14 @@ const RoutineDisplay = (props) => {
 
         if (subRoutineUpdateStatus === 1) {
             if (subRoutines.length > 2) {
-                subRoutineGroupComponent.current.getElementsByClassName("subRoutineItem")[subRoutines.length - 1].scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
+                scrollSubRoutineInView(subRoutines.length - 1);
                 updateSRUS(0);
             }
         }
     }, [subRoutineUpdateStatus]);
+
+
+    // Option Controls 
 
     const [options, updateOptions] = useState([
         { title: "Routine Map", isSelected: false },
@@ -81,6 +132,23 @@ const RoutineDisplay = (props) => {
         { title: "Observations", isSelected: false },
         { title: "Create Subroutine", isSelected: false }
     ]);
+
+    const renderOptionComponent = () => {
+        if (selectedIndex === null) {
+            return (
+                <div className="nullOptionWarning">
+                    <p>Select an option to display :)</p>
+                </div>
+            )
+        }
+        else {
+            return (
+                <div className="OptionView">
+                    <OptionWrapper data={subRoutines} selection={selectedIndex} addSubRoutine={addSubRoutine} />
+                </div>
+            )
+        }
+    }
 
     const handleOptionClickCallback = (index) => {
         console.log(targetRoutine);
@@ -105,21 +173,21 @@ const RoutineDisplay = (props) => {
 
     }
 
-    const renderOptionComponent = () => {
-        if (selectedIndex === null) {
+    // Option Controls
+
+
+    // SubRoutine Controls
+
+    const loadSubRoutines = () => {
+        return subRoutines.map((routine, index) => {
             return (
-                <div className="nullOptionWarning">
-                    <p>Select an option to display :)</p>
-                </div>
+                <SubRoutineItem key={index} index={index} runTime={index === selectedSubRoutine ? runTime : false} selectSubRoutine={selectSubRoutine} deleteRoutine={deleteRoutine} isSelected={selectedSubRoutine === index} subRoutine={routine} />
             )
-        }
-        else {
-            return (
-                <div className="OptionView">
-                    <OptionWrapper data={subRoutines} selection={selectedIndex} addSubRoutine={addSubRoutine} />
-                </div>
-            )
-        }
+        })
+    }
+
+    const scrollSubRoutineInView = (pos) => {
+        subRoutineGroupComponent.current.getElementsByClassName("subRoutineItem")[pos].scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
     }
 
     const addSubRoutine = (subRoutineObject) => {
@@ -145,36 +213,22 @@ const RoutineDisplay = (props) => {
         updateSubRoutines(clone);
         updateSRUS(1);
     }
-
     const deleteRoutine = (index) => {
         const clone = [...subRoutines];
-        if (index === selectSubRoutine) {
+        if (index === selectedSubRoutine) {
             updateSelectedSubRoutine(null);
         }
         clone.splice(index, 1);
         updateSubRoutines(clone);
         updateSRUS(2);
     }
-
     const selectSubRoutine = (index) => {
         updateSelectedSubRoutine(index);
     }
-
-    const loadSubRoutines = () => {
-        return subRoutines.map((routine, index) => {
-            return (
-                <SubRoutineItem key={index} index={index} runTime={runTime} selectSubRoutine={selectSubRoutine} deleteRoutine={deleteRoutine} isSelected={selectedSubRoutine === index} subRoutine={routine} />
-            )
-        })
-    }
-
     const updateSubRoutineItem = (pos, subRoutine) => {
-
-        showMessage(`Updating SubRoutine "${subRoutines[selectedSubRoutine].title}" with ID "${subRoutines[selectedSubRoutine].id}"`, true);
-
         const clone = [...subRoutines];
         clone.map((srout, index) => {
-            if (index === pos){
+            if (index === pos) {
                 return subRoutine;
             }
             return srout;
@@ -186,12 +240,16 @@ const RoutineDisplay = (props) => {
             updateMessageVisible(false);
         }, 3000);
 
-        if (selectedIndex !== null){
+        if (selectedIndex !== null) {
             handleOptionClickCallback(selectedIndex);
         }
-        
+
     }
 
+    // SubRoutine Controls
+
+
+    // SubRoutine Manager
     const renderSubRoutineManager = () => {
         if (selectedSubRoutine === null) {
             return (
@@ -201,9 +259,10 @@ const RoutineDisplay = (props) => {
             )
         }
         else {
-            return (<SubRoutineManager SubRoutine={subRoutines[selectedSubRoutine]}  index={selectedSubRoutine} updateSubRoutineColl={updateSubRoutineItem}/>)
+            return (<SubRoutineManager SubRoutine={subRoutines[selectedSubRoutine]} index={selectedSubRoutine} updateSubRoutineColl={updateSubRoutineItem} />)
         }
     }
+    // SubRoutine Manager
 
     return (
         <div className="routineDisplay">
@@ -238,8 +297,11 @@ const RoutineDisplay = (props) => {
 
                     </div>
                     <div className="subRoutineContainer">
-                        <div className="runnerButton">
-                            <div className="tria"></div>
+                        <div className="runnerButton" onClick={ExecuteRoutine}>
+                            {runTime === false ? <div className="tria"></div>
+                                : <ThemeProvider theme={theme}>
+                                    <CircularProgress color="primary" size={"15px"} />
+                                </ThemeProvider>}
                         </div>
                         <div className="buttonDivider"></div>
                         <div className="subRoutineContainerGroup" ref={subRoutineGroupComponent}>

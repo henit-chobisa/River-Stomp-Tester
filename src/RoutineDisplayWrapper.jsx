@@ -3,7 +3,7 @@ import './Styles/RoutineDisplay/RoutineExec.css'
 import React, { useEffect } from "react";
 import Storehandler from "./Utilities/renderer";
 import { useState } from "react";
-import { StompSessionProvider } from "react-stomp-hooks";
+import { StompSessionProvider, useStompClient } from "react-stomp-hooks";
 
 const RoutineDisplayWrapper = (props) => {
 
@@ -15,11 +15,13 @@ const RoutineDisplayWrapper = (props) => {
         updateConnectionURL(store.getURL());
     })
 
+    const nullFunc = () => {}
+
     const renderView = () => {
         if (connectionURL === "") {
             return (
                 <div className="routineExec">
-                    <RoutineDisplay connected={false} />
+                    <RoutineDisplay connected={false} sclient={nullFunc} />
                 </div>
             )
         }
@@ -27,7 +29,7 @@ const RoutineDisplayWrapper = (props) => {
             return (
                 <StompSessionProvider url={connectionURL}>
                     <div className="routineExec">
-                        <RoutineDisplay connected={true} connectionURL={connectionURL} />
+                        <RoutineDisplay connected={true} sclient={useStompClient} connectionURL={connectionURL} />
                     </div>
                 </StompSessionProvider>
             )

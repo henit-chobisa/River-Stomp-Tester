@@ -22,7 +22,6 @@ const SubRoutineManager = (props) => {
     const [bottomBarActive, updateBottomBarActive] = useState(false);
     const stompClient = useStompClient();
 
-
     useEffect(() => {
         updateSubRoutine(props.SubRoutine);
         if (subRoutine !== null) {
