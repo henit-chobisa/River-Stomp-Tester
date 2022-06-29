@@ -148,7 +148,7 @@ const RoutineDisplay = (props) => {
 
     const deleteRoutine = (index) => {
         const clone = [...subRoutines];
-        if (index === selectSubRoutine) {
+        if (index === selectedSubRoutine) {
             updateSelectedSubRoutine(null);
         }
         clone.splice(index, 1);
