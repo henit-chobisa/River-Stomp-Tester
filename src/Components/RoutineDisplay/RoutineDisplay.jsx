@@ -50,14 +50,10 @@ const RoutineDisplay = (props) => {
         client.publish({ destination, body, headers })
     }
 
-    const triggerPublishSubroutine = async (subRoutine) => {
-        await Promise((resolve) => {
-
-        })
-    }
 
     const ExecuteRoutine = async () => {
         updateRunTime(true);
+        const clone = [...subRoutines];
         for (const [index, subRoutine] of subRoutines.entries()) {
             await new Promise((resolve) => {
                 scrollSubRoutineInView(index);
@@ -66,15 +62,25 @@ const RoutineDisplay = (props) => {
                 updateMessage(`Executing SubRoutine : ${subRoutine.title}, Publishing at ${subRoutine.route}`);
                 updateLoadingMessage(true);
                 updateMessageVisible(true);
-                publishMessage(subRoutine.route, subRoutine.body, subRoutine.headers)
+                const startTime = performance.now();
+                publishMessage(subRoutine.route, subRoutine.body, subRoutine.headers);
+                const endTime = performance.now();
+                const executionTime = parseFloat((Math.round((endTime - startTime) * 100) / 100).toFixed(2));
+                const dataExchange = (Buffer.from(subRoutine.body).length) + (Buffer.from(subRoutine.headers).length);
+                clone[index].executionTime = executionTime;
+                clone[index].dataBytes = dataExchange;
                 setTimeout(() => {
                     updateMessageVisible(false);
                     resolve();
                 }, 3000);
             })
         }
-
-        updateSelectedSubRoutine(null);
+        
+        updateSubRoutines(clone);
+        updateSelectedIndex(1);
+        updateSRUS(1);
+        scrollSubRoutineInView(0);
+        updateSelectedSubRoutine(0);
         updateRunTime(false);
     }
     // Generic Functions
@@ -97,8 +103,6 @@ const RoutineDisplay = (props) => {
             if (props.connected === true) {
                 setTimeout(() => {
                     showMessage(`Routine System Connected with ${props.connectionURL}`, false, 5000);
-
-
                 }, 2000);
             }
         }
@@ -177,7 +181,7 @@ const RoutineDisplay = (props) => {
     const loadSubRoutines = () => {
         return subRoutines.map((routine, index) => {
             return (
-                <SubRoutineItem key={index} index={index} runTime={runTime} selectSubRoutine={selectSubRoutine} deleteRoutine={deleteRoutine} isSelected={selectedSubRoutine === index} subRoutine={routine} />
+                <SubRoutineItem key={index} index={index} runTime={index === selectedSubRoutine ? runTime : false} selectSubRoutine={selectSubRoutine} deleteRoutine={deleteRoutine} isSelected={selectedSubRoutine === index} subRoutine={routine} />
             )
         })
     }
@@ -222,9 +226,6 @@ const RoutineDisplay = (props) => {
         updateSelectedSubRoutine(index);
     }
     const updateSubRoutineItem = (pos, subRoutine) => {
-
-        showMessage(`Updating SubRoutine "${subRoutines[selectedSubRoutine].title}" with ID "${subRoutines[selectedSubRoutine].id}"`, true);
-
         const clone = [...subRoutines];
         clone.map((srout, index) => {
             if (index === pos) {
