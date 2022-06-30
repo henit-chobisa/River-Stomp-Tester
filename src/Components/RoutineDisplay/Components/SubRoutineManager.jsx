@@ -26,14 +26,15 @@ const SubRoutineManager = (props) => {
 
     useEffect(() => {
         updateSubRoutine(props.SubRoutine);
-        if (subRoutine !== null) {
-            if (subRoutine.operation === "PUBLISH") {
-                updateData(subRoutine.body);
-                updateHeader(subRoutine.headers);
+        if (props.SubRoutine !== null) {
+            if (props.SubRoutine.operation === "PUBLISH") {
+                updateData(props.SubRoutine.body);
+                updateHeader(props.SubRoutine.headers);
             }
             else {
                 updateBodySelected(true);
-                updateData(subRoutine.data);
+                updateData(props.SubRoutine.data);
+                updateHeader(defaultHeader);
                 updateRunButtonActive(false);
             }
         }
