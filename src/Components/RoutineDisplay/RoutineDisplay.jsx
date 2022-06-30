@@ -17,6 +17,7 @@ import MessageHandler from "./Components/messageHandler";
 
 
 const RoutineDisplay = (props) => {
+
     const [searchParams, updateSearchParams] = useSearchParams();
     const [selectedIndex, updateSelectedIndex] = useState(null);
     const [subRoutines, updateSubRoutines] = useState([]);
@@ -33,7 +34,7 @@ const RoutineDisplay = (props) => {
     const store = Storehandler();
     const client = props.sclient();
     const messageHandler = MessageHandler()
-    
+
     const [targetRoutine, updateTargetRoutine] = useState({});
 
     // Generic Functions 
@@ -58,11 +59,7 @@ const RoutineDisplay = (props) => {
 
     const initalSubRoutineExecProcess = (index) => {
         scrollSubRoutineInView(index);
-        // updateSelectedSubRoutine(index);
-    }
-
-    function waitForSubRoutine() {
-        console.log(unreadSubRoutine);
+        updateSelectedSubRoutine(index);
     }
 
     const ExecuteRoutine = async () => {
@@ -71,7 +68,6 @@ const RoutineDisplay = (props) => {
         for (const [index, subRoutine] of subRoutines.entries()) {
             initalSubRoutineExecProcess(index)
             if (subRoutine.operation === "PUBLISH") {
-                
                 await new Promise((resolve) => {
                     showMessage(`Executing Publish SubRoutine : ${subRoutine.title}, at ${subRoutine.route}`, true)
                     const performance = publishMessage(subRoutine.route, subRoutine.body, subRoutine.headers)
@@ -84,38 +80,48 @@ const RoutineDisplay = (props) => {
                 })
             }
             else {
+                var unsuccessfull = false;
                 await new Promise((resolve) => {
                     showMessage(`Waiting for Subscribe SubRoutine : ${subRoutine.title}`, true);
-                    var found = false;
                     const startTime = performance.now();
                     var count = 0;
                     const timer = setInterval(() => {
                         count++;
                         const messages = messageHandler.getMessages();
-                        console.log(messages);
                         const data = messages.filter((ele) => ele.id === subRoutine.id);
+                        const index = messages.indexOf(data[0]);
                         if (data[0] !== undefined && data[0] !== null) {
-                            found = true;
                             const dat = JSON.parse(data[0].subsMessage);
-                            console.log(data[0]);
+                            const endTime = performance.now();
+                            const dataBytes = Buffer.from(JSON.stringify(dat)).length;
+                            clone[index].executionTime = parseFloat((Math.round((endTime - startTime) * 100) / 100).toFixed(2));
+                            clone[index].dataBytes = dataBytes;
                             clone[index].data = dat;
                             clearInterval(timer);
+                            messages.splice(index, 1);
+                            messageHandler.updateArr(messages);
                             updateMessageVisible(false);
                             resolve();
                         }
 
-                        if (count === 20) {
+                        if (count === 50) {
+                            unsuccessfull = true;
                             clearInterval(timer);
                             updateMessageVisible(false);
                             resolve();
                         }
                     }, 200);
-
-                    const endTime = performance.now();
-                })
+                });
+                if (unsuccessfull === true) {
+                    showMessage(`Operation Failed Subroutine : ${subRoutine.title}, ABORT!!!`)
+                    break;
+                }
             }
-
         }
+
+        setTimeout(() => {
+            updateMessageVisible(false);
+        }, 3000);
 
         updateSubRoutines(clone);
         updateSelectedIndex(1);
