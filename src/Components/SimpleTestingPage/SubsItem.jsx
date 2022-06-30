@@ -13,7 +13,7 @@ const SubsItem = (props) => {
             itemRef.current.className = "subsItem"
     }, 700);
     }
-    
+
     useSubscription(props.route, handleMessage)
     
     

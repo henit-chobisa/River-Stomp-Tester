@@ -1,5 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import JSONInput from "react-json-editor-ajrm";
+import locale from 'react-json-editor-ajrm/locale/en'
 import { useStompClient } from "react-stomp-hooks";
 import '../../../Styles/RoutineDisplay/Components/SubRoutineManager.css'
 import StatisticTitle from "../../Generic/StatisticTitle";
@@ -137,7 +139,15 @@ const SubRoutineManager = (props) => {
                         {subRoutine.operation === "PUBLISH" ? <OptionButton title={"Headers"} index={1} onClickOption={handleDataOptionClick} isSelected={!bodySelected} /> : <></>}
                     </div>
                     <div className="mainEditor">
-                        <EditorComp data={bodySelected ? data : header} handlePersistence={handlePersistence} updateData={bodySelected ? updateData : updateHeader} />
+                        {subRoutine.operation === "PUBLISH" ?<EditorComp data={bodySelected ? data : header} handlePersistence={handlePersistence} updateData={bodySelected ? updateData : updateHeader} /> : 
+                        <JSONInput
+                            placeholder={{data}}
+                            locale={locale}
+                            height="100%"
+                            width="100%"
+                            viewOnly={true}
+                        />
+                        }
                     </div>
                 </div>
 

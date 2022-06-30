@@ -1,5 +1,6 @@
 import React from "react";
-import '../../../Styles/RoutineDisplay/Components/SubRoutineItem.css'
+import '../../../Styles/RoutineDisplay/Components/SubRoutineItem.css';
+import { useSubscription } from "react-stomp-hooks";
 
 const SubRoutineItem = (props) => {
 
@@ -12,9 +13,14 @@ const SubRoutineItem = (props) => {
         }
     }
 
+    const handleSubsCallback = (message) => {
+        props.subsCallback(props.subRoutine.id, message.body);
+    }
+
+    useSubscription(props.subRoutine.route, handleSubsCallback);
+
     const handleSelection = (event) => {
         if (event.target.className !== "srDelete" && event.target.className !== "deleteCrosshair") {
-            console.log("Select");
             props.selectSubRoutine(props.index);
         }
     }

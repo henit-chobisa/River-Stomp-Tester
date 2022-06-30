@@ -9,11 +9,12 @@ import { useRef } from "react";
 import SubRoutineManager from "./Components/SubRoutineManager";
 import Storehandler from "../../Utilities/renderer";
 import MessageBar from "../../Styles/RoutineDisplay/Components/MessageBar";
-import { useStompClient } from "react-stomp-hooks";
 import { CircularProgress, useThemeProps } from "@mui/material";
 import theme from "../Generic/Theme";
 import { ThemeProvider } from "@mui/system";
 import { resolve } from "path";
+import MessageHandler from "./Components/messageHandler";
+
 
 const RoutineDisplay = (props) => {
     const [searchParams, updateSearchParams] = useSearchParams();
@@ -26,11 +27,14 @@ const RoutineDisplay = (props) => {
     const [subRoutineUpdateStatus, updateSRUS] = useState(0);
     const [messageVisible, updateMessageVisible] = useState(false);
     const [message, updateMessage] = useState(false);
+    const [unreadSubRoutine, updateUnreadSubRoutine] = useState(false);
+    const [unreadQueue, updateUnreadQueue] = useState([]);
     const [loadingMessage, updateLoadingMessage] = useState(false);
     const store = Storehandler();
     const client = props.sclient();
+    const messageHandler = MessageHandler()
+    
     const [targetRoutine, updateTargetRoutine] = useState({});
-
 
     // Generic Functions 
     const getTargetRoutineID = () => {
@@ -41,41 +45,78 @@ const RoutineDisplay = (props) => {
         updateMessage(message);
         updateLoadingMessage(isLoading);
         updateMessageVisible(true);
-        setTimeout(() => {
-            updateMessageVisible(false);
-        }, time);
     }
 
     const publishMessage = (destination, body, headers) => {
+        const startTime = performance.now();
         client.publish({ destination, body, headers })
+        const endTime = performance.now();
+        const executionTime = parseFloat((Math.round((endTime - startTime) * 100) / 100).toFixed(2));
+        const dataExchange = (Buffer.from(body).length) + (Buffer.from(headers).length);
+        return { executionTime, dataExchange };
     }
 
+    const initalSubRoutineExecProcess = (index) => {
+        scrollSubRoutineInView(index);
+        // updateSelectedSubRoutine(index);
+    }
+
+    function waitForSubRoutine() {
+        console.log(unreadSubRoutine);
+    }
 
     const ExecuteRoutine = async () => {
         updateRunTime(true);
         const clone = [...subRoutines];
         for (const [index, subRoutine] of subRoutines.entries()) {
-            await new Promise((resolve) => {
-                scrollSubRoutineInView(index);
-                updateSelectedSubRoutine(index);
-                scrollSubRoutineInView(index);
-                updateMessage(`Executing SubRoutine : ${subRoutine.title}, Publishing at ${subRoutine.route}`);
-                updateLoadingMessage(true);
-                updateMessageVisible(true);
-                const startTime = performance.now();
-                publishMessage(subRoutine.route, subRoutine.body, subRoutine.headers);
-                const endTime = performance.now();
-                const executionTime = parseFloat((Math.round((endTime - startTime) * 100) / 100).toFixed(2));
-                const dataExchange = (Buffer.from(subRoutine.body).length) + (Buffer.from(subRoutine.headers).length);
-                clone[index].executionTime = executionTime;
-                clone[index].dataBytes = dataExchange;
-                setTimeout(() => {
-                    updateMessageVisible(false);
-                    resolve();
-                }, 3000);
-            })
+            initalSubRoutineExecProcess(index)
+            if (subRoutine.operation === "PUBLISH") {
+                
+                await new Promise((resolve) => {
+                    showMessage(`Executing Publish SubRoutine : ${subRoutine.title}, at ${subRoutine.route}`, true)
+                    const performance = publishMessage(subRoutine.route, subRoutine.body, subRoutine.headers)
+                    clone[index].executionTime = performance.executionTime;
+                    clone[index].dataBytes = performance.dataExchange;
+                    setTimeout(() => {
+                        updateMessageVisible(false);
+                        resolve();
+                    }, 3000);
+                })
+            }
+            else {
+                await new Promise((resolve) => {
+                    showMessage(`Waiting for Subscribe SubRoutine : ${subRoutine.title}`, true);
+                    var found = false;
+                    const startTime = performance.now();
+                    var count = 0;
+                    const timer = setInterval(() => {
+                        count++;
+                        const messages = messageHandler.getMessages();
+                        console.log(messages);
+                        const data = messages.filter((ele) => ele.id === subRoutine.id);
+                        if (data[0] !== undefined && data[0] !== null) {
+                            found = true;
+                            const dat = JSON.parse(data[0].subsMessage);
+                            console.log(data[0]);
+                            clone[index].data = dat;
+                            clearInterval(timer);
+                            updateMessageVisible(false);
+                            resolve();
+                        }
+
+                        if (count === 20) {
+                            clearInterval(timer);
+                            updateMessageVisible(false);
+                            resolve();
+                        }
+                    }, 200);
+
+                    const endTime = performance.now();
+                })
+            }
+
         }
-        
+
         updateSubRoutines(clone);
         updateSelectedIndex(1);
         updateSRUS(1);
@@ -102,7 +143,10 @@ const RoutineDisplay = (props) => {
 
             if (props.connected === true) {
                 setTimeout(() => {
-                    showMessage(`Routine System Connected with ${props.connectionURL}`, false, 5000);
+                    showMessage(`Routine System Connected with ${props.connectionURL}`, false);
+                    setTimeout(() => {
+                        updateMessageVisible(false);
+                    }, 5000)
                 }, 2000);
             }
         }
@@ -181,7 +225,7 @@ const RoutineDisplay = (props) => {
     const loadSubRoutines = () => {
         return subRoutines.map((routine, index) => {
             return (
-                <SubRoutineItem key={index} index={index} runTime={index === selectedSubRoutine ? runTime : false} selectSubRoutine={selectSubRoutine} deleteRoutine={deleteRoutine} isSelected={selectedSubRoutine === index} subRoutine={routine} />
+                <SubRoutineItem key={index} index={index} runTime={index === selectedSubRoutine ? runTime : false} selectSubRoutine={selectSubRoutine} deleteRoutine={deleteRoutine} isSelected={selectedSubRoutine === index} subRoutine={routine} subsCallback={addSubRoutineSubsMessage} />
             )
         })
     }
@@ -222,9 +266,13 @@ const RoutineDisplay = (props) => {
         updateSubRoutines(clone);
         updateSRUS(2);
     }
+
+
     const selectSubRoutine = (index) => {
         updateSelectedSubRoutine(index);
     }
+
+
     const updateSubRoutineItem = (pos, subRoutine) => {
         const clone = [...subRoutines];
         clone.map((srout, index) => {
@@ -242,6 +290,17 @@ const RoutineDisplay = (props) => {
 
         if (selectedIndex !== null) {
             handleOptionClickCallback(selectedIndex);
+        }
+
+    }
+
+    const addSubRoutineSubsMessage = (id, subsMessage) => {
+        if (runTime === true) {
+            const clone = [...unreadQueue];
+            clone.push({ id, subsMessage });
+            messageHandler.updateArr(clone);
+            updateUnreadQueue(clone);
+            updateUnreadSubRoutine(true);
         }
 
     }
@@ -312,7 +371,6 @@ const RoutineDisplay = (props) => {
                         {renderSubRoutineManager()}
                     </div>
                 </div>
-
             </div>
             <div className="endBar">
                 {messageVisible === true ? <MessageBar message={message} loading={loadingMessage} /> : <div className="messages"></div>}
