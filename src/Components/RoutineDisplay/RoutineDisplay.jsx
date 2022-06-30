@@ -9,7 +9,6 @@ import { useRef } from "react";
 import SubRoutineManager from "./Components/SubRoutineManager";
 import Storehandler from "../../Utilities/renderer";
 import MessageBar from "../../Styles/RoutineDisplay/Components/MessageBar";
-import { useStompClient } from "react-stomp-hooks";
 import { CircularProgress, useThemeProps } from "@mui/material";
 import theme from "../Generic/Theme";
 import { ThemeProvider } from "@mui/system";
@@ -41,39 +40,51 @@ const RoutineDisplay = (props) => {
         updateMessage(message);
         updateLoadingMessage(isLoading);
         updateMessageVisible(true);
-        setTimeout(() => {
-            updateMessageVisible(false);
-        }, time);
     }
 
     const publishMessage = (destination, body, headers) => {
+        const startTime = performance.now();
         client.publish({ destination, body, headers })
+        const endTime = performance.now();
+        const executionTime = parseFloat((Math.round((endTime - startTime) * 100) / 100).toFixed(2));
+        const dataExchange = (Buffer.from(body).length) + (Buffer.from(headers).length);
+        return {executionTime, dataExchange};
     }
 
+    const initalSubRoutineExecProcess = (index) => {
+        scrollSubRoutineInView(index);
+        updateSelectedSubRoutine(index);
+    }
 
     const ExecuteRoutine = async () => {
         updateRunTime(true);
         const clone = [...subRoutines];
         for (const [index, subRoutine] of subRoutines.entries()) {
-            await new Promise((resolve) => {
-                scrollSubRoutineInView(index);
-                updateSelectedSubRoutine(index);
-                scrollSubRoutineInView(index);
-                updateMessage(`Executing SubRoutine : ${subRoutine.title}, Publishing at ${subRoutine.route}`);
-                updateLoadingMessage(true);
-                updateMessageVisible(true);
-                const startTime = performance.now();
-                publishMessage(subRoutine.route, subRoutine.body, subRoutine.headers);
-                const endTime = performance.now();
-                const executionTime = parseFloat((Math.round((endTime - startTime) * 100) / 100).toFixed(2));
-                const dataExchange = (Buffer.from(subRoutine.body).length) + (Buffer.from(subRoutine.headers).length);
-                clone[index].executionTime = executionTime;
-                clone[index].dataBytes = dataExchange;
-                setTimeout(() => {
-                    updateMessageVisible(false);
-                    resolve();
-                }, 3000);
-            })
+            initalSubRoutineExecProcess(index)
+            if (subRoutine.operation === "PUBLISH"){
+                await new Promise((resolve) => {
+                    showMessage(`Executing Publish SubRoutine : ${subRoutine.title}, at ${subRoutine.route}`, true)
+                    const performance = publishMessage(subRoutine.route, subRoutine.body, subRoutine.headers)
+                    clone[index].executionTime = performance.executionTime;
+                    clone[index].dataBytes = performance.dataExchange;
+
+                    setTimeout(() => {
+                        updateMessageVisible(false);
+                        resolve();
+                    }, 3000);
+                })
+            }
+            else {
+                await new Promise((resolve) => {
+                    showMessage(`Waiting for Subscribe SubRoutine : ${subRoutine.title}`, true);
+
+                    setTimeout(() => {
+                        updateMessageVisible(false);
+                        resolve();
+                    }, 3000);
+                })
+            }
+            
         }
         
         updateSubRoutines(clone);
@@ -102,7 +113,10 @@ const RoutineDisplay = (props) => {
 
             if (props.connected === true) {
                 setTimeout(() => {
-                    showMessage(`Routine System Connected with ${props.connectionURL}`, false, 5000);
+                    showMessage(`Routine System Connected with ${props.connectionURL}`, false);
+                    setTimeout(() => {
+                        updateMessageVisible(false);
+                    }, 5000)
                 }, 2000);
             }
         }
