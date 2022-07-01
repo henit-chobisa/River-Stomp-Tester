@@ -30,6 +30,7 @@ const SubRoutineManager = (props) => {
             if (props.SubRoutine.operation === "PUBLISH") {
                 updateData(props.SubRoutine.body);
                 updateHeader(props.SubRoutine.headers);
+                updateRunButtonActive(true);
             }
             else {
                 updateBodySelected(true);
@@ -58,17 +59,18 @@ const SubRoutineManager = (props) => {
             updateRunButtonActive(false);
             updateRunButtonStatus("Running");
             var startTime = performance.now();
-            stompClient.publish({ destination: subRoutine.route, body: subRoutine.body, headers: subRoutine.headers });
+            const subr = props.getValueFromSet(subRoutine, props.index);
+            stompClient.publish({ destination: subr.route, body: subr.body, headers: subr.headers });
             var endTime = performance.now();
             const executionTime = parseFloat((Math.round((endTime - startTime) * 100) / 100).toFixed(2));
-            const dataExchange = (Buffer.from(subRoutine.body).length) + (Buffer.from(subRoutine.headers).length);
+            const dataExchange = (Buffer.from(subr.body).length) + (Buffer.from(subr.headers).length);
             setTimeout(() => {
-                const data = subRoutine;
+                const data = subr;
                 data.executionTime = executionTime;
                 data.dataBytes = dataExchange;
                 updateSubRoutine(data);
                 updateBottomMessage("Message Published to the destination");
-                updateParentRoutine(subRoutine);
+                updateParentRoutine(data);
                 updateRunButtonActive(true);
                 updateRunButtonStatus(defaultRunButtonStatus);
             }, 1500)
