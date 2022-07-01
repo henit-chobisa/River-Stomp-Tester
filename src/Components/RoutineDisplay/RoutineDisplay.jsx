@@ -68,11 +68,13 @@ const RoutineDisplay = (props) => {
         for (const [index, subRoutine] of subRoutines.entries()) {
             initalSubRoutineExecProcess(index)
             if (subRoutine.operation === "PUBLISH") {
+                const subR = replaceSubroutineVars(subRoutine);
                 await new Promise((resolve) => {
-                    showMessage(`Executing Publish SubRoutine : ${subRoutine.title}, at ${subRoutine.route}`, true)
-                    const performance = publishMessage(subRoutine.route, subRoutine.body, subRoutine.headers)
-                    clone[index].executionTime = performance.executionTime;
-                    clone[index].dataBytes = performance.dataExchange;
+                    showMessage(`Executing Publish SubRoutine : ${subR.title}, at ${subR.route}`, true);
+                    const performance = publishMessage(subR.route, subR.body, subR.headers);
+                    subR.executionTime = performance.executionTime;
+                    subR.dataBytes = performance.dataExchange;
+                    clone[index] = subR;
                     setTimeout(() => {
                         updateMessageVisible(false);
                         resolve();
@@ -131,23 +133,25 @@ const RoutineDisplay = (props) => {
         updateRunTime(false);
     }
 
-    const replaceSubroutineVars = (subRoutine) => {
-        console.log(typeof(subRoutine));
+    const replaceSubroutineVars = (subRoutine, index) => {
         const subr = JSON.stringify(subRoutine);
+        var clone = [...subRoutines];
         const newr = subr.replace(/\${{[^\s]+}}/g, (match, p1) => {
             const str = match.substring(3, match.length - 2);
             const arrString = str.split(".");
-            const dat =  extractValueFromSubroutine(arrString);
+            const dat = extractValueFromSubroutine(arrString, clone);
             return dat;
         });
-        return newr;
+        if (typeof(newr) === "string"){
+            return JSON.parse(newr);
+        }
+        else return newr;
     }
 
 
-    const extractValueFromSubroutine = (arrStr) => {
-        const clone = [...subRoutines];
+    const extractValueFromSubroutine = (arrStr, clone) => {
         const id = arrStr.splice(0, 1)[0];
-        const target = clone.filter((subR) => {
+        const target = clone.filter((subR, index) => {
             return `${subR.id}` === id;
         })[0];
         
@@ -160,15 +164,14 @@ const RoutineDisplay = (props) => {
                 data = data[val];
             })
             if (data === undefined || data === null){
-                console.log("Undefined");
                 return "";
             }
-            else return data;
+            else {
+                return data;
+            };
         }
-       
     }
     // Generic Functions
-
 
     // UseEffect for Updating the Routine in the database
     useEffect(() => {
@@ -317,13 +320,14 @@ const RoutineDisplay = (props) => {
 
 
     const updateSubRoutineItem = (pos, subRoutine) => {
-        const clone = [...subRoutines];
-        clone.map((srout, index) => {
+        var clone = [...subRoutines];
+        clone = clone.map((srout, index) => {
             if (index === pos) {
                 return subRoutine;
             }
             return srout;
-        })
+        });
+        
         updateSubRoutines(clone);
         updateSRUS(1);
 
