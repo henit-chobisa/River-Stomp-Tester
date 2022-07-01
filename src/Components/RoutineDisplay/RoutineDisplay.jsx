@@ -89,7 +89,7 @@ const RoutineDisplay = (props) => {
                         count++;
                         const messages = messageHandler.getMessages();
                         const data = messages.filter((ele) => ele.id === subRoutine.id);
-                        const index = messages.indexOf(data[0]);
+                        const messInd = messages.indexOf(data[0]);
                         if (data[0] !== undefined && data[0] !== null) {
                             const dat = JSON.parse(data[0].subsMessage);
                             const endTime = performance.now();
@@ -98,7 +98,7 @@ const RoutineDisplay = (props) => {
                             clone[index].dataBytes = dataBytes;
                             clone[index].data = dat;
                             clearInterval(timer);
-                            messages.splice(index, 1);
+                            messages.splice(messInd, 1);
                             messageHandler.updateArr(messages);
                             updateMessageVisible(false);
                             resolve();
@@ -129,6 +129,43 @@ const RoutineDisplay = (props) => {
         scrollSubRoutineInView(0);
         updateSelectedSubRoutine(0);
         updateRunTime(false);
+    }
+
+    const replaceSubroutineVars = (subRoutine) => {
+        console.log(typeof(subRoutine));
+        const subr = JSON.stringify(subRoutine);
+        const newr = subr.replace(/\${{[^\s]+}}/g, (match, p1) => {
+            const str = match.substring(3, match.length - 2);
+            const arrString = str.split(".");
+            const dat =  extractValueFromSubroutine(arrString);
+            return dat;
+        });
+        return newr;
+    }
+
+
+    const extractValueFromSubroutine = (arrStr) => {
+        const clone = [...subRoutines];
+        const id = arrStr.splice(0, 1)[0];
+        const target = clone.filter((subR) => {
+            return `${subR.id}` === id;
+        })[0];
+        
+        if (target === undefined){
+            return "";
+        }
+        else {
+            var data = target.operation === "PUBLISH" ? JSON.parse(target.body) : target.data;
+            arrStr.forEach((val) => {
+                data = data[val];
+            })
+            if (data === undefined || data === null){
+                console.log("Undefined");
+                return "";
+            }
+            else return data;
+        }
+       
     }
     // Generic Functions
 
@@ -324,7 +361,7 @@ const RoutineDisplay = (props) => {
             )
         }
         else {
-            return (<SubRoutineManager SubRoutine={subRoutines[selectedSubRoutine]} index={selectedSubRoutine} updateSubRoutineColl={updateSubRoutineItem} />)
+            return (<SubRoutineManager getValueFromSet={replaceSubroutineVars} SubRoutine={subRoutines[selectedSubRoutine]} index={selectedSubRoutine} updateSubRoutineColl={updateSubRoutineItem} />)
         }
     }
     // SubRoutine Manager

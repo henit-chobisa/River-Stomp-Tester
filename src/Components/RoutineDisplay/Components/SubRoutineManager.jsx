@@ -30,6 +30,7 @@ const SubRoutineManager = (props) => {
             if (props.SubRoutine.operation === "PUBLISH") {
                 updateData(props.SubRoutine.body);
                 updateHeader(props.SubRoutine.headers);
+                updateRunButtonActive(true);
             }
             else {
                 updateBodySelected(true);
@@ -58,6 +59,8 @@ const SubRoutineManager = (props) => {
             updateRunButtonActive(false);
             updateRunButtonStatus("Running");
             var startTime = performance.now();
+            const subr = props.getValueFromSet(subRoutine);
+            console.log(subr);
             stompClient.publish({ destination: subRoutine.route, body: subRoutine.body, headers: subRoutine.headers });
             var endTime = performance.now();
             const executionTime = parseFloat((Math.round((endTime - startTime) * 100) / 100).toFixed(2));

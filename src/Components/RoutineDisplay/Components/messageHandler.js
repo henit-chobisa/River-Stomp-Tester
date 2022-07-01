@@ -1,7 +1,6 @@
 var messages = [];
 
 const MessageHandler = () => {
-
     return {
         updateArr : (arr) => {
             messages = arr;
@@ -12,7 +11,6 @@ const MessageHandler = () => {
         },
         removeAtIndex : (index) => {
             messages.splice(index, 1);
-            console.log(messages);
         }
     };
 }
