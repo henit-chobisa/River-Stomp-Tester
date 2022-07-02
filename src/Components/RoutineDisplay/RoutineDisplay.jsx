@@ -378,7 +378,7 @@ const RoutineDisplay = (props) => {
                         <img className="logoIMG" src={logo} alt="" />
                     </div>
                     <div className="routineName">
-                        <p>Routine Name</p>
+                        <p>{targetRoutine.title}</p>
                     </div>
                 </div>
                 <div className="rightBarTitle">
