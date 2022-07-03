@@ -15,6 +15,7 @@ const ObservationPanel = (props) => {
                 sum += routine.executionTime;
                 return routine;
             });
+            sum = Math.round(sum);
 
             return sum;
         }
@@ -29,7 +30,8 @@ const ObservationPanel = (props) => {
             props.selectedRoutine.subRoutines.map((routine) => {
                 sum += routine.dataBytes;
                 return routine;
-            })
+            });
+            sum = Math.round(sum);
             return sum;
         }
     }

@@ -3,7 +3,7 @@
     width: calc(100% - 30px);
     display: flex;
     flex-direction: column;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgb(47, 46, 46);
     max-height: 100%;
     overflow: hidden;
     border-radius: 10px;

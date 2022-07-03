@@ -177,6 +177,7 @@ const RoutineDisplay = (props) => {
     useEffect(() => {
         if (initLoad === true) {
             const fetched = store.getRoutineWithID(getTargetRoutineID());
+            console.log(fetched);
             if (fetched.subRoutines === undefined) {
                 fetched["subRoutines"] = subRoutines;
                 store.setSingleRoutine(fetched);

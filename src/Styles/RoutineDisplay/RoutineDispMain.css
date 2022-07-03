@@ -2,9 +2,7 @@
     height: 100%; 
     width: 100%;
     margin: 0px;
-    /* background-color: black; */
-    background: rgb(84,41,189);
-background: linear-gradient(81deg, rgba(84,41,189,1) 18%, rgba(19,110,163,1) 44%, rgba(245,61,61,1) 90%);
+    background-color: black;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -42,7 +40,7 @@ background: linear-gradient(81deg, rgba(84,41,189,1) 18%, rgba(19,110,163,1) 44%
     height: 100%;
     color: white;
     font-weight: bold;
-    font-size: larger;
+    font-size: large;
     margin-left: 15px;
     display: flex;
     align-items: center;
@@ -67,7 +65,7 @@ background: linear-gradient(81deg, rgba(84,41,189,1) 18%, rgba(19,110,163,1) 44%
 }
 
 .routineDisplay .middleBar{
-    max-height: 740px;
+    max-height: 750px;
     margin-left: 20px;
     margin-right: 20px;
     width: 100% - 40px;
@@ -83,10 +81,9 @@ background: linear-gradient(81deg, rgba(84,41,189,1) 18%, rgba(19,110,163,1) 44%
     max-width: 450px;
     width: calc(40% - 40px);
     height: calc(100% - 40px);
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgb(30, 30, 30);
     padding: 10px;
     border-radius: 10px;
-    
 }
 
 .routineDisplay .middleBar .utilities .display {
@@ -143,7 +140,7 @@ background: linear-gradient(81deg, rgba(84,41,189,1) 18%, rgba(19,110,163,1) 44%
     height: calc(100% - 20px);
     max-height: 770px;
     margin: 10px;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgb(30, 30, 30);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -268,6 +265,7 @@ background: linear-gradient(81deg, rgba(84,41,189,1) 18%, rgba(19,110,163,1) 44%
     margin: 0px;
 }
 
+
 .routineDisplay .endBar {
     width: calc(100% - 80px);
     align-self: center;
@@ -275,7 +273,7 @@ background: linear-gradient(81deg, rgba(84,41,189,1) 18%, rgba(19,110,163,1) 44%
     margin-top: 0px;
     margin-bottom: 20px;
     height: 50px;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgb(30, 30, 30);
     display: flex;
     justify-content: space-between;
     align-items: center;
