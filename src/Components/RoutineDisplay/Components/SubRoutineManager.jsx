@@ -162,7 +162,6 @@ const SubRoutineManager = (props) => {
             <p>Select a subRoutine for getting solo run info</p>
         </div>
     )
-
 }
 
 export default SubRoutineManager;
