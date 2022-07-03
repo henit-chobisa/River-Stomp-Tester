@@ -115,6 +115,7 @@
 
 .App .bottomBar .resultBar .resTitleBar {
   background-color: black;
+  max-height: 50px;
   height: 8%;
   width: 100%;
   display: flex;
@@ -148,6 +149,7 @@
 }
 
 .App .bottomBar .resultBar .subsList {
+  max-height: 50px;
   height: 8%;
   /* width: 100%; */
   overflow: scroll;
@@ -354,9 +356,43 @@
   font-weight: bold;
 
 }
+.App .bottomTitle {
+  color: gray;
+  font-size: small;
+  font-style: italic;
+  align-self: center;
+  margin-bottom: 0.2%;
+  margin-top: 0%;
+}
+
+.controlS .logo {
+  height: 90%;
+  width: 70px;
+  padding-left: 1.2%;
+}
+
+.App .bottomBar { 
+  margin-top: 1%;
+  margin-bottom: 0%;
+  height: 90%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.App .bottomBar .subscriptionBar .subsEditor{
+  /* justify-self:center; */
+  width: 100%;
+  min-height: 36%;
+  max-height: 36%;
+  padding: 0.5%;
+  overflow: scroll;
+}
 
 .App .bottomBar .subscriptionBar .subsTitleBar {
   background-color: black;
+  max-height: 50px;
   height: 8%;
   width: 100%;
   color: white;
@@ -373,6 +409,7 @@
   width: 50%;
   height: 100%;
   display: flex;
+  align-items: center;
   justify-content: center;
   margin: 1%;
 }
@@ -403,6 +440,7 @@
 }
 
 .App .bottomBar .subscriptionBar .routeBox {
+  max-height: 45px;
   height: 7%;
   width: 100%;
   display: flex;
@@ -570,14 +608,7 @@
   background-color: transparent;
 }
 
-.App .bottomBar .subscriptionBar .subsEditor{
-  /* height: max-content; */
-  width: 100%;
-  min-height: 36%;
-  max-height: 36%;
-  padding: 0.5%;
-  overflow: scroll;
-}
+
 
 .App .bottomBar .subscriptionBar .senderBar {
   height: 5%;
@@ -639,124 +670,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.App .bottomBar .subscriptionBar .subsEditor .seditor  #codeArea {
-  outline: none;
-  padding-left: 60px;
-  white-space: nowrap;
-}
-
-.App .bottomBar .subscriptionBar .subsEditor .seditor pre {
-  /* padding-left: 60px; */
-  left: 0px;
-}
-
-.App .bottomBar .subscriptionBar .subsEditor .seditor .editorLineNumber {
-  position: absolute;
-  color: #cccccc;
-  text-align: left;
-  left: 10px;
-}
-
-textarea:focus, input:focus{
-  outline: 0;
-}
-
-*:focus {
-  outline: 0;
-}
-
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.comment,
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.prolog,
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.doctype,
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.cdata {
-  color: #90a4ae;
-}
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.punctuation {
-  color: #9e9e9e;
-}
-.App .bottomBar .subscriptionBar .subsEditor .seditor .namespace {
-  opacity: 0.7;
-}
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.property,
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.tag,
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.boolean,
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.number,
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.constant,
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.symbol,
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.deleted {
-  color: #9CDCFE;
-}
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.selector,
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.attr-name,
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.string,
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.char,
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.builtin,
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.inserted {
-  /* color: rgb(176, 114, 74); */
-  color: #CE8453;
-}
-
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.operator,
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.entity,
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.url,
-.App .bottomBar .subscriptionBar .subsEditor .seditor .language-css .token.string,
-.App .bottomBar .subscriptionBar .subsEditor .seditor .style .token.string {
-  background-color: transparent;
-}
-
-.App .bottomBar .subscriptionBar .subsEditor .seditor .style .token.punctuation {
-  color: #3f51b5;
-}
-
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.atrule,
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.attr-value,
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.keyword {
-  color: #3f51b5;
-}
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.function {
-  color: #f44336;
-}.App .bottomBar .subscriptionBar .subsEditor .seditor 
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.regex,
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.important,
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.variable {
-  color: rgb(159, 105, 70);
-}
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.important,
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.bold {
-  font-weight: bold;
-}
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.italic {
-  font-style: italic;
-}
-.App .bottomBar .subscriptionBar .subsEditor .seditor .token.entity {
-  cursor: help;
-}
-
-
-.App .bottomBar { 
-  margin-top: 1%;
-  margin-bottom: 0%;
-  height: 85%;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-}
-
-.App .bottomTitle {
-  color: gray;
-  font-size: small;
-  font-style: italic;
-  align-self: center;
-  margin-bottom: 0.2%;
-  margin-top: 0%;
-}
-
-.controlS .logo {
-  height: 90%;
-  width: 70px;
-  padding-left: 1.2%;
 }
 
 @keyframes errorAnimation {

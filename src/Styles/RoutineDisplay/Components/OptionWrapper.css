@@ -8,6 +8,7 @@
 .OptionWrapper .title {
     height: calc(9% - 10px);
     width: calc(45% - 10px);
+    max-height: 35px;
     display: flex;
     border-radius: 10px 0 10px 0;
     align-items: center;

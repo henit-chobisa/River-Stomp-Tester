@@ -3,7 +3,7 @@
     width: calc(100% - 30px);
     display: flex;
     flex-direction: column;
-    background-color: rgb(47, 46, 46);
+    background-color: rgba(0, 0, 0, 0.5);
     max-height: 100%;
     overflow: hidden;
     border-radius: 10px;
@@ -13,6 +13,7 @@
 .subRoutineManager .basicEntities {
     height: calc(10% - 10px);
     width: calc(100% - 10px);
+    max-height: 35px;
     margin: 5px;
     display: flex;
     align-items: center;

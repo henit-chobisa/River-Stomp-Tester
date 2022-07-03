@@ -1,5 +1,6 @@
 .subRoutineItem {
     min-width: 300px;
+    max-height: 30px;
     display: flex;
     align-items: center;
     justify-content: flex-end;

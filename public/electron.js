@@ -55,15 +55,13 @@ const createWindow = () => {
             contextIsolation: false
         }
     });
-
-    console.log(routineID);
     // routineWin.loadURL(`file://${path.join(__dirname, '../build/index.html#/disprout?routineID=1000')}`);
     routineWin.loadURL(`http://localhost:3000/disprout?routineID=${routineID}`);
 
     routineWin.webContents.openDevTools({mode:"detach"});
     routineWin.show();
     openedWindowInfo.push({routineID, routineWin});
-})
+});
 
   splashScreen.loadURL(`file://${path.join(__dirname, '../build/splash.html')}`);
   // splashScreen.loadURL(`file://${__dirname}/splash.html`);
@@ -77,7 +75,7 @@ const createWindow = () => {
   // win.loadURL(`file://${path.join(__dirname, '../build/index.html#/')}`);
 
   if (isDev) {
-    win.webContents.openDevTools({ mode: 'detach' });
+    // win.webContents.openDevTools({ mode: 'detach' });
   }
 
   setTimeout(function () {

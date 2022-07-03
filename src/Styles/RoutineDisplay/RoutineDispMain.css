@@ -2,15 +2,18 @@
     height: 100%; 
     width: 100%;
     margin: 0px;
-    background-color: black;
+    /* background-color: black; */
+    background: rgb(84,41,189);
+background: linear-gradient(81deg, rgba(84,41,189,1) 18%, rgba(19,110,163,1) 44%, rgba(245,61,61,1) 90%);
     display: flex;
     flex-direction: column;
+    justify-content: space-evenly;
 }
 
 .routineDisplay .topBar {
+    max-height: 70px;
     margin: 20px;
     margin-bottom: 0px;
-    background-color: black;
     height: 8%;
     width: 100% - 40px;
     display: flex;
@@ -36,11 +39,13 @@
 }
 
 .routineDisplay .topBar .routineName {
-    height: 80%;
+    height: 100%;
     color: white;
     font-weight: bold;
-    font-size: large;
+    font-size: larger;
     margin-left: 15px;
+    display: flex;
+    align-items: center;
 }
 
 .routineDisplay .topBar .routineDisplay p {
@@ -62,6 +67,7 @@
 }
 
 .routineDisplay .middleBar{
+    max-height: 740px;
     margin-left: 20px;
     margin-right: 20px;
     width: 100% - 40px;
@@ -73,12 +79,14 @@
 
 .routineDisplay .middleBar .utilities {
     margin: 10px;
+    max-height: 750px;
     max-width: 450px;
     width: calc(40% - 40px);
     height: calc(100% - 40px);
-    background-color: rgb(30, 30, 30);
+    background-color: rgba(0, 0, 0, 0.5);
     padding: 10px;
     border-radius: 10px;
+    
 }
 
 .routineDisplay .middleBar .utilities .display {
@@ -131,10 +139,11 @@
 }
 
 .routineDisplay .middleBar .subRoutines {
-    width: calc(68% - 20px);
+    width: calc(70% - 20px);
     height: calc(100% - 20px);
+    max-height: 770px;
     margin: 10px;
-    background-color: rgb(30, 30, 30);
+    background-color: rgba(0, 0, 0, 0.4);
     border-radius: 10px;
     display: flex;
     flex-direction: column;
@@ -211,7 +220,7 @@
     position: relative;
     top: -4%;
     margin: 10px;
-    max-height: calc(90% - 20px);
+    max-height: 550px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -244,7 +253,8 @@
 
 .routineDisplay .middleBar .subRoutines .topBar .heading {
     height: 80%;
-    width: 30%;
+    width: 25%;
+    max-height: 40px;
     background-color: rgb(0, 160, 198);
     display: flex;
     align-items: center;
@@ -258,15 +268,14 @@
     margin: 0px;
 }
 
-
 .routineDisplay .endBar {
     width: calc(100% - 80px);
     align-self: center;
     border-radius: 5px;
     margin-top: 0px;
     margin-bottom: 20px;
-    height: 6%;
-    background-color: rgb(30, 30, 30);
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: space-between;
     align-items: center;
